@@ -20,6 +20,10 @@
         <start-class>no.nb.cloud.metadata.Application</start-class>
         <java.version>1.8</java.version>
         <docker.image.prefix>nb</docker.image.prefix>
+        <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.jacoco.itReportPath>${project.basedir}/target/jacoco-it.exec</sonar.jacoco.itReportPath>
+        <sonar.language>java</sonar.language>
     </properties>
 
     <dependencyManagement>
@@ -97,6 +101,11 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
