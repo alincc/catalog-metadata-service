@@ -1,4 +1,4 @@
-package no.nb.cloud.microservice;
+package no.nb.cloud.metadata;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

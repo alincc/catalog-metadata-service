@@ -1,4 +1,4 @@
-package no.nb.cloud.microservice.config;
+package no.nb.cloud.metadata.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

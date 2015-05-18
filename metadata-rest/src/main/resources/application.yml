@@ -1,7 +1,7 @@
 info:
   app:
-    name: service-starter
-    description: Service description
+    name: metadata-rest
+    description: Metadata rest
 
 server:
   port: 8080
