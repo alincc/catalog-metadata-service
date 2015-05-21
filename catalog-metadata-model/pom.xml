@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>no.nb.cloud</groupId>
-        <artifactId>metadata</artifactId>
+        <groupId>no.nb.microservices</groupId>
+        <artifactId>catalog-metadata-service</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>metadata-model</artifactId>
+    <artifactId>catalog-metadata-model</artifactId>
 </project>

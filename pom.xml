@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>no.nb.cloud</groupId>
-    <artifactId>metadata</artifactId>
+    <groupId>no.nb.microservices</groupId>
+    <artifactId>catalog-metadata-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <parent>
@@ -13,14 +13,14 @@
     </parent>
 
     <modules>
-        <module>metadata-model</module>
-        <module>metadata-rest</module>
+        <module>catalog-metadata-model</module>
+        <module>catalog-metadata-rest</module>
     </modules>
 
     <scm>
-        <url>https://github.com/NationalLibraryOfNorway/metadata.git</url>
-        <connection>scm:git:git://github.com/NationalLibraryOfNorway/metadata.git</connection>
-        <developerConnection>scm:git:git@github.com:NationalLibraryOfNorway/metadata.git</developerConnection>
+        <url>https://github.com/NationalLibraryOfNorway/catalog-metadata-service.git</url>
+        <connection>scm:git:git://github.com/NationalLibraryOfNorway/catalog-metadata-service.git</connection>
+        <developerConnection>scm:git:git@github.com:NationalLibraryOfNorway/catalog-metadata-service.git</developerConnection>
     </scm>
 
     <distributionManagement>

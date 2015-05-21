@@ -2,16 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>metadata-rest</artifactId>
+    <artifactId>catalog-metadata-rest</artifactId>
     <packaging>jar</packaging>
-
-    <name>metadata-rest</name>
+    <name>catalog-metadata-rest</name>
     <description>NB Micro service</description>
-
     <parent>
-        <groupId>no.nb.cloud</groupId>
-        <artifactId>metadata</artifactId>
+        <groupId>no.nb.microservices</groupId>
+        <artifactId>catalog-metadata-service</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -100,7 +97,7 @@
     </dependencies>
 
     <build>
-        <finalName>metadata-rest</finalName>
+        <finalName>catalog-metadata-rest</finalName>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

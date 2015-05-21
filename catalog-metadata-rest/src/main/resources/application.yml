@@ -1,7 +1,7 @@
 info:
   app:
-    name: metadata-rest
-    description: Metadata rest
+    name: catalog-metadata-rest
+    description: Catalog Metadata rest
 
 server:
   port: 8080
