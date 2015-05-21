@@ -1,2 +1,2 @@
-# metadata
-Metadata microservice
+# catalog-metadata-service
+Catalog Metadata microservice
