@@ -1,4 +1,1 @@
-/**
- * Created by andreasb on 07.05.15.
- */
-package no.nb.cloud.metadata.config;
+package no.nb.microservices.catalogmetadata.config;

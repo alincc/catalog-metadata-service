@@ -1,4 +1,4 @@
-package no.nb.cloud.metadata.rest;
+package no.nb.microservices.catalogmetadata.rest;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;

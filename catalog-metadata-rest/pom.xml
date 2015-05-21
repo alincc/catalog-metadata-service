@@ -14,7 +14,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>no.nb.cloud.metadata.Application</start-class>
+        <start-class>no.nb.microservices.catalogmetadata.Application</start-class>
         <java.version>1.8</java.version>
         <docker.image.prefix>nb</docker.image.prefix>
         <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>

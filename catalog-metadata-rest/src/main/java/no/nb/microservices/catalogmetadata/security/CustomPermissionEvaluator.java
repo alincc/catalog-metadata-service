@@ -1,4 +1,4 @@
-package no.nb.cloud.metadata.security;
+package no.nb.microservices.catalogmetadata.security;
 
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;

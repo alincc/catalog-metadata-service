@@ -1,6 +1,6 @@
-package no.nb.cloud.metadata.rest;
+package no.nb.microservices.catalogmetadata.rest;
 
-import no.nb.cloud.metadata.Application;
+import no.nb.microservices.catalogmetadata.Application;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
