@@ -33,7 +33,6 @@ local.properties
 # Intellij
 ######################
 .idea/
-.idea/**
 *.iml
 *.iws
 *.ipr
@@ -44,7 +43,7 @@ local.properties
 # Maven
 ######################
 /log/**
-/target/**
+target/
 
 ######################
 # Gradle
