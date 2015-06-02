@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
+    <marc:leader>     njm  22     uu 4500</marc:leader>
+    <marc:controlfield tag="001">2014/05124.P</marc:controlfield>
+    <marc:controlfield tag="003">dra.nb.no</marc:controlfield>
+    <marc:controlfield tag="008">      s           ||||||||||||||||||||||</marc:controlfield>
+
+    <marc:datafield tag="245" ind1="1" ind2="0">
+        <marc:subfield code="a">Verden på lørdag</marc:subfield>
+    </marc:datafield>
+
+    <marc:datafield tag="655" ind1=" " ind2="7">
+        <marc:subfield code="a">broadcast</marc:subfield>
+    </marc:datafield>
+    <marc:datafield tag="260" ind1=" " ind2=" ">
+        <marc:subfield code="b">NRK (the Norwegian Broadcasting Corporation)</marc:subfield>
+        <marc:subfield code="c">2014-08-09</marc:subfield>
+    </marc:datafield>
+
+    <marc:datafield tag="856" ind1=" " ind2=" ">
+        <marc:subfield code="u">URN:NBN:no-nb_drl_294118 0</marc:subfield>
+    </marc:datafield>
+
+
+
+    <marc:datafield tag="300" ind1=" " ind2=" ">
+        <marc:subfield code="a">00:57:02</marc:subfield>
+    </marc:datafield>
+
+    <marc:datafield tag="720" ind1=" " ind2=" ">
+        <marc:subfield code="a">Molde, Eivind</marc:subfield>
+    </marc:datafield>
+    <marc:datafield tag="500" ind1=" " ind2=" ">
+        <marc:subfield code="a">14H06648</marc:subfield>
+    </marc:datafield>
+    <marc:datafield tag="511" ind1=" " ind2=" ">
+        <marc:subfield code="a">Molde, Eivind</marc:subfield>
+    </marc:datafield>
+    <marc:datafield tag="520" ind1=" " ind2=" ">
+        <marc:subfield code="a">- Verden på lørdag ved Eivind Molde Programopplysninger i ENPS</marc:subfield>
+    </marc:datafield>
+
+    <marc:datafield tag="887" ind1=" " ind2=" ">
+        <marc:subfield code="a">
+
+            0
+            3422
+            URN:NBN:no-nb_drl_294118
+
+        </marc:subfield>
+    </marc:datafield>
+
+
+</marc:record>

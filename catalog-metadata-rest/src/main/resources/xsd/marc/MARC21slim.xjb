@@ -1,0 +1,12 @@
+<jxb:bindings version="2.0" xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:annox="http://annox.dev.java.net">
+
+    <jxb:bindings schemaLocation="MARC21slim.xsd" node="/xsd:schema">
+        <jxb:bindings node="//xsd:complexType[@name='recordType']">
+            <annox:annotate target="class">
+                <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="record" />
+            </annox:annotate>
+        </jxb:bindings>
+    </jxb:bindings>
+</jxb:bindings>

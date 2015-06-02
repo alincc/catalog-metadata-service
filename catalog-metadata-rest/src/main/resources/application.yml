@@ -12,3 +12,8 @@ endpoints:
   refresh:
     enabled: true
 
+catalogmetadata:
+    cassandra:
+        keyspace: jimntestlocal
+        port: 9042
+        host: localhost

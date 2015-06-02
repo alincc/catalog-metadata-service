@@ -1,0 +1,49 @@
+<mods xmlns="http://www.loc.gov/mods/v3" xmlns:ns2="http://www.w3.org/1999/xlink">
+    <identifier type="urn">URN:NBN:no-nb_dra_2014-05124P</identifier>
+    <titleInfo>
+        <title>Verden på lørdag</title>
+    </titleInfo>
+    <typeOfResource>sound recording</typeOfResource>
+    <genre>broadcast</genre>
+    <originInfo>
+        <publisher>NRK (the Norwegian Broadcasting Corporation)</publisher>
+        <dateOther type="avl-dato" encoding="w3cdtf">2014-08-26</dateOther>
+        <dateOther type="reg-dato" encoding="w3cdtf">2014-08-26</dateOther>
+        <dateIssued encoding="w3cdtf">2014-08-09</dateIssued>
+    </originInfo>
+    <recordInfo>
+        <recordContentSource>NRK (the Norwegian Broadcasting Corporation)</recordContentSource>
+        <recordIdentifier source="dra.nb.no">2014/05124.P</recordIdentifier>
+        <recordOrigin>machine generated</recordOrigin>
+        <languageOfCataloging>
+            <languageTerm authority="rfc3066">no</languageTerm>
+        </languageOfCataloging>
+    </recordInfo>
+    <location>
+        <url>URN:NBN:no-nb_drl_294118 0</url>
+    </location>
+    <physicalDescription>
+        <form>electronic</form>
+        <digitalOrigin>born digital</digitalOrigin>
+        <extent>00:57:02</extent>
+    </physicalDescription>
+    <name>
+        <namePart>Molde, Eivind</namePart>
+        <role>
+            <roleTerm>prog-leder</roleTerm>
+        </role>
+    </name>
+    <note displayLabel="arkivnumre">14H06648</note>
+    <note type="performers" displayLabel="prog-leder">Molde, Eivind</note>
+    <abstract>- Verden på lørdag ved Eivind Molde Programopplysninger i ENPS</abstract>
+    <subject />
+    <extension>
+        <streamingInfo xmlns="http://www.nb.no/NBModsExtension/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <offset format="seconds">0</offset>
+            <extent format="seconds">3422</extent>
+            <identifier type="urn">URN:NBN:no-nb_drl_294118</identifier>
+        </streamingInfo>
+    </extension>
+    <identifier type="sesamid">c06c5cbe2f82113e7b4757dbb14f8676</identifier>
+    <identifier type="oaiid">oai:dra.nb.no:2014/05124.P</identifier>
+</mods>

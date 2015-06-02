@@ -1,0 +1,3 @@
+name: localtestcluster
+replicationFactor: 1
+strategy: org.apache.cassandra.locator.SimpleStrategy
