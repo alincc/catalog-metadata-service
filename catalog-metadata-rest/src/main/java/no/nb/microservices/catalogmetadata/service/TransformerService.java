@@ -1,5 +1,7 @@
 package no.nb.microservices.catalogmetadata.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.xml.transform.*;
@@ -14,6 +16,8 @@ import java.nio.file.Paths;
 public class TransformerService {
     public static final String MODS2MARC21 = "/stylesheet/MODS2MARC21slim.xsl";
 
+    final Logger log = LoggerFactory.getLogger(TransformerService.class);
+
     public String transform(String xml, String xslTemplate) {
         TransformerFactory factory = TransformerFactory.newInstance();
         StringReader xmlString = new StringReader(xml);
@@ -27,12 +31,8 @@ public class TransformerService {
             Transformer transformer = factory.newTransformer(xsltStream);
             transformer.transform(in, out);
             return writer.toString();
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            log.error("Error transforming xml: " + ex.getLocalizedMessage());
         }
 
         return null;

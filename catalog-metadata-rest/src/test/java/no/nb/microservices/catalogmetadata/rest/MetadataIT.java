@@ -39,12 +39,18 @@ public class MetadataIT {
     public void testGetMods() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/c06c5cbe2f82113e7b4757dbb14f8676/mods"))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/bogusid/mods"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound()).andReturn();
     }
 
     @Test
     public void testGetMarcxml() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/c06c5cbe2f82113e7b4757dbb14f8676/marcxml"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/bogusid/marcxml"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound()).andReturn();
     }
 
     @BeforeClass

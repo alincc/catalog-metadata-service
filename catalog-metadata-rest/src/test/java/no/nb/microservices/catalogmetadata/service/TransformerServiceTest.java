@@ -19,6 +19,9 @@ public class TransformerServiceTest extends XMLTestCase {
         String marcString = FileUtils.readFileToString(marcFile);
         String result = service.transform(modsString, TransformerService.MODS2MARC21);
         XMLUnit.setIgnoreWhitespace(true);
-        assertXMLEqual(marcString,result);
+        assertXMLEqual(marcString, result);
+
+        result = service.transform("bogus xml :O", TransformerService.MODS2MARC21);
+        assertNull(result);
     }
 }

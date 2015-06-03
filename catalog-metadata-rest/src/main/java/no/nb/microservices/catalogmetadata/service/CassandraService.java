@@ -26,12 +26,14 @@ public class CassandraService {
 
     public ModsType getMods(String id) {
         String modsString = repository.getModsString(id);
+        if (null == modsString) return null;
         JAXBElement<ModsType> root = (JAXBElement<ModsType>) marshaller.unmarshal(new StreamSource(new StringReader(modsString)));
         return root.getValue();
     }
 
     public RecordType getMarcxml(String id) {
         String modsString = repository.getModsString(id);
+        if (null == modsString) return null;
         String marcString = transformerService.transform(modsString, TransformerService.MODS2MARC21);
 
         JAXBElement<RecordType> root = (JAXBElement<RecordType>) marshaller.unmarshal(new StreamSource(new StringReader(marcString)));
