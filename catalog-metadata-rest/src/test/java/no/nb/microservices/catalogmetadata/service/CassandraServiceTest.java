@@ -1,5 +1,6 @@
 package no.nb.microservices.catalogmetadata.service;
 
+import loc.gov.marc.RecordType;
 import loc.gov.mods.ModsType;
 import no.nb.microservices.catalogmetadata.repository.CassandraRepository;
 import org.apache.commons.io.FileUtils;
@@ -24,14 +25,15 @@ public class CassandraServiceTest {
     private Jaxb2Marshaller marshaller;
     private CassandraService cassandraService;
     private CassandraRepository cassandraRepository;
+    private TransformerService transformerService;
 
 
     @Before
     public void setup() {
         cassandraRepository = createStrictMock(CassandraRepository.class);
-        TransformerService transformerService = createStrictMock(TransformerService.class);
+        transformerService = new TransformerService();
         marshaller = new Jaxb2Marshaller();
-        marshaller.setPackagesToScan("loc.gov.mods");
+        marshaller.setPackagesToScan("loc.gov.mods","loc.gov.marc");
         cassandraService = new CassandraService(marshaller,cassandraRepository,transformerService);
     }
 
@@ -45,6 +47,18 @@ public class CassandraServiceTest {
 
         ModsType mods = cassandraService.getMods("c06c5cbe2f82113e7b4757dbb14f8676");
         assertNotNull(mods);
+        verify(cassandraRepository);
+    }
+
+    @Test
+    public void testGetMarcxml() throws Exception {
+        File modsFile = new File(Paths.get(getClass().getResource("mods1.xml").toURI()).toString());
+        String modsString = FileUtils.readFileToString(modsFile);
+        expect(cassandraRepository.getModsString("c06c5cbe2f82113e7b4757dbb14f8676")).andReturn(modsString);
+        replay(cassandraRepository);
+
+        RecordType marc = cassandraService.getMarcxml("c06c5cbe2f82113e7b4757dbb14f8676");
+        assertNotNull(marc);
         verify(cassandraRepository);
     }
 }
