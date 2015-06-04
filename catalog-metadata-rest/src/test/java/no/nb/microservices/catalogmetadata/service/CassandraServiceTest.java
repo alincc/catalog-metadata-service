@@ -44,12 +44,12 @@ public class CassandraServiceTest {
         File modsFile = new File(Paths.get(getClass().getResource("mods1.xml").toURI()).toString());
         String modsString = FileUtils.readFileToString(modsFile);
         expect(cassandraRepository.getModsString("c06c5cbe2f82113e7b4757dbb14f8676")).andReturn(modsString);
-        expect(cassandraRepository.getModsString("bogusid")).andReturn(null);
+        expect(cassandraRepository.getModsString(null)).andReturn(null);
         replay(cassandraRepository);
 
         ModsType mods = cassandraService.getMods("c06c5cbe2f82113e7b4757dbb14f8676");
         assertNotNull(mods);
-        assertNull(cassandraService.getMods("bogusid"));
+        assertNull(cassandraService.getMods(null));
         verify(cassandraRepository);
     }
 
@@ -58,12 +58,12 @@ public class CassandraServiceTest {
         File modsFile = new File(Paths.get(getClass().getResource("mods1.xml").toURI()).toString());
         String modsString = FileUtils.readFileToString(modsFile);
         expect(cassandraRepository.getModsString("c06c5cbe2f82113e7b4757dbb14f8676")).andReturn(modsString);
-        expect(cassandraRepository.getModsString("bogusid")).andReturn(null);
+        expect(cassandraRepository.getModsString(null)).andReturn(null);
         replay(cassandraRepository);
 
         RecordType marc = cassandraService.getMarcxml("c06c5cbe2f82113e7b4757dbb14f8676");
         assertNotNull(marc);
-        assertNull(cassandraService.getMods("bogusid"));
+        assertNull(cassandraService.getMods(null));
         verify(cassandraRepository);
     }
 }
