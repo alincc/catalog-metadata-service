@@ -1,5 +1,6 @@
 package no.nb.microservices.catalogmetadata.config;
 
+import no.nb.microservices.catalogmetadata.exception.CassandraSessionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +30,11 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
     }
 
     @Bean
-    public CassandraOperations cassandraOperations() throws Exception {
-        return new CassandraTemplate(session().getObject());
+    public CassandraOperations cassandraOperations() {
+        try {
+            return new CassandraTemplate(session().getObject());
+        } catch (Exception e) {
+            throw new CassandraSessionException("Error getting sessionobject");
+        }
     }
 }
