@@ -34,7 +34,7 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
         try {
             return new CassandraTemplate(session().getObject());
         } catch (Exception e) {
-            throw new CassandraSessionException("Error getting sessionobject");
+            throw new CassandraSessionException("Error getting sessionobject", e);
         }
     }
 }
