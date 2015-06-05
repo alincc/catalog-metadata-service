@@ -26,14 +26,18 @@ public class MetadataController {
     @RequestMapping(value = "{id}/mods", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<ModsType> getMods(@PathVariable String id) {
         ModsType mods = service.getMods(id);
-        if (mods == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (mods == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity(mods, HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}/marcxml", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<RecordType> getMarcxml(@PathVariable String id) {
         RecordType marc = service.getMarcxml(id);
-        if (marc == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (marc == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity(marc,HttpStatus.OK);
     }
 }

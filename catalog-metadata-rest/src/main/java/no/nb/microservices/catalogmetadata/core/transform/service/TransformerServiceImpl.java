@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 
 @Service
 public class TransformerServiceImpl implements ITransformerService {
-    final Logger log = LoggerFactory.getLogger(TransformerServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TransformerServiceImpl.class);
 
     @Override
     public String transform(String xml, String xslTemplate) {
@@ -31,7 +31,7 @@ public class TransformerServiceImpl implements ITransformerService {
             transformer.transform(in, out);
             return writer.toString();
         } catch (Exception ex) {
-            log.error("Error transforming xml: " + ex.getLocalizedMessage());
+            LOGGER.error("Error transforming xml", ex);
         }
 
         return null;

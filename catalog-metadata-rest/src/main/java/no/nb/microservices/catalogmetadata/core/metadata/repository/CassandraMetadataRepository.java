@@ -23,7 +23,9 @@ public class CassandraMetadataRepository implements IMetadataRepository {
         Select select = QueryBuilder.select().from("expressionrecord");
         select.where(QueryBuilder.eq("key",id)).and(QueryBuilder.eq("column1", "modsRecord"));
         List<Model> result = cassandraOperations.select(select, Model.class);
-        if (result.size() < 1) return null;
+        if (result.isEmpty()) {
+            return null;
+        }
         Model model = result.get(0);
         return model.getValueAsString();
     }
