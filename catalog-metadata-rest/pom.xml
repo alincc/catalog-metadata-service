@@ -175,6 +175,11 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.7.4.201502262128</version>
+                <configuration>
+                    <excludes>
+                        <exclude>no.nb.microservices.catalogmetadata.model.*</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <!-- Prepares the property pointing to the JaCoCo runtime 
                         agent which is passed as VM argument when Maven the Surefire plugin is executed. -->
