@@ -4,6 +4,7 @@ import loc.gov.marc.RecordType;
 import loc.gov.mods.ModsType;
 import no.nb.microservices.catalogmetadata.core.metadata.repository.IMetadataRepository;
 import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerService;
+import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,7 @@ public class MetadataServiceImpl implements IMetadataService {
         if (null == modsString) {
             return null;
         }
-        String marcString = transformerService.transform(modsString, ITransformerService.MODS2MARC21);
+        String marcString = transformerService.transform(modsString, TransformerServiceImpl.MODS2MARC21);
 
         JAXBElement<RecordType> root = (JAXBElement<RecordType>) marshaller.unmarshal(new StreamSource(new StringReader(marcString)));
         return root.getValue();

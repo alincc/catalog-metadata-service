@@ -17,11 +17,11 @@ public class TransformerServiceImplTest extends XMLTestCase {
         File marcFile = new File(Paths.get(getClass().getResource("/xml/marc1.xml").toURI()).toString());
         String modsString = FileUtils.readFileToString(modsFile);
         String marcString = FileUtils.readFileToString(marcFile);
-        String result = service.transform(modsString, ITransformerService.MODS2MARC21);
+        String result = service.transform(modsString, TransformerServiceImpl.MODS2MARC21);
         XMLUnit.setIgnoreWhitespace(true);
         assertXMLEqual(marcString, result);
 
-        result = service.transform("bogus xml :O", ITransformerService.MODS2MARC21);
+        result = service.transform("bogus xml :O", TransformerServiceImpl.MODS2MARC21);
         assertNull(result);
     }
 }

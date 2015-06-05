@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 
 @Service
 public class TransformerServiceImpl implements ITransformerService {
+    public static final String MODS2MARC21 = "/stylesheet/MODS2MARC21slim.xsl";
     private static final Logger LOGGER = LoggerFactory.getLogger(TransformerServiceImpl.class);
 
     @Override
