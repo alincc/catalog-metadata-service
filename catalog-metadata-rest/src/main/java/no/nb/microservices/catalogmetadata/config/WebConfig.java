@@ -10,7 +10,7 @@ public class WebConfig {
     @Bean
     public Jaxb2Marshaller jaxb2Marshaller() {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-        marshaller.setPackagesToScan("loc.gov.mods","loc.gov.marc");
+        marshaller.setPackagesToScan("no.nb.microservices.catalogmetadata.model.mods.v3","loc.gov.marc");
 
         return marshaller;
     }

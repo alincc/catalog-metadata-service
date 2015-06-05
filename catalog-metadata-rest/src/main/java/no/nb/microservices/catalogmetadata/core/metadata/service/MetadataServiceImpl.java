@@ -1,10 +1,10 @@
 package no.nb.microservices.catalogmetadata.core.metadata.service;
 
 import loc.gov.marc.RecordType;
-import loc.gov.mods.ModsType;
 import no.nb.microservices.catalogmetadata.core.metadata.repository.IMetadataRepository;
 import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerService;
 import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
+import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
@@ -27,13 +27,13 @@ public class MetadataServiceImpl implements IMetadataService {
     }
 
     @Override
-    public ModsType getMods(String id) {
+    public Mods getMods(String id) {
         String modsString = repository.getModsString(id);
         if (null == modsString) {
             return null;
         }
-        JAXBElement<ModsType> root = (JAXBElement<ModsType>) marshaller.unmarshal(new StreamSource(new StringReader(modsString)));
-        return root.getValue();
+        Mods mods = (Mods) marshaller.unmarshal(new StreamSource(new StringReader(modsString)));
+        return mods;
     }
 
     @Override

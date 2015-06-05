@@ -44,6 +44,11 @@
             <version>2.4</version>
         </dependency>
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>catalog-metadata-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>xmlunit</groupId>
             <artifactId>xmlunit</artifactId>
             <version>1.6</version>
@@ -291,20 +296,9 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <schemaDirectory>src/main/resources/xsd/mods</schemaDirectory>
-                            <generatePackage>loc.gov.mods</generatePackage>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc1</generateDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>xjc2</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
                             <schemaDirectory>src/main/resources/xsd/marc</schemaDirectory>
                             <generatePackage>loc.gov.marc</generatePackage>
-                            <generateDirectory>${project.build.directory}/generated-sources/xjc2</generateDirectory>
+                            <generateDirectory>${project.build.directory}/generated-sources/xjc1</generateDirectory>
                         </configuration>
                     </execution>
                 </executions>

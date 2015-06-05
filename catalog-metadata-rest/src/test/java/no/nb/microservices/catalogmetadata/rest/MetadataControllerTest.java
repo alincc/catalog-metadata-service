@@ -1,8 +1,8 @@
 package no.nb.microservices.catalogmetadata.rest;
 
 import loc.gov.marc.RecordType;
-import loc.gov.mods.ModsType;
 import no.nb.microservices.catalogmetadata.core.metadata.service.IMetadataService;
+import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,11 +30,11 @@ public class MetadataControllerTest {
 
     @Test
     public void testgetMods() {
-        when(metadataService.getMods("c06c5cbe2f82113e7b4757dbb14f8676")).thenReturn(new ModsType());
+        when(metadataService.getMods("c06c5cbe2f82113e7b4757dbb14f8676")).thenReturn(new Mods());
         when(metadataService.getMods("e7b4757dbb14f8676c06c5cbe2f82113")).thenReturn(null);
 
-        ResponseEntity<ModsType> m1 = metadataController.getMods("c06c5cbe2f82113e7b4757dbb14f8676");
-        ResponseEntity<ModsType> m2 = metadataController.getMods("e7b4757dbb14f8676c06c5cbe2f82113");
+        ResponseEntity<Mods> m1 = metadataController.getMods("c06c5cbe2f82113e7b4757dbb14f8676");
+        ResponseEntity<Mods> m2 = metadataController.getMods("e7b4757dbb14f8676c06c5cbe2f82113");
         assertEquals(HttpStatus.OK,m1.getStatusCode());
         assertNotNull(m1.getBody());
 

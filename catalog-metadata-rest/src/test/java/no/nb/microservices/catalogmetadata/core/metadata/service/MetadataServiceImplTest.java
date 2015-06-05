@@ -1,10 +1,10 @@
 package no.nb.microservices.catalogmetadata.core.metadata.service;
 
 import loc.gov.marc.RecordType;
-import loc.gov.mods.ModsType;
 import no.nb.microservices.catalogmetadata.core.metadata.repository.IMetadataRepository;
 import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerService;
 import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
+import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +37,7 @@ public class MetadataServiceImplTest {
     public void setup() {
         transformerService = new TransformerServiceImpl();
         marshaller = new Jaxb2Marshaller();
-        marshaller.setPackagesToScan("loc.gov.mods","loc.gov.marc");
+        marshaller.setPackagesToScan("no.nb.microservices.catalogmetadata.model.mods.v3","loc.gov.marc");
         metadataService = new MetadataServiceImpl(marshaller, metadataRepository,transformerService);
     }
 
@@ -49,7 +49,7 @@ public class MetadataServiceImplTest {
         when(metadataRepository.getModsString("c06c5cbe2f82113e7b4757dbb14f8676")).thenReturn(modsString);
         when(metadataRepository.getModsString(null)).thenReturn(null);
 
-        ModsType mods = metadataService.getMods("c06c5cbe2f82113e7b4757dbb14f8676");
+        Mods mods = metadataService.getMods("c06c5cbe2f82113e7b4757dbb14f8676");
         assertNotNull(mods);
         assertNull(metadataService.getMods(null));
 

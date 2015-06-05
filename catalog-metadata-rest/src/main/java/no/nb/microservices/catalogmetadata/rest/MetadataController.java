@@ -2,8 +2,8 @@ package no.nb.microservices.catalogmetadata.rest;
 
 import com.wordnik.swagger.annotations.Api;
 import loc.gov.marc.RecordType;
-import loc.gov.mods.ModsType;
 import no.nb.microservices.catalogmetadata.core.metadata.service.IMetadataService;
+import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,8 +24,8 @@ public class MetadataController {
     }
 
     @RequestMapping(value = "{id}/mods", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<ModsType> getMods(@PathVariable String id) {
-        ModsType mods = service.getMods(id);
+    public ResponseEntity<Mods> getMods(@PathVariable String id) {
+        Mods mods = service.getMods(id);
         if (mods == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
