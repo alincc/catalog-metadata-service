@@ -67,7 +67,7 @@ public class MetadataServiceImplTest {
 
         RecordType marc = metadataService.getMarcxml("c06c5cbe2f82113e7b4757dbb14f8676");
         assertNotNull(marc);
-        assertNull(metadataService.getMods(null));
+        assertNull(metadataService.getMarcxml(null));
 
         verify(metadataRepository).getModsString("c06c5cbe2f82113e7b4757dbb14f8676");
         verify(metadataRepository).getModsString(null);
