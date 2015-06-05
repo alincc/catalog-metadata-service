@@ -1,23 +1,22 @@
-package no.nb.microservices.catalogmetadata.service;
+package no.nb.microservices.catalogmetadata.core.transform.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.xml.transform.*;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
 @Service
-public class TransformerService {
-    public static final String MODS2MARC21 = "/stylesheet/MODS2MARC21slim.xsl";
+public class TransformerServiceImpl implements ITransformerService {
+    final Logger log = LoggerFactory.getLogger(TransformerServiceImpl.class);
 
-    final Logger log = LoggerFactory.getLogger(TransformerService.class);
-
+    @Override
     public String transform(String xml, String xslTemplate) {
         TransformerFactory factory = TransformerFactory.newInstance();
         StringReader xmlString = new StringReader(xml);

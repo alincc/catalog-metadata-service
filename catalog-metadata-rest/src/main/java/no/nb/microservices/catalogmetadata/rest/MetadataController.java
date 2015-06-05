@@ -3,7 +3,7 @@ package no.nb.microservices.catalogmetadata.rest;
 import com.wordnik.swagger.annotations.Api;
 import loc.gov.marc.RecordType;
 import loc.gov.mods.ModsType;
-import no.nb.microservices.catalogmetadata.service.CassandraService;
+import no.nb.microservices.catalogmetadata.core.metadata.service.IMetadataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(value = "/", description = "Home api")
 public class MetadataController {
-    private final CassandraService service;
+    private final IMetadataService service;
 
     @Autowired
-    public MetadataController(CassandraService service) {
+    public MetadataController(IMetadataService service) {
         this.service = service;
     }
 

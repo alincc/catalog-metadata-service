@@ -1,4 +1,4 @@
-package no.nb.microservices.catalogmetadata.repository;
+package no.nb.microservices.catalogmetadata.core.metadata.repository;
 
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.querybuilder.Select;
@@ -10,14 +10,15 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class CassandraRepository {
+public class CassandraMetadataRepository implements IMetadataRepository {
     private final CassandraOperations cassandraOperations;
 
     @Autowired
-    public CassandraRepository(CassandraOperations cassandraOperations) {
+    public CassandraMetadataRepository(CassandraOperations cassandraOperations) {
         this.cassandraOperations = cassandraOperations;
     }
 
+    @Override
     public String getModsString(String id) {
         Select select = QueryBuilder.select().from("expressionrecord");
         select.where(QueryBuilder.eq("key",id)).and(QueryBuilder.eq("column1", "modsRecord"));
