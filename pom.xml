@@ -34,6 +34,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.15</version>
                 <configuration>
+                    <excludes>
+                        <exclude>**/microservices/catalogmetadata/model/*</exclude>
+                    </excludes>
                     <!-- Sets the VM argument line used when unit tests are
                         run. -->
                     <argLine>${surefireArgLine}</argLine>
@@ -102,9 +105,6 @@
                         <configuration>
                             <!-- Sets the path to the file which contains
                                 the execution data. -->
-                            <excludes>
-                                <exclude>**/catalogmetadata/model/mods/v3/*</exclude>
-                            </excludes>
                             <dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
                             <!-- Sets the output directory for the code coverage
                                 report. -->
