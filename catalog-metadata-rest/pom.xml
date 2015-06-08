@@ -113,7 +113,7 @@
     </dependencies>
 
     <build>
-        <finalName>catalog-metadata-rest</finalName>
+        <finalName>catalog-metadata-service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
