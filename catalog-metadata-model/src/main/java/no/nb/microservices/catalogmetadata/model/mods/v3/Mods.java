@@ -134,25 +134,14 @@ public class Mods implements Serializable {
     public String getPublished() {
         String published = "";
 
-        if (originInfo != null) {
-            if (originInfo.getPlace() != null && !originInfo.getPlace().getPlaceTerm().isEmpty()) {
-                published += originInfo.getPlace().getPlaceTerm();
+        if (originInfo != null && originInfo.getPlace() != null && !originInfo.getPlace().getPlaceTerm().isEmpty()) {
+            published += originInfo.getPlace().getPlaceTerm();
+            published += getPublisher(originInfo);
+            published += getDateIssued(originInfo);
+        }
 
-                if (originInfo.getPublisher() != null && !originInfo.getPublisher().isEmpty()) {
-                    published += " : ";
-                    published += originInfo.getPublisher();
-                }
-
-                if (originInfo.getDateIssued() != null && !originInfo.getDateIssued().isEmpty()) {
-                    published += ", ";
-                } else {
-                    return published;
-                }
-            }
-
-            if (originInfo.getDateIssued() != null && !originInfo.getDateIssued().isEmpty()) {
-                published += originInfo.getDateIssued();
-            }
+        if (originInfo.getDateIssued() != null && !originInfo.getDateIssued().isEmpty()) {
+            published += originInfo.getDateIssued();
         }
 
         if (published.length() > 0) {
@@ -160,6 +149,23 @@ public class Mods implements Serializable {
         } else {
             return null;
         }
+    }
+
+    private String getPublisher(OriginInfo info) {
+        String publisher = "";
+        if (info.getPublisher() != null && !info.getPublisher().isEmpty()) {
+            publisher += " : ";
+            publisher += info.getPublisher();
+        }
+        return publisher;
+    }
+
+    private String getDateIssued(OriginInfo info) {
+        String issued = "";
+        if (info.getDateIssued() != null && !info.getDateIssued().isEmpty()) {
+            issued += ", ";
+        }
+        return issued;
     }
 
     /**
@@ -188,19 +194,20 @@ public class Mods implements Serializable {
         Map<String, List<String>> map = new HashMap<String, List<String>>();
 
         if (subjects != null) {
-            for (Subject subject : subjects) {
-                if (subject.getGeographic() != null) {
-                    for (Geographic geographic : subject.getGeographic()) {
-                        putItemInMap(map, "geographic", geographic.getValue());
-                    }
+            return map;
+        }
+        for (Subject subject : subjects) {
+            if (subject.getGeographic() != null) {
+                for (Geographic geographic : subject.getGeographic()) {
+                    putItemInMap(map, "geographic", geographic.getValue());
                 }
+            }
 
-                if (subject.getCartographics() != null) {
-                    putItemInMap(map, "coordinates", subject.getCartographics().getCoordinates());
+            if (subject.getCartographics() != null) {
+                putItemInMap(map, "coordinates", subject.getCartographics().getCoordinates());
 
-                    if (subject.getCartographics().getScale() != null) {
-                        putItemInMap(map, "scale", subject.getCartographics().getScale());
-                    }
+                if (subject.getCartographics().getScale() != null) {
+                    putItemInMap(map, "scale", subject.getCartographics().getScale());
                 }
             }
         }
@@ -292,10 +299,8 @@ public class Mods implements Serializable {
                     putItemInMap(map, "series", relatedItem);
                 } else if ("constituent".equalsIgnoreCase(relatedItem.getType())) {
                     putItemInMap(map, "constituent", relatedItem);
-                } else {
-                    if (relatedItem.getDisplayLabel() != null) {
-                        putItemInMap(map, "relatedResource", relatedItem);
-                    }
+                } else if (relatedItem.getDisplayLabel() != null) {
+                    putItemInMap(map, "relatedResource", relatedItem);
                 }
             }
         }

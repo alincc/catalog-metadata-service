@@ -30,16 +30,17 @@ public class Location implements Serializable {
     private List<Url> getUrlsByAccess(String access) {
         List<Url> urlsByAccess = new ArrayList<Url>();
         if (this.urls != null) {
-            for (Url url : this.urls) {
-                if (url.getAccess() != null && url.getAccess().equalsIgnoreCase(access)) {
-                    urlsByAccess.add(url);
-                }
+            return urlsByAccess;
+        }
+        for (Url url : this.urls) {
+            if (url.getAccess() != null && url.getAccess().equalsIgnoreCase(access)) {
+                urlsByAccess.add(url);
             }
-            if (urlsByAccess.isEmpty()) {
-                for (Url url : this.urls) {
-                    if (url.getAccess() == null) {
-                        urlsByAccess.add(url);
-                    }
+        }
+        if (urlsByAccess.isEmpty()) {
+            for (Url url : this.urls) {
+                if (url.getAccess() == null) {
+                    urlsByAccess.add(url);
                 }
             }
         }
