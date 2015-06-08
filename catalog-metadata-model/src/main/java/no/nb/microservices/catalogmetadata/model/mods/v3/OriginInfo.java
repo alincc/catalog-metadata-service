@@ -37,16 +37,17 @@ public class OriginInfo implements Serializable {
     public String getDateIssued() {
         DateMods finalDateIssued = new DateMods();
 
-        if(this.dateIssuedList != null){
-            for (DateMods dateMods : this.dateIssuedList) {
-                if (dateMods.getPoint() == null) {
-                    if (dateMods.getEncoding() != null && "marc".equals(dateMods.getEncoding())) {
-                        finalDateIssued = dateMods;
-                        break;
-                    }
-                    else {
-                        finalDateIssued = dateMods;
-                    }
+        if(this.dateIssuedList == null) {
+            return finalDateIssued.getValue();
+        }
+        for (DateMods dateMods : this.dateIssuedList) {
+            if (dateMods.getPoint() == null) {
+                if (dateMods.getEncoding() != null && "marc".equals(dateMods.getEncoding())) {
+                    finalDateIssued = dateMods;
+                    break;
+                }
+                else {
+                    finalDateIssued = dateMods;
                 }
             }
         }

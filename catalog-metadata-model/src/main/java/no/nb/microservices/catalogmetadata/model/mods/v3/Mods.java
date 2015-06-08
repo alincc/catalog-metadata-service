@@ -193,7 +193,7 @@ public class Mods implements Serializable {
     public Map<String, List<String>> getGeographicMap() {
         Map<String, List<String>> map = new HashMap<String, List<String>>();
 
-        if (subjects != null) {
+        if (subjects == null) {
             return map;
         }
         for (Subject subject : subjects) {
