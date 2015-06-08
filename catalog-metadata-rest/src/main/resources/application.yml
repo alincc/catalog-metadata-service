@@ -27,3 +27,10 @@ catalogmetadata:
         keyspace: jimntestlocal
         port: 9042
         host: cassandra
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/

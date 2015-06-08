@@ -12,14 +12,8 @@ import org.springframework.cloud.security.oauth2.resource.EnableOAuth2Resource;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan
-@EnableAutoConfiguration
-@EnableConfigurationProperties
 @EnableEurekaClient
-@EnableFeignClients
 @EnableCircuitBreaker
-@EnableOAuth2Resource
-@RefreshScope
 public class Application {
 
     public static void main(String[] args) {
