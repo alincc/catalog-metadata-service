@@ -28,17 +28,15 @@ public class MetadataServiceImplTest {
     @Mock
     private IMetadataRepository metadataRepository;
 
-    private Jaxb2Marshaller marshaller;
     private IMetadataService metadataService;
-    private ITransformerService transformerService;
 
 
     @Before
     public void setup() {
-        transformerService = new TransformerServiceImpl();
-        marshaller = new Jaxb2Marshaller();
-        marshaller.setPackagesToScan("no.nb.microservices.catalogmetadata.model.mods.v3","loc.gov.marc");
-        metadataService = new MetadataServiceImpl(marshaller, metadataRepository,transformerService);
+        ITransformerService transformerService = new TransformerServiceImpl();
+        Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+        marshaller.setPackagesToScan("no.nb.microservices.catalogmetadata.model.mods.v3", "loc.gov.marc");
+        metadataService = new MetadataServiceImpl(marshaller, metadataRepository, transformerService);
     }
 
 
