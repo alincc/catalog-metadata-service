@@ -1,6 +1,6 @@
 info:
   app:
-    name: catalog-catalogmetadata-rest
+    name: catalog-metadata-service
     description: Catalog Metadata rest
 
 server:
