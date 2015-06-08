@@ -166,14 +166,14 @@ public class Mods implements Serializable {
      * @return Notes or Abstract
      */
     public String getOtherInformation() {
-        String notes = "";
+        String information = "";
         if (abstracts != null) {
             for (Abstract abstractValue : this.abstracts) {
-                notes += abstractValue.getValue();
+                information += abstractValue.getValue();
             }
         }
-        if (notes.length() > 0) {
-            return notes;
+        if (information.length() > 0) {
+            return information;
         } else {
             return null;
         }
@@ -285,18 +285,16 @@ public class Mods implements Serializable {
 
         for (RelatedItem relatedItem : relatedItems) {
 
-            if (relatedItem.getTitleInfo() != null) {
-                if (relatedItem.getTitleInfo() != null && !relatedItem.getTitleInfo().isEmpty()) {
-                    if ("relatedItem_preceding".equalsIgnoreCase(relatedItem.getType())) {
-                        putItemInMap(map, "relatedItem_preceding", relatedItem);
-                    } else if ("series".equalsIgnoreCase(relatedItem.getType())) {
-                        putItemInMap(map, "series", relatedItem);
-                    } else if ("constituent".equalsIgnoreCase(relatedItem.getType())) {
-                        putItemInMap(map, "constituent", relatedItem);
-                    } else {
-                        if (relatedItem.getDisplayLabel() != null) {
-                            putItemInMap(map, "relatedResource", relatedItem);
-                        }
+            if (relatedItem.getTitleInfo() != null && !relatedItem.getTitleInfo().isEmpty()) {
+                if ("relatedItem_preceding".equalsIgnoreCase(relatedItem.getType())) {
+                    putItemInMap(map, "relatedItem_preceding", relatedItem);
+                } else if ("series".equalsIgnoreCase(relatedItem.getType())) {
+                    putItemInMap(map, "series", relatedItem);
+                } else if ("constituent".equalsIgnoreCase(relatedItem.getType())) {
+                    putItemInMap(map, "constituent", relatedItem);
+                } else {
+                    if (relatedItem.getDisplayLabel() != null) {
+                        putItemInMap(map, "relatedResource", relatedItem);
                     }
                 }
             }
