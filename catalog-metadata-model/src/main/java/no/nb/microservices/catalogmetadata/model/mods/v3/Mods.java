@@ -253,28 +253,27 @@ public class Mods implements Serializable {
         }
 
         for (Classification classification : classifications) {
-            if (classification.getAuthority() != null) {
-                if ("udc".equalsIgnoreCase(classification.getAuthority())) {
-                    putItemInMap(map, "udc", classification);
-                } else if ("ddc".equalsIgnoreCase(classification.getAuthority())) {
-                    putItemInMap(map, "ddc", classification);
-                } else if ("lcc".equalsIgnoreCase(classification.getAuthority())) {
-                    putItemInMap(map, "lcc", classification);
-                } else if ("nlm".equalsIgnoreCase(classification.getAuthority())) {
-                    putItemInMap(map, "nlm", classification);
-                } else if ("sudocs".equalsIgnoreCase(classification.getAuthority())) {
-                    putItemInMap(map, "sudocs", classification);
-                } else if ("candocs".equalsIgnoreCase(classification.getAuthority())) {
-                    putItemInMap(map, "candocs", classification);
-                } else {
-                    putItemInMap(map, "other", classification);
-                }
-            } else {
+            int mapSize = map.size();
+            checkClassification("udc", classification, map);
+            checkClassification("ddc",classification,map);
+            checkClassification("lcc",classification,map);
+            checkClassification("nlm",classification,map);
+            checkClassification("sudocs",classification,map);
+            checkClassification("candocs",classification,map);
+            if (map.size() == mapSize) {
                 putItemInMap(map, "other", classification);
             }
         }
 
         return map;
+    }
+
+    private void checkClassification(String value, Classification classification, Map<String, List<Classification>> map) {
+        if (classification.getAuthority() == null) {
+            putItemInMap(map, "other", classification);
+        } else if (value.equalsIgnoreCase(classification.getAuthority())) {
+            putItemInMap(map, value, classification);
+        }
     }
 
     /**
