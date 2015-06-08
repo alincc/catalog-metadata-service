@@ -1,6 +1,9 @@
 package no.nb.microservices.catalogmetadata.rest;
 
 import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiResponse;
+import com.wordnik.swagger.annotations.ApiResponses;
 import loc.gov.marc.RecordType;
 import no.nb.microservices.catalogmetadata.core.metadata.service.IMetadataService;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
@@ -14,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api(value = "/", description = "Home api")
+@Api(value = "/", description = "Metadata api")
 public class MetadataController {
     private final IMetadataService service;
 
@@ -23,6 +26,9 @@ public class MetadataController {
         this.service = service;
     }
 
+    @ApiOperation(value = "Find mods by id", response = Mods.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful response"),
+                            @ApiResponse(code = 404, message = "Not found")})
     @RequestMapping(value = "{id}/mods", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<Mods> getMods(@PathVariable String id) {
         Mods mods = service.getMods(id);
@@ -32,6 +38,9 @@ public class MetadataController {
         return new ResponseEntity(mods, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Find marcxml by id", response = RecordType.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful response"),
+                            @ApiResponse(code = 404, message = "Not found")})
     @RequestMapping(value = "{id}/marcxml", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<RecordType> getMarcxml(@PathVariable String id) {
         RecordType marc = service.getMarcxml(id);
