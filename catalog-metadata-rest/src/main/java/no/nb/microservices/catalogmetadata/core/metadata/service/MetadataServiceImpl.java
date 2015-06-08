@@ -32,8 +32,7 @@ public class MetadataServiceImpl implements IMetadataService {
         if (null == modsString) {
             return null;
         }
-        Mods mods = (Mods) marshaller.unmarshal(new StreamSource(new StringReader(modsString)));
-        return mods;
+        return (Mods) marshaller.unmarshal(new StreamSource(new StringReader(modsString)));
     }
 
     @Override

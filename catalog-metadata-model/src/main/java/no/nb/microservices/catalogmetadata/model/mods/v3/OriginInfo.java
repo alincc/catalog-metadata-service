@@ -39,14 +39,14 @@ public class OriginInfo implements Serializable {
         DateMods finalDateIssued = new DateMods();
 
         if(this.dateIssuedList != null){
-            for (DateMods dateIssued : this.dateIssuedList) {
-                if (dateIssued.getPoint() == null) {
-                    if (dateIssued.getEncoding() != null && dateIssued.getEncoding().equalsIgnoreCase("marc")) {
-                        finalDateIssued = dateIssued;
+            for (DateMods dateMods : this.dateIssuedList) {
+                if (dateMods.getPoint() == null) {
+                    if (dateMods.getEncoding() != null && "marc".equals(dateMods.getEncoding())) {
+                        finalDateIssued = dateMods;
                         break;
                     }
                     else {
-                        finalDateIssued = dateIssued;
+                        finalDateIssued = dateMods;
                     }
                 }
             }
@@ -54,7 +54,7 @@ public class OriginInfo implements Serializable {
         return finalDateIssued.getValue();
     }
 
-    public void setDateIssued(String dsystemateIssued) {
+    public void setDateIssued(String dateIssued) {
         this.dateIssued = dateIssued;
     }
 

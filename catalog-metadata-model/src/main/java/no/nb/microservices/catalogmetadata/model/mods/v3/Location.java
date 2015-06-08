@@ -35,9 +35,9 @@ public class Location implements Serializable {
                     urlsByAccess.add(url);
                 }
             }
-            if (urlsByAccess.size() == 0) {
+            if (urlsByAccess.isEmpty()) {
                 for (Url url : this.urls) {
-                    if (url.getAccess() == null || url.getAccess() == null) {
+                    if (url.getAccess() == null) {
                         urlsByAccess.add(url);
                     }
                 }

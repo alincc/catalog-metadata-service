@@ -18,7 +18,9 @@ public class PhysicalDescription implements Serializable {
     }
 
     public String getStrippedExtent() {
-        if (extent != null) return extent.replaceAll("[^0-9]", "");
+        if (extent != null) {
+            return extent.replaceAll("[^0-9]", "");
+        }
         return null;
     }
 }
