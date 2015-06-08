@@ -9,7 +9,6 @@ public class OriginInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String publisher;
-    private String dateIssued;
     private String edition;
     private String frequency;
     private Place place;
@@ -52,10 +51,6 @@ public class OriginInfo implements Serializable {
             }
         }
         return finalDateIssued.getValue();
-    }
-
-    public void setDateIssued(String dateIssued) {
-        this.dateIssued = dateIssued;
     }
 
     @XmlElement(name = "dateCreated", namespace = "http://www.loc.gov/mods/v3")

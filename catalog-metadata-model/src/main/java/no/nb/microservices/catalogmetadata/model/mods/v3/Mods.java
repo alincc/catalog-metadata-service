@@ -6,8 +6,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-@XmlRootElement(name = "mods", namespace="http://www.loc.gov/mods/v3")
+@XmlRootElement(name = "mods", namespace = "http://www.loc.gov/mods/v3")
 public class Mods implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -28,7 +29,7 @@ public class Mods implements Serializable {
     private String typeOfResource;
     private String genre;
 
-    @XmlElement(name = "originInfo", namespace="http://www.loc.gov/mods/v3")
+    @XmlElement(name = "originInfo", namespace = "http://www.loc.gov/mods/v3")
     public OriginInfo getOriginInfo() {
         return originInfo;
     }
@@ -37,15 +38,16 @@ public class Mods implements Serializable {
         this.originInfo = originInfo;
     }
 
-    @XmlElement(name = "physicalDescription", namespace="http://www.loc.gov/mods/v3")
+    @XmlElement(name = "physicalDescription", namespace = "http://www.loc.gov/mods/v3")
     public PhysicalDescription getPhysicalDescription() {
         return physicalDescription;
     }
+
     public void setPhysicalDescription(PhysicalDescription physicalDescription) {
         this.physicalDescription = physicalDescription;
     }
 
-    @XmlElement(name = "abstract", namespace="http://www.loc.gov/mods/v3")
+    @XmlElement(name = "abstract", namespace = "http://www.loc.gov/mods/v3")
     public List<Abstract> getAbstracts() {
         return abstracts;
     }
@@ -54,7 +56,7 @@ public class Mods implements Serializable {
         this.abstracts = abstracts;
     }
 
-    @XmlElement(name = "note", namespace="http://www.loc.gov/mods/v3")
+    @XmlElement(name = "note", namespace = "http://www.loc.gov/mods/v3")
     public List<Note> getNotes() {
         return notes;
     }
@@ -67,6 +69,7 @@ public class Mods implements Serializable {
     public Location getLocation() {
         return location;
     }
+
     public void setLocation(Location location) {
         this.location = location;
     }
@@ -80,7 +83,7 @@ public class Mods implements Serializable {
         this.relatedItems = relatedItems;
     }
 
-    @XmlElement(name = "tableOfContents", namespace="http://www.loc.gov/mods/v3")
+    @XmlElement(name = "tableOfContents", namespace = "http://www.loc.gov/mods/v3")
     public List<TableOfContents> getTableOfContents() {
         return tableOfContents;
     }
@@ -93,11 +96,12 @@ public class Mods implements Serializable {
     public List<Classification> getClassifications() {
         return classifications;
     }
+
     public void setClassifications(List<Classification> classifications) {
         this.classifications = classifications;
     }
 
-    @XmlElement(name = "identifier", namespace="http://www.loc.gov/mods/v3")
+    @XmlElement(name = "identifier", namespace = "http://www.loc.gov/mods/v3")
     public List<Identifier> getIdentifiers() {
         return identifiers;
     }
@@ -110,6 +114,7 @@ public class Mods implements Serializable {
     public List<Subject> getSubjects() {
         return subjects;
     }
+
     public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
     }
@@ -126,33 +131,33 @@ public class Mods implements Serializable {
     /**
      * @return PlaceTerm : Publisher, DateIssued
      */
-    public String getPublished(){
+    public String getPublished() {
         String published = "";
 
-        if(originInfo != null){
-            if(originInfo.getPlace() != null && !originInfo.getPlace().getPlaceTerm().isEmpty()){
+        if (originInfo != null) {
+            if (originInfo.getPlace() != null && !originInfo.getPlace().getPlaceTerm().isEmpty()) {
                 published += originInfo.getPlace().getPlaceTerm();
 
-                if(originInfo.getPublisher() != null && !originInfo.getPublisher().isEmpty()){
+                if (originInfo.getPublisher() != null && !originInfo.getPublisher().isEmpty()) {
                     published += " : ";
                     published += originInfo.getPublisher();
                 }
 
-                if(originInfo.getDateIssued() != null && !originInfo.getDateIssued().isEmpty()){
+                if (originInfo.getDateIssued() != null && !originInfo.getDateIssued().isEmpty()) {
                     published += ", ";
-                }else{
+                } else {
                     return published;
                 }
             }
 
-            if(originInfo.getDateIssued() != null && !originInfo.getDateIssued().isEmpty()){
+            if (originInfo.getDateIssued() != null && !originInfo.getDateIssued().isEmpty()) {
                 published += originInfo.getDateIssued();
             }
         }
 
-        if(published.length() > 0){
+        if (published.length() > 0) {
             return published;
-        }else{
+        } else {
             return null;
         }
     }
@@ -160,53 +165,40 @@ public class Mods implements Serializable {
     /**
      * @return Notes or Abstract
      */
-    public String getOtherInformation(){
+    public String getOtherInformation() {
         String notes = "";
-
-//		if(this.notes != null && this.notes.size() > 0){
-//			// Note
-//			for(Note note : this.notes){
-//				if(note.getType() != null && note.getType().equalsIgnoreCase("statement of responsibility") == false){
-//					notes += note;
-//				}
-//			}
-//		}else{
-        // Abstract
-        if(abstracts != null){
-            for(Abstract abstractValue : this.abstracts){
+        if (abstracts != null) {
+            for (Abstract abstractValue : this.abstracts) {
                 notes += abstractValue.getValue();
             }
         }
-//		}
-
-        if(notes.length() > 0){
+        if (notes.length() > 0) {
             return notes;
-        }else{
+        } else {
             return null;
         }
     }
 
     /**
-     * @return
-     * [geographic][Mo, Rana, NordNorge, ..]
+     * @return [geographic][Mo, Rana, NordNorge, ..]
      * [coordinates][.., .., .., ..]
      * [scale][.., .., .., .. ]
      */
-    public HashMap<String, ArrayList<String>> getGeographicMap(){
-        HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+    public Map<String, List<String>> getGeographicMap() {
+        Map<String, List<String>> map = new HashMap<String, List<String>>();
 
-        if(subjects != null){
-            for(Subject subject : subjects){
-                if(subject.getGeographic() != null){
+        if (subjects != null) {
+            for (Subject subject : subjects) {
+                if (subject.getGeographic() != null) {
                     for (Geographic geographic : subject.getGeographic()) {
                         putItemInMap(map, "geographic", geographic.getValue());
                     }
                 }
 
-                if(subject.getCartographics() != null){
+                if (subject.getCartographics() != null) {
                     putItemInMap(map, "coordinates", subject.getCartographics().getCoordinates());
 
-                    if(subject.getCartographics().getScale() != null){
+                    if (subject.getCartographics().getScale() != null) {
                         putItemInMap(map, "scale", subject.getCartographics().getScale());
                     }
                 }
@@ -216,21 +208,20 @@ public class Mods implements Serializable {
     }
 
     /**
-     * @return
-     * [//isbn][.., .., .., ..]
+     * @return [//isbn][.., .., .., ..]
      * [issn][.., .., .., ..]
      * [ismn][.., .., .., .. ]
      * [isrc][.., .., .., .. ]
      */
-    public HashMap<String, ArrayList<Identifier>> getIdentifierMap(){
-        HashMap<String, ArrayList<Identifier>> map = new HashMap<String, ArrayList<Identifier>>();
+    public Map<String, List<Identifier>> getIdentifierMap() {
+        Map<String, List<Identifier>> map = new HashMap<String, List<Identifier>>();
 
-        if(identifiers == null){
+        if (identifiers == null) {
             return map;
         }
 
-        for(Identifier identifier : identifiers){
-            if(identifier.getType() != null){
+        for (Identifier identifier : identifiers) {
+            if (identifier.getType() != null) {
                 putItemInMap(map, identifier.getType(), identifier);
             }
         }
@@ -239,8 +230,7 @@ public class Mods implements Serializable {
     }
 
     /**
-     * @return
-     * [udc][.., .., .., ..]
+     * @return [udc][.., .., .., ..]
      * [ddc][.., .., .., ..]
      * [lcc][.., .., .., .. ]
      * [nlm][.., .., .., .. ]
@@ -248,33 +238,31 @@ public class Mods implements Serializable {
      * [candocs][.., .., .., .. ]
      * [other][.., .., .., .. ]
      */
-    public HashMap<String, ArrayList<Classification>> getClassificationMap(){
-        HashMap<String, ArrayList<Classification>> map = new HashMap<String, ArrayList<Classification>>();
+    public Map<String, List<Classification>> getClassificationMap() {
+        Map<String, List<Classification>> map = new HashMap<String, List<Classification>>();
 
-        if(classifications == null){
+        if (classifications == null) {
             return map;
         }
 
-        for(Classification classification : classifications){
-            if(classification.getAuthority() != null){
-                if(classification.getAuthority().equalsIgnoreCase("udc")){
+        for (Classification classification : classifications) {
+            if (classification.getAuthority() != null) {
+                if ("udc".equalsIgnoreCase(classification.getAuthority())) {
                     putItemInMap(map, "udc", classification);
-                }else if(classification.getAuthority().equalsIgnoreCase("ddc")){
+                } else if ("ddc".equalsIgnoreCase(classification.getAuthority())) {
                     putItemInMap(map, "ddc", classification);
-                }else if(classification.getAuthority().equalsIgnoreCase("lcc")){
+                } else if ("lcc".equalsIgnoreCase(classification.getAuthority())) {
                     putItemInMap(map, "lcc", classification);
-                }else if(classification.getAuthority().equalsIgnoreCase("nlm")){
+                } else if ("nlm".equalsIgnoreCase(classification.getAuthority())) {
                     putItemInMap(map, "nlm", classification);
-                }else if(classification.getAuthority().equalsIgnoreCase("sudocs")){
+                } else if ("sudocs".equalsIgnoreCase(classification.getAuthority())) {
                     putItemInMap(map, "sudocs", classification);
-                }else if(classification.getAuthority().equalsIgnoreCase("candocs")){
+                } else if ("candocs".equalsIgnoreCase(classification.getAuthority())) {
                     putItemInMap(map, "candocs", classification);
-                }
-                else{
+                } else {
                     putItemInMap(map, "other", classification);
                 }
-            }
-            else{
+            } else {
                 putItemInMap(map, "other", classification);
             }
         }
@@ -283,31 +271,30 @@ public class Mods implements Serializable {
     }
 
     /**
-     * @return
-     * [relatedItem_preceding][.., .., .., ..]
+     * @return [relatedItem_preceding][.., .., .., ..]
      * [series][.., .., .., ..]
      * [constituent][.., .., .., .. ]
      * [relatedResource][.., .., .., .. ]
      */
-    public HashMap<String, ArrayList<RelatedItem>> getRelatedItemsMap(){
-        HashMap<String, ArrayList<RelatedItem>> map = new HashMap<String, ArrayList<RelatedItem>>();
+    public Map<String, List<RelatedItem>> getRelatedItemsMap() {
+        Map<String, List<RelatedItem>> map = new HashMap<String, List<RelatedItem>>();
 
-        if(relatedItems == null){
+        if (relatedItems == null) {
             return map;
         }
 
-        for(RelatedItem relatedItem : relatedItems){
+        for (RelatedItem relatedItem : relatedItems) {
 
-            if(relatedItem.getTitleInfo() != null){
-                if(relatedItem.getTitleInfo() != null && relatedItem.getTitleInfo().size() > 0){
-                    if(relatedItem.getType() != null && relatedItem.getType().equalsIgnoreCase("relatedItem_preceding")){
+            if (relatedItem.getTitleInfo() != null) {
+                if (relatedItem.getTitleInfo() != null && !relatedItem.getTitleInfo().isEmpty()) {
+                    if ("relatedItem_preceding".equalsIgnoreCase(relatedItem.getType())) {
                         putItemInMap(map, "relatedItem_preceding", relatedItem);
-                    }else if(relatedItem.getType() != null && relatedItem.getType().equalsIgnoreCase("series")){
+                    } else if ("series".equalsIgnoreCase(relatedItem.getType())) {
                         putItemInMap(map, "series", relatedItem);
-                    }else if(relatedItem.getType() != null && relatedItem.getType().equalsIgnoreCase("constituent")){
+                    } else if ("constituent".equalsIgnoreCase(relatedItem.getType())) {
                         putItemInMap(map, "constituent", relatedItem);
-                    }else{
-                        if(relatedItem.getDisplayLabel() != null){
+                    } else {
+                        if (relatedItem.getDisplayLabel() != null) {
                             putItemInMap(map, "relatedResource", relatedItem);
                         }
                     }
@@ -326,11 +313,11 @@ public class Mods implements Serializable {
         this.extension = extension;
     }
 
-    private <T> void putItemInMap(HashMap<String, ArrayList<T>> map, String key, T value){
-        if(map.containsKey(key)){
+    private <T> void putItemInMap(Map<String, List<T>> map, String key, T value) {
+        if (map.containsKey(key)) {
             map.get(key).add(value);
-        }else{
-            ArrayList<T> temp = new ArrayList<T>();
+        } else {
+            List<T> temp = new ArrayList<T>();
             temp.add(value);
             map.put(key, temp);
         }
