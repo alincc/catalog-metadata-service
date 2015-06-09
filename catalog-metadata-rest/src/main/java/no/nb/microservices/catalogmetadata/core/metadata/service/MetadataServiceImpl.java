@@ -27,23 +27,32 @@ public class MetadataServiceImpl implements IMetadataService {
     }
 
     @Override
-    public Mods getMods(String id) {
-        String modsString = repository.getModsString(id);
-        if (null == modsString) {
+    public Mods getModsById(String id) {
+        String modsString = repository.getModsStringById(id);
+        if (modsString == null) {
             return null;
         }
         return (Mods) marshaller.unmarshal(new StreamSource(new StringReader(modsString)));
     }
 
     @Override
-    public RecordType getMarcxml(String id) {
-        String modsString = repository.getModsString(id);
-        if (null == modsString) {
+    public RecordType getMarcxmlById(String id) {
+        String modsString = repository.getModsStringById(id);
+        if (modsString == null) {
             return null;
         }
         String marcString = transformerService.transform(modsString, TransformerServiceImpl.MODS2MARC21);
 
         JAXBElement<RecordType> root = (JAXBElement<RecordType>) marshaller.unmarshal(new StreamSource(new StringReader(marcString)));
         return root.getValue();
+    }
+
+    @Override
+    public String getFieldsById(String id) {
+        String fields = repository.getFieldsById(id);
+        if (fields == null) {
+            return null;
+        }
+        return fields;
     }
 }

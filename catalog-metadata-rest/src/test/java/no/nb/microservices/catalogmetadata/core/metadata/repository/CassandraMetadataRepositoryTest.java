@@ -13,6 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.cassandra.core.CassandraOperations;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class CassandraMetadataRepositoryTest {
     }
 
     @Test
-    public void testGetModsString() throws Exception {
+    public void testGetModsStringById() throws Exception {
         Select select1 = QueryBuilder.select().from("expressionrecord");
         select1.where(QueryBuilder.eq("key","c06c5cbe2f82113e7b4757dbb14f8676")).and(QueryBuilder.eq("column1", "modsRecord"));
 
@@ -55,8 +56,36 @@ public class CassandraMetadataRepositoryTest {
         when(cassandraOperations.select(selectEq(select2), eq(Model.class))).thenReturn(new ArrayList<>());
 
 
-        assertNotNull(metadataRepository.getModsString("c06c5cbe2f82113e7b4757dbb14f8676"));
-        assertNull(metadataRepository.getModsString("bogusid"));
+        String modsString1 = metadataRepository.getModsStringById("c06c5cbe2f82113e7b4757dbb14f8676");
+        String modsString2 = metadataRepository.getModsStringById("bogusid");
+        assertNotNull(modsString1);
+        assertNull(modsString2);
+
+        verify(cassandraOperations).select(selectEq(select1), eq(Model.class));
+        verify(cassandraOperations).select(selectEq(select2), eq(Model.class));
+        verifyNoMoreInteractions(cassandraOperations);
+    }
+
+    @Test
+    public void testGetFieldsById() throws Exception {
+        Select select1 = QueryBuilder.select().from("expressionrecord");
+        select1.where(QueryBuilder.eq("key","c06c5cbe2f82113e7b4757dbb14f8676")).and(QueryBuilder.eq("column1", "fields"));
+
+        Select select2 = QueryBuilder.select().from("expressionrecord");
+        select2.where(QueryBuilder.eq("key","bogusid")).and(QueryBuilder.eq("column1", "fields"));
+
+        File fieldsFile = new File(Paths.get(getClass().getResource("/json/fields1.json").toURI()).toString());
+        String fieldsString = FileUtils.readFileToString(fieldsFile);
+        Model model = new Model();
+        model.setValue(ByteBuffer.wrap(fieldsString.getBytes()));
+
+        when(cassandraOperations.select(selectEq(select1), eq(Model.class))).thenReturn(Arrays.asList(model));
+        when(cassandraOperations.select(selectEq(select2), eq(Model.class))).thenReturn(new ArrayList<>());
+
+        String fields1 = metadataRepository.getFieldsById("c06c5cbe2f82113e7b4757dbb14f8676");
+        String fields2 = metadataRepository.getFieldsById("bogusid");
+        assertNotNull(fields1);
+        assertNull(fields2);
 
         verify(cassandraOperations).select(selectEq(select1), eq(Model.class));
         verify(cassandraOperations).select(selectEq(select2), eq(Model.class));

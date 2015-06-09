@@ -19,9 +19,18 @@ public class CassandraMetadataRepository implements IMetadataRepository {
     }
 
     @Override
-    public String getModsString(String id) {
+    public String getModsStringById(String id) {
+        return getColumn(id, "modsRecord");
+    }
+
+    @Override
+    public String getFieldsById(String id) {
+        return getColumn(id, "fields");
+    }
+
+    private String getColumn(String id, String column) {
         Select select = QueryBuilder.select().from("expressionrecord");
-        select.where(QueryBuilder.eq("key",id)).and(QueryBuilder.eq("column1", "modsRecord"));
+        select.where(QueryBuilder.eq("key",id)).and(QueryBuilder.eq("column1", column));
         List<Model> result = cassandraOperations.select(select, Model.class);
         if (result.isEmpty()) {
             return null;
