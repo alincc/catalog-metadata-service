@@ -4,7 +4,7 @@ info:
     description: Catalog Metadata rest
 
 server:
-  port: 8080
+  port: 9083
 
 endpoints:
   restart:
@@ -17,6 +17,12 @@ catalogmetadata:
         keyspace: jimntestlocal
         port: 9042
         host: localhost
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
 
 ---
 spring:
