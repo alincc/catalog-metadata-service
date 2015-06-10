@@ -4,7 +4,10 @@ import loc.gov.marc.RecordType;
 import no.nb.microservices.catalogmetadata.core.metadata.repository.IMetadataRepository;
 import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerService;
 import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
+import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
+import no.nb.microservices.catalogmetadata.model.fields.Field;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +18,7 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -22,6 +26,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
+/**
+ * @author jimarthurnilsen
+ * @author ronnymikalsen
+ *
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class MetadataServiceImplTest {
 
@@ -77,16 +86,20 @@ public class MetadataServiceImplTest {
         File fieldsFile = new File(Paths.get(getClass().getResource("/json/fields1.json").toURI()).toString());
         String fieldsString = FileUtils.readFileToString(fieldsFile);
         when(metadataRepository.getFieldsById("c06c5cbe2f82113e7b4757dbb14f8676")).thenReturn(fieldsString);
-        when(metadataRepository.getFieldsById(null)).thenReturn(null);
 
-        String fields1 = metadataService.getFieldsById("c06c5cbe2f82113e7b4757dbb14f8676");
-        String fields2 = metadataService.getFieldsById(null);
-        assertNotNull(fields1);
-        assertNull(fields2);
+        List<Field> fields = metadataService.getFieldsById("c06c5cbe2f82113e7b4757dbb14f8676");
+        assertNotNull(fields);
 
 
         verify(metadataRepository).getFieldsById("c06c5cbe2f82113e7b4757dbb14f8676");
-        verify(metadataRepository).getFieldsById(null);
         verifyNoMoreInteractions(metadataRepository);
     }
+    
+    @Test(expected = FieldNotFoundException.class)
+    public void testGetFieldsByNullId() throws Exception {
+        when(metadataRepository.getFieldsById(null)).thenReturn(null);
+
+        metadataService.getFieldsById(null);
+    }
+
 }

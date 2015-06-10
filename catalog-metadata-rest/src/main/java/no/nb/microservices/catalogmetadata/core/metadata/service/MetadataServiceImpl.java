@@ -1,18 +1,33 @@
 package no.nb.microservices.catalogmetadata.core.metadata.service;
 
+import java.io.StringReader;
+import java.util.List;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.transform.stream.StreamSource;
+
 import loc.gov.marc.RecordType;
 import no.nb.microservices.catalogmetadata.core.metadata.repository.IMetadataRepository;
 import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerService;
 import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
+import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
+import no.nb.microservices.catalogmetadata.exception.FieldsParserException;
+import no.nb.microservices.catalogmetadata.model.fields.Field;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.transform.stream.StreamSource;
-import java.io.StringReader;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author jimarthurnilsen
+ * @author ronnymikalsen
+ *
+ */
 @Service
 public class MetadataServiceImpl implements IMetadataService {
     private final Jaxb2Marshaller marshaller;
@@ -48,10 +63,19 @@ public class MetadataServiceImpl implements IMetadataService {
     }
 
     @Override
-    public String getFieldsById(String id) {
-        String fields = repository.getFieldsById(id);
-        if (fields == null) {
-            return null;
+    public List<Field> getFieldsById(String id) {
+        String fieldsAsJson = repository.getFieldsById(id);
+        if (fieldsAsJson == null) {
+            throw new FieldNotFoundException("Field not found for id " + id);
+        }
+        
+        ObjectMapper mapper = new ObjectMapper();
+        List<Field> fields = null;
+        try {
+            fields = mapper.readValue(fieldsAsJson, new TypeReference<List<Field>>(){
+            });
+        } catch (Exception ex) {
+            throw new FieldsParserException("Error parsing " + id, ex);
         }
         return fields;
     }

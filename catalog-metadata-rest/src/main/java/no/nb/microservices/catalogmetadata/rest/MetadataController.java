@@ -1,12 +1,17 @@
 package no.nb.microservices.catalogmetadata.rest;
 
+import java.util.List;
+
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
+
 import loc.gov.marc.RecordType;
 import no.nb.microservices.catalogmetadata.core.metadata.service.IMetadataService;
+import no.nb.microservices.catalogmetadata.model.fields.Field;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 
+ * @author jimarthurnilsen
+ * @author ronnymikalsen
+ *
+ */
 @RestController
 @Api(value = "/", description = "Metadata api")
 public class MetadataController {
@@ -54,11 +65,8 @@ public class MetadataController {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful response"),
             @ApiResponse(code = 404, message = "Not found")})
     @RequestMapping(value = "{id}/fields", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getFields(@PathVariable String id) {
-        String fields = service.getFieldsById(id);
-        if (fields == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<List<Field>> getFields(@PathVariable String id) {
+        List<Field> fields = service.getFieldsById(id);
         return new ResponseEntity(fields,HttpStatus.OK);
     }
 }

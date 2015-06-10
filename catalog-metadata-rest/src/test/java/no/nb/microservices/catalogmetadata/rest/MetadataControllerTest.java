@@ -2,7 +2,10 @@ package no.nb.microservices.catalogmetadata.rest;
 
 import loc.gov.marc.RecordType;
 import no.nb.microservices.catalogmetadata.core.metadata.service.IMetadataService;
+import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
+import no.nb.microservices.catalogmetadata.model.fields.Field;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,12 +17,20 @@ import org.springframework.http.ResponseEntity;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
+/**
+ * @author jimarthurnilsen
+ * @author ronnymikalsen
+ *
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class MetadataControllerTest {
     @Mock
@@ -61,19 +72,24 @@ public class MetadataControllerTest {
     }
 
     @Test
-    public void testGetFields() throws Exception {
-        File fieldsFile = new File(Paths.get(getClass().getResource("/json/fields1.json").toURI()).toString());
-        String fieldsString = FileUtils.readFileToString(fieldsFile);
-        when(metadataService.getFieldsById("c06c5cbe2f82113e7b4757dbb14f8676")).thenReturn(fieldsString);
-        when(metadataService.getFieldsById("e7b4757dbb14f8676c06c5cbe2f82113")).thenReturn(null);
+    public void whenFieldsIsFoundThenResponseShouldBeNotNull() throws Exception {
+        List<Field> fields = Arrays.asList(new Field("title", "Verden på lørdag"), new Field("title", "Verden på søndag"));
 
-        ResponseEntity<String> m1 = metadataController.getFields("c06c5cbe2f82113e7b4757dbb14f8676");
-        ResponseEntity<String> m2 = metadataController.getFields("e7b4757dbb14f8676c06c5cbe2f82113");
+        when(metadataService.getFieldsById("c06c5cbe2f82113e7b4757dbb14f8676")).thenReturn(fields);
+
+        ResponseEntity<List<Field>> m1 = metadataController.getFields("c06c5cbe2f82113e7b4757dbb14f8676");
         assertEquals(HttpStatus.OK,m1.getStatusCode());
         assertNotNull(m1.getBody());
-        assertEquals(fieldsString, m1.getBody());
-
-//        assertEquals(HttpStatus.NOT_FOUND, m2.getStatusCode());
-        assertNull(m2.getBody());
+        assertEquals("Size of body should be 2", 2, m1.getBody().size());
     }
+
+    @Test(expected = FieldNotFoundException.class)
+    public void whenFieldsIsNotFoundThenResponseShouldBeNull() throws Exception {
+        when(metadataService.getFieldsById("e7b4757dbb14f8676c06c5cbe2f82113")).thenThrow(new FieldNotFoundException(""));
+
+        metadataController.getFields("e7b4757dbb14f8676c06c5cbe2f82113");
+
+    }
+
 }
+
