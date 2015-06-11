@@ -86,7 +86,7 @@ public class MetadataServiceImplTest {
         String fieldsString = FileUtils.readFileToString(fieldsFile);
         when(metadataRepository.getFieldsById("bfa3324befaa4518b581125fd701900e")).thenReturn(fieldsString);
 
-        Fields fields = metadataService.getFieldsById("c06c5cbe2f82113e7b4757dbb14f8676");
+        Fields fields = metadataService.getFieldsById("bfa3324befaa4518b581125fd701900e");
         assertNotNull(fields);
 
 
