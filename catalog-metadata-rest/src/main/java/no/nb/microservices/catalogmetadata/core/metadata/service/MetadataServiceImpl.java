@@ -12,12 +12,13 @@ import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerSe
 import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
 import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
 import no.nb.microservices.catalogmetadata.exception.FieldsParserException;
+import no.nb.microservices.catalogmetadata.exception.ModsNotFoundException;
 import no.nb.microservices.catalogmetadata.exception.StructNotFoundException;
 import no.nb.microservices.catalogmetadata.model.fields.Field;
 import no.nb.microservices.catalogmetadata.model.fields.Fields;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
-
 import no.nb.microservices.catalogmetadata.model.struct.StructMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
@@ -57,7 +58,7 @@ public class MetadataServiceImpl implements IMetadataService {
     public RecordType getMarcxmlById(String id) {
         String modsString = repository.getModsStringById(id);
         if (modsString == null) {
-            return null;
+            throw new ModsNotFoundException("Mods not found for id " + id);
         }
         String marcString = transformerService.transform(modsString, TransformerServiceImpl.MODS2MARC21);
 
@@ -91,7 +92,6 @@ public class MetadataServiceImpl implements IMetadataService {
         
         return fields;
     }
-    
     private Field getNamedField(String name, List<Field> fields) {
         for(Field field : fields) {
             if (field.getName().equalsIgnoreCase(name)) {
@@ -100,7 +100,6 @@ public class MetadataServiceImpl implements IMetadataService {
         }
         return null;
     }
-    
     @Override
     public StructMap getStructById(String id) {
         String structString = repository.getStructById(id);

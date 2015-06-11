@@ -12,9 +12,9 @@ import no.nb.microservices.catalogmetadata.model.struct.StructMap;
  *
  */
 public interface IMetadataService {
+
     Mods getModsById(String id);
     RecordType getMarcxmlById(String id);
     Fields getFieldsById(String id);
     StructMap getStructById(String id);
-
 }

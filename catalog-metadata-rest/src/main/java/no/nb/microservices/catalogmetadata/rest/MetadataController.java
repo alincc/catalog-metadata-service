@@ -5,6 +5,7 @@ import no.nb.microservices.catalogmetadata.core.metadata.service.IMetadataServic
 import no.nb.microservices.catalogmetadata.model.fields.Fields;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
 
+import no.nb.microservices.catalogmetadata.model.struct.StructMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -66,5 +67,11 @@ public class MetadataController {
     public ResponseEntity<Fields> getFields(@PathVariable String id) {
         Fields fields = service.getFieldsById(id);
         return new ResponseEntity(fields,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "{id}/struct", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<StructMap> getStructure(@PathVariable String id) {
+        StructMap struct = service.getStructById(id);
+        return new ResponseEntity<>(struct, HttpStatus.OK);
     }
 }

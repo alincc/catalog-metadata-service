@@ -9,6 +9,7 @@ import no.nb.microservices.catalogmetadata.model.fields.Field;
 import no.nb.microservices.catalogmetadata.model.fields.Fields;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
 
+import no.nb.microservices.catalogmetadata.model.struct.StructMap;
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +46,7 @@ public class MetadataServiceImplTest {
     public void setup() {
         ITransformerService transformerService = new TransformerServiceImpl();
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-        marshaller.setPackagesToScan("no.nb.microservices.catalogmetadata.model.mods.v3", "loc.gov.marc");
+        marshaller.setPackagesToScan("no.nb.microservices.catalogmetadata.model", "loc.gov.marc");
         metadataService = new MetadataServiceImpl(marshaller, metadataRepository, transformerService);
     }
 
@@ -54,14 +55,14 @@ public class MetadataServiceImplTest {
     public void testGetModsById() throws Exception {
         File modsFile = new File(Paths.get(getClass().getResource("/xml/mods1.xml").toURI()).toString());
         String modsString = FileUtils.readFileToString(modsFile);
-        when(metadataRepository.getModsStringById("c06c5cbe2f82113e7b4757dbb14f8676")).thenReturn(modsString);
+        when(metadataRepository.getModsStringById("bfa3324befaa4518b581125fd701900e")).thenReturn(modsString);
         when(metadataRepository.getModsStringById(null)).thenReturn(null);
 
-        Mods mods = metadataService.getModsById("c06c5cbe2f82113e7b4757dbb14f8676");
+        Mods mods = metadataService.getModsById("bfa3324befaa4518b581125fd701900e");
         assertNotNull(mods);
         assertNull(metadataService.getModsById(null));
 
-        verify(metadataRepository).getModsStringById("c06c5cbe2f82113e7b4757dbb14f8676");
+        verify(metadataRepository).getModsStringById("bfa3324befaa4518b581125fd701900e");
         verify(metadataRepository).getModsStringById(null);
         verifyNoMoreInteractions(metadataRepository);
     }
@@ -70,15 +71,12 @@ public class MetadataServiceImplTest {
     public void testGetMarcxmlById() throws Exception {
         File modsFile = new File(Paths.get(getClass().getResource("/xml/mods1.xml").toURI()).toString());
         String modsString = FileUtils.readFileToString(modsFile);
-        when(metadataRepository.getModsStringById("c06c5cbe2f82113e7b4757dbb14f8676")).thenReturn(modsString);
-        when(metadataRepository.getModsStringById(null)).thenReturn(null);
+        when(metadataRepository.getModsStringById("bfa3324befaa4518b581125fd701900e")).thenReturn(modsString);
 
-        RecordType marc = metadataService.getMarcxmlById("c06c5cbe2f82113e7b4757dbb14f8676");
+        RecordType marc = metadataService.getMarcxmlById("bfa3324befaa4518b581125fd701900e");
         assertNotNull(marc);
-        assertNull(metadataService.getMarcxmlById(null));
 
-        verify(metadataRepository).getModsStringById("c06c5cbe2f82113e7b4757dbb14f8676");
-        verify(metadataRepository).getModsStringById(null);
+        verify(metadataRepository).getModsStringById("bfa3324befaa4518b581125fd701900e");
         verifyNoMoreInteractions(metadataRepository);
     }
 
@@ -86,13 +84,27 @@ public class MetadataServiceImplTest {
     public void testGetFieldsById() throws Exception {
         File fieldsFile = new File(Paths.get(getClass().getResource("/json/fields1.json").toURI()).toString());
         String fieldsString = FileUtils.readFileToString(fieldsFile);
-        when(metadataRepository.getFieldsById("c06c5cbe2f82113e7b4757dbb14f8676")).thenReturn(fieldsString);
+        when(metadataRepository.getFieldsById("bfa3324befaa4518b581125fd701900e")).thenReturn(fieldsString);
 
         Fields fields = metadataService.getFieldsById("c06c5cbe2f82113e7b4757dbb14f8676");
         assertNotNull(fields);
 
 
-        verify(metadataRepository).getFieldsById("c06c5cbe2f82113e7b4757dbb14f8676");
+        verify(metadataRepository).getFieldsById("bfa3324befaa4518b581125fd701900e");
+        verifyNoMoreInteractions(metadataRepository);
+    }
+
+    @Test
+    public void testGetStructById() throws Exception {
+        File structFile = new File(Paths.get(getClass().getResource("/xml/struct1.xml").toURI()).toString());
+        String structString = FileUtils.readFileToString(structFile);
+
+        when(metadataRepository.getStructById("bfa3324befaa4518b581125fd701900e")).thenReturn(structString);
+
+        StructMap struct = metadataService.getStructById("bfa3324befaa4518b581125fd701900e");
+        assertNotNull(struct);
+
+        verify(metadataRepository).getStructById("bfa3324befaa4518b581125fd701900e");
         verifyNoMoreInteractions(metadataRepository);
     }
     
