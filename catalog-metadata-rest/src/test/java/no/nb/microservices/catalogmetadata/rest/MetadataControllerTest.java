@@ -3,6 +3,7 @@ package no.nb.microservices.catalogmetadata.rest;
 import loc.gov.marc.RecordType;
 import no.nb.microservices.catalogmetadata.core.metadata.service.IMetadataService;
 import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
+import no.nb.microservices.catalogmetadata.exception.ModsNotFoundException;
 import no.nb.microservices.catalogmetadata.model.fields.Field;
 import no.nb.microservices.catalogmetadata.model.fields.Fields;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
@@ -45,17 +46,19 @@ public class MetadataControllerTest {
     }
 
     @Test
-    public void testgetMods() {
+    public void whenModsIsFoundThenResponseShouldBeNotNull() {
         when(metadataService.getModsById("c06c5cbe2f82113e7b4757dbb14f8676")).thenReturn(new Mods());
-        when(metadataService.getModsById("e7b4757dbb14f8676c06c5cbe2f82113")).thenReturn(null);
 
         ResponseEntity<Mods> m1 = metadataController.getMods("c06c5cbe2f82113e7b4757dbb14f8676");
-        ResponseEntity<Mods> m2 = metadataController.getMods("e7b4757dbb14f8676c06c5cbe2f82113");
         assertEquals(HttpStatus.OK,m1.getStatusCode());
         assertNotNull(m1.getBody());
+    }
 
-        assertEquals(HttpStatus.NOT_FOUND, m2.getStatusCode());
-        assertNull(m2.getBody());
+    @Test(expected = ModsNotFoundException.class)
+    public void whenModsIsNotFoundThenResponseShouldBeNull () {
+        when(metadataService.getModsById("e7b4757dbb14f8676c06c5cbe2f82113")).thenReturn(null);
+
+        metadataController.getMods("e7b4757dbb14f8676c06c5cbe2f82113");
     }
 
     @Test
