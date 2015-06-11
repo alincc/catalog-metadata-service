@@ -3,9 +3,12 @@ package no.nb.microservices.catalogmetadata.rest;
 import loc.gov.marc.RecordType;
 import no.nb.microservices.catalogmetadata.core.metadata.service.IMetadataService;
 import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
+import no.nb.microservices.catalogmetadata.exception.ModsNotFoundException;
+import no.nb.microservices.catalogmetadata.exception.StructNotFoundException;
 import no.nb.microservices.catalogmetadata.model.fields.Field;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
 
+import no.nb.microservices.catalogmetadata.model.struct.StructMap;
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,31 +47,44 @@ public class MetadataControllerTest {
     }
 
     @Test
-    public void testgetMods() {
+    public void whenModsIsFoundThenResponseShouldBeNotNull() {
         when(metadataService.getModsById("bfa3324befaa4518b581125fd701900e")).thenReturn(new Mods());
-        when(metadataService.getModsById("e7b4757dbb14f8676c06c5cbe2f82113")).thenReturn(null);
 
         ResponseEntity<Mods> m1 = metadataController.getMods("bfa3324befaa4518b581125fd701900e");
-        ResponseEntity<Mods> m2 = metadataController.getMods("e7b4757dbb14f8676c06c5cbe2f82113");
         assertEquals(HttpStatus.OK,m1.getStatusCode());
         assertNotNull(m1.getBody());
+    }
 
-        assertEquals(HttpStatus.NOT_FOUND, m2.getStatusCode());
-        assertNull(m2.getBody());
+    @Test(expected = ModsNotFoundException.class)
+    public void whenModsIsNotFoundThenResponseShouldBeNull() {
+        when(metadataService.getModsById("e7b4757dbb14f8676c06c5cbe2f82113")).thenThrow(new ModsNotFoundException(""));
+
+        metadataController.getMods("e7b4757dbb14f8676c06c5cbe2f82113");
     }
 
     @Test
-    public void testGetMarcxml() {
+    public void whenMarcxmlIsFoundThenResponseShouldBeNotNull() {
         when(metadataService.getMarcxmlById("bfa3324befaa4518b581125fd701900e")).thenReturn(new RecordType());
-        when(metadataService.getMarcxmlById("e7b4757dbb14f8676c06c5cbe2f82113")).thenReturn(null);
 
         ResponseEntity<RecordType> m1 = metadataController.getMarcxml("bfa3324befaa4518b581125fd701900e");
-        ResponseEntity<RecordType> m2 = metadataController.getMarcxml("e7b4757dbb14f8676c06c5cbe2f82113");
         assertEquals(HttpStatus.OK,m1.getStatusCode());
         assertNotNull(m1.getBody());
+    }
 
-        assertEquals(HttpStatus.NOT_FOUND, m2.getStatusCode());
-        assertNull(m2.getBody());
+    @Test
+    public void whenStructIsFoundThenResponseShouldBeNotNull() throws Exception {
+        when(metadataService.getStructById("bfa3324befaa4518b581125fd701900e")).thenReturn(new StructMap());
+
+        ResponseEntity<StructMap> response = metadataController.getStructure("bfa3324befaa4518b581125fd701900e");
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertNotNull(response.getBody());
+    }
+
+    @Test(expected = StructNotFoundException.class)
+    public void whenStructIsNotFoundThenResponseShouldBeNull() throws Exception {
+        when(metadataService.getStructById("bfa3324befaa4518b581125fd701900e")).thenThrow(new StructNotFoundException(""));
+
+        metadataController.getStructure("bfa3324befaa4518b581125fd701900e");
     }
 
     @Test

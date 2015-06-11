@@ -71,14 +71,11 @@ public class MetadataServiceImplTest {
         File modsFile = new File(Paths.get(getClass().getResource("/xml/mods1.xml").toURI()).toString());
         String modsString = FileUtils.readFileToString(modsFile);
         when(metadataRepository.getModsStringById("bfa3324befaa4518b581125fd701900e")).thenReturn(modsString);
-        when(metadataRepository.getModsStringById(null)).thenReturn(null);
 
         RecordType marc = metadataService.getMarcxmlById("bfa3324befaa4518b581125fd701900e");
         assertNotNull(marc);
-        assertNull(metadataService.getMarcxmlById(null));
 
         verify(metadataRepository).getModsStringById("bfa3324befaa4518b581125fd701900e");
-        verify(metadataRepository).getModsStringById(null);
         verifyNoMoreInteractions(metadataRepository);
     }
 

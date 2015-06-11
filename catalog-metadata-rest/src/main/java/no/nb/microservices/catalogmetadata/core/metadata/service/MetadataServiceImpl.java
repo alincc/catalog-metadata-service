@@ -12,6 +12,7 @@ import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerSe
 import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
 import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
 import no.nb.microservices.catalogmetadata.exception.FieldsParserException;
+import no.nb.microservices.catalogmetadata.exception.ModsNotFoundException;
 import no.nb.microservices.catalogmetadata.exception.StructNotFoundException;
 import no.nb.microservices.catalogmetadata.model.fields.Field;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
@@ -56,7 +57,7 @@ public class MetadataServiceImpl implements IMetadataService {
     public RecordType getMarcxmlById(String id) {
         String modsString = repository.getModsStringById(id);
         if (modsString == null) {
-            return null;
+            throw new ModsNotFoundException("Mods not found for id " + id);
         }
         String marcString = transformerService.transform(modsString, TransformerServiceImpl.MODS2MARC21);
 
