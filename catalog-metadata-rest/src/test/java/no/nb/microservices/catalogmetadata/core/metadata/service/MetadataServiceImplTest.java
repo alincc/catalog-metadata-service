@@ -5,6 +5,7 @@ import no.nb.microservices.catalogmetadata.core.metadata.repository.IMetadataRep
 import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerService;
 import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
 import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
+import no.nb.microservices.catalogmetadata.exception.ModsNotFoundException;
 import no.nb.microservices.catalogmetadata.model.fields.Field;
 import no.nb.microservices.catalogmetadata.model.fields.Fields;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
@@ -56,15 +57,19 @@ public class MetadataServiceImplTest {
         File modsFile = new File(Paths.get(getClass().getResource("/xml/mods1.xml").toURI()).toString());
         String modsString = FileUtils.readFileToString(modsFile);
         when(metadataRepository.getModsStringById("bfa3324befaa4518b581125fd701900e")).thenReturn(modsString);
-        when(metadataRepository.getModsStringById(null)).thenReturn(null);
 
         Mods mods = metadataService.getModsById("bfa3324befaa4518b581125fd701900e");
         assertNotNull(mods);
-        assertNull(metadataService.getModsById(null));
 
         verify(metadataRepository).getModsStringById("bfa3324befaa4518b581125fd701900e");
-        verify(metadataRepository).getModsStringById(null);
         verifyNoMoreInteractions(metadataRepository);
+    }
+
+    @Test(expected = ModsNotFoundException.class)
+    public void testGetModsByNullId() throws Exception {
+        when(metadataRepository.getModsStringById(null)).thenReturn(null);
+
+        metadataService.getModsById(null);
     }
 
     @Test

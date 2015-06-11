@@ -42,9 +42,6 @@ public class MetadataController {
     @RequestMapping(value = "{id}/mods", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<Mods> getMods(@PathVariable String id) {
         Mods mods = service.getModsById(id);
-        if (mods == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity(mods, HttpStatus.OK);
     }
 

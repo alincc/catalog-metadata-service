@@ -56,7 +56,7 @@ public class MetadataControllerTest {
 
     @Test(expected = ModsNotFoundException.class)
     public void whenModsIsNotFoundThenResponseShouldBeNull () {
-        when(metadataService.getModsById("e7b4757dbb14f8676c06c5cbe2f82113")).thenReturn(null);
+        when(metadataService.getModsById("e7b4757dbb14f8676c06c5cbe2f82113")).thenThrow(new ModsNotFoundException(""));
 
         metadataController.getMods("e7b4757dbb14f8676c06c5cbe2f82113");
     }

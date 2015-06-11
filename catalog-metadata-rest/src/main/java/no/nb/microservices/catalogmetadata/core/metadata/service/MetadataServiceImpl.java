@@ -49,7 +49,7 @@ public class MetadataServiceImpl implements IMetadataService {
     public Mods getModsById(String id) {
         String modsString = repository.getModsStringById(id);
         if (modsString == null) {
-            return null;
+            throw new ModsNotFoundException("Mods not found for id " + id);
         }
         return (Mods) marshaller.unmarshal(new StreamSource(new StringReader(modsString)));
     }
