@@ -12,9 +12,11 @@ import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerSe
 import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
 import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
 import no.nb.microservices.catalogmetadata.exception.FieldsParserException;
+import no.nb.microservices.catalogmetadata.exception.StructNotFoundException;
 import no.nb.microservices.catalogmetadata.model.fields.Field;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
 
+import no.nb.microservices.catalogmetadata.model.struct.StructMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
@@ -78,5 +80,15 @@ public class MetadataServiceImpl implements IMetadataService {
             throw new FieldsParserException("Error parsing " + id, ex);
         }
         return fields;
+    }
+
+    @Override
+    public StructMap getStructById(String id) {
+        String structString = repository.getStructById(id);
+        if (structString == null) {
+            throw new StructNotFoundException("Structure not found for id " + id);
+        }
+
+        return (StructMap) marshaller.unmarshal(new StreamSource(new StringReader(structString)));
     }
 }
