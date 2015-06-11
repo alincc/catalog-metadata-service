@@ -1,127 +1,122 @@
 [
     {
-        "name": "description",
-        "value": "-\nVerden på lørdag ved Eivind Molde\n\nProgramopplysninger i ENPS \n",
-        "lifeCycle": "IDX_SINGLE_IR_PRIM_ER"
+        "name": "title",
+        "value": "Da Hilde ble 50"
     },
     {
         "name": "year",
-        "value": "2014",
-        "lifeCycle": "IDX_IR_ER"
-    },
-    {
-        "name": "recordSource",
-        "value": "dra.nb.no",
-        "lifeCycle": "IDX_IR_ER"
-    },
-    {
-        "name": "name",
-        "value": "Molde, Eivind",
-        "lifeCycle": "IDX_IR_ER"
-    },
-    {
-        "name": "day",
-        "value": "09",
-        "lifeCycle": "IDX_IR_ER"
-    },
-    {
-        "name": "deduplicationSourceCount",
-        "value": "1",
-        "lifeCycle": "IDX_IR_ER"
-    },
-    {
-        "name": "otherid",
-        "value": "14H06648",
-        "lifeCycle": "IDX_IR_ER"
+        "value": "2014"
     },
     {
         "name": "otheridsort",
-        "value": "14H06648",
-        "lifeCycle": "IDX_SINGLE_IR_PRIM_ER"
+        "value": "http://urn.nb.no/URN:NBN:no-nb_digibok_2014091948004"
     },
     {
-        "name": "urn",
-        "value": "URN:NBN:no-nb_dra_2014-05124P",
-        "lifeCycle": "IDX_IR_ER"
+        "name": "deduplicationSourceCount",
+        "value": "1"
     },
     {
-        "name": "sesamid",
-        "value": "c06c5cbe2f82113e7b4757dbb14f8676",
-        "lifeCycle": "IDX_IR_ER"
+        "name": "description",
+        "value": "redaksjon: Margareta Magnus Myhre, Hanne Lise Rørstad, Linn Blekkerud Teaterprogram \n"
     },
     {
         "name": "keydate",
-        "value": "20140809",
-        "lifeCycle": "IDX_SINGLE_IR_PRIM_ER"
+        "value": "2014"
+    },
+    {
+        "name": "recordSource",
+        "value": "NO-TrBIB"
     },
     {
         "name": "publisher",
-        "value": "NRK (the Norwegian Broadcasting Corporation)",
-        "lifeCycle": "IDX_IR_ER"
+        "value": "Oslo nye teater"
     },
     {
-        "name": "note",
-        "value": "Molde, Eivind",
-        "lifeCycle": "IDX_IR_ER"
-    },
-    {
-        "name": "title",
-        "value": "Verden på lørdag",
-        "lifeCycle": "IDX_SINGLE_IR_PRIM_ER"
-    },
-    {
-        "name": "utcdatetime",
-        "value": "20140809",
-        "lifeCycle": "IDX_IR_ER"
-    },
-    {
-        "name": "namehost",
-        "value": "Molde, Eivind",
-        "lifeCycle": "IDX_IR_ER"
+        "name": "namecreators",
+        "value": "Blekkerud, Linn Cecilie"
     },
     {
         "name": "dateissued",
-        "value": "20140809",
-        "lifeCycle": "IDX_IR_ER"
+        "value": "2014"
     },
     {
-        "name": "month",
-        "value": "08",
-        "lifeCycle": "IDX_IR_ER"
-    },
-    {
-        "name": "extent",
-        "value": "3422",
-        "lifeCycle": "IDX_IR_ER"
+        "name": "sesamid",
+        "value": "bfa3324befaa4518b581125fd701900e"
     },
     {
         "name": "digital",
-        "value": "Ja",
-        "lifeCycle": "IDX_IR_ER"
+        "value": "Ja"
     },
     {
-        "name": "note",
-        "value": "2014/05124.P",
-        "lifeCycle": "IDX_IR_ER"
+        "name": "languages",
+        "value": "nob"
+    },
+    {
+        "name": "name",
+        "value": "Blekkerud, Linn Cecilie"
     },
     {
         "name": "oaiid",
-        "value": "oai:dra.nb.no:2014/05124.P",
-        "lifeCycle": "IDX_IR_ER"
+        "value": "oai:bibsys.no:biblio:143478559"
+    },
+    {
+        "name": "itemCount",
+        "value": "33"
+    },
+    {
+        "name": "urn",
+        "value": "URN:NBN:no-nb_digibok_2014091948004"
     },
     {
         "name": "titlesort",
-        "value": "Verden på lørdag",
-        "lifeCycle": "IDX_SINGLE_IR_PRIM_ER"
+        "value": "Da Hilde ble 50"
+    },
+    {
+        "name": "utcdatetime",
+        "value": "2014"
+    },
+    {
+        "name": "otherformat",
+        "value": "oai:bibsys.no:biblio:142666424"
+    },
+    {
+        "name": "namecreator",
+        "value": "Myhre, Margareta Magnus"
+    },
+    {
+        "name": "name",
+        "value": "Myhre, Margareta Magnus"
+    },
+    {
+        "name": "name",
+        "value": "Oslo Nye Teater"
+    },
+    {
+        "name": "creator",
+        "value": "Myhre, Margareta Magnus"
+    },
+    {
+        "name": "namecreators",
+        "value": "Rørstad, Hanne Lise"
+    },
+    {
+        "name": "name",
+        "value": "Rørstad, Hanne Lise"
+    },
+    {
+        "name": "otherid",
+        "value": "http://urn.nb.no/URN:NBN:no-nb_digibok_2014091948004"
+    },
+    {
+        "name": "title_alternative",
+        "value": "Da Hilde ble femti"
     },
     {
         "name": "mediatype",
-        "value": "Radio",
-        "lifeCycle": "IDX_IR_ER"
+        "value": "Bøker"
     },
     {
-        "name": "dra_base",
-        "value": "Program",
-        "lifeCycle": "IDX_IR_ER"
+        "name": "namecreators",
+        "value": "Myhre, Margareta Magnus"
     }
 ]

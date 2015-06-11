@@ -37,7 +37,7 @@ public class MetadataIT {
 
     @Test
     public void testGetMods() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/c06c5cbe2f82113e7b4757dbb14f8676/mods"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/bfa3324befaa4518b581125fd701900e/mods"))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
 
         mockMvc.perform(MockMvcRequestBuilders.get("/bogusid/mods"))
@@ -46,7 +46,7 @@ public class MetadataIT {
 
     @Test
     public void testGetMarcxml() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/c06c5cbe2f82113e7b4757dbb14f8676/marcxml"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/bfa3324befaa4518b581125fd701900e/marcxml"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/bogusid/marcxml"))
@@ -55,7 +55,7 @@ public class MetadataIT {
 
     @Test
     public void testGetFields() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/c06c5cbe2f82113e7b4757dbb14f8676/fields"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/bfa3324befaa4518b581125fd701900e/fields"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
         mockMvc.perform(MockMvcRequestBuilders.get("/bogusid/fields"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound()).andReturn();
