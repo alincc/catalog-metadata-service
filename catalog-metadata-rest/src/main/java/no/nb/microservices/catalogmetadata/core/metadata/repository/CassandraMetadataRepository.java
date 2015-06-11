@@ -28,6 +28,11 @@ public class CassandraMetadataRepository implements IMetadataRepository {
         return getColumn(id, "fields");
     }
 
+    @Override
+    public String getStructById(String id) {
+        return getColumn(id, "structure");
+    }
+
     private String getColumn(String id, String column) {
         Select select = QueryBuilder.select().from("expressionrecord");
         select.where(QueryBuilder.eq("key",id)).and(QueryBuilder.eq("column1", column));

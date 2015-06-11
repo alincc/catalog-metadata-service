@@ -3,6 +3,7 @@ package no.nb.microservices.catalogmetadata.core.metadata.repository;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.querybuilder.Select;
 import no.nb.microservices.catalogmetadata.domain.Model;
+import no.nb.microservices.catalogmetadata.model.struct.StructMap;
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -89,6 +90,24 @@ public class CassandraMetadataRepositoryTest {
 
         verify(cassandraOperations).select(selectEq(select1), eq(Model.class));
         verify(cassandraOperations).select(selectEq(select2), eq(Model.class));
+        verifyNoMoreInteractions(cassandraOperations);
+    }
+
+    @Test
+    public void testGetStructById() throws Exception {
+        Select select = QueryBuilder.select().from("expressionrecord");
+        select.where(QueryBuilder.eq("key", "bfa3324befaa4518b581125fd701900e")).and(QueryBuilder.eq("column1", "structure"));
+
+        File structFile = new File(Paths.get(getClass().getResource("/xml/struct1.xml").toURI()).toString());
+        String structString = FileUtils.readFileToString(structFile);
+        Model model = new Model();
+        model.setValue(ByteBuffer.wrap(structString.getBytes()));
+
+        when(cassandraOperations.select(selectEq(select), eq(Model.class))).thenReturn(Arrays.asList(model));
+        String struct = metadataRepository.getStructById("bfa3324befaa4518b581125fd701900e");
+        assertNotNull(struct);
+
+        verify(cassandraOperations).select(selectEq(select), eq(Model.class));
         verifyNoMoreInteractions(cassandraOperations);
     }
 
