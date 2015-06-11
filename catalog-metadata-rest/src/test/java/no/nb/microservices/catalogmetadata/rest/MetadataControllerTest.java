@@ -4,6 +4,7 @@ import loc.gov.marc.RecordType;
 import no.nb.microservices.catalogmetadata.core.metadata.service.IMetadataService;
 import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
 import no.nb.microservices.catalogmetadata.model.fields.Field;
+import no.nb.microservices.catalogmetadata.model.fields.Fields;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
 
 import org.apache.commons.io.FileUtils;
@@ -24,6 +25,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 /**
@@ -45,10 +47,10 @@ public class MetadataControllerTest {
 
     @Test
     public void testgetMods() {
-        when(metadataService.getModsById("c06c5cbe2f82113e7b4757dbb14f8676")).thenReturn(new Mods());
+        when(metadataService.getModsById("bfa3324befaa4518b581125fd701900e")).thenReturn(new Mods());
         when(metadataService.getModsById("e7b4757dbb14f8676c06c5cbe2f82113")).thenReturn(null);
 
-        ResponseEntity<Mods> m1 = metadataController.getMods("c06c5cbe2f82113e7b4757dbb14f8676");
+        ResponseEntity<Mods> m1 = metadataController.getMods("bfa3324befaa4518b581125fd701900e");
         ResponseEntity<Mods> m2 = metadataController.getMods("e7b4757dbb14f8676c06c5cbe2f82113");
         assertEquals(HttpStatus.OK,m1.getStatusCode());
         assertNotNull(m1.getBody());
@@ -59,10 +61,10 @@ public class MetadataControllerTest {
 
     @Test
     public void testGetMarcxml() {
-        when(metadataService.getMarcxmlById("c06c5cbe2f82113e7b4757dbb14f8676")).thenReturn(new RecordType());
+        when(metadataService.getMarcxmlById("bfa3324befaa4518b581125fd701900e")).thenReturn(new RecordType());
         when(metadataService.getMarcxmlById("e7b4757dbb14f8676c06c5cbe2f82113")).thenReturn(null);
 
-        ResponseEntity<RecordType> m1 = metadataController.getMarcxml("c06c5cbe2f82113e7b4757dbb14f8676");
+        ResponseEntity<RecordType> m1 = metadataController.getMarcxml("bfa3324befaa4518b581125fd701900e");
         ResponseEntity<RecordType> m2 = metadataController.getMarcxml("e7b4757dbb14f8676c06c5cbe2f82113");
         assertEquals(HttpStatus.OK,m1.getStatusCode());
         assertNotNull(m1.getBody());
@@ -72,15 +74,16 @@ public class MetadataControllerTest {
     }
 
     @Test
-    public void whenFieldsIsFoundThenResponseShouldBeNotNull() throws Exception {
-        List<Field> fields = Arrays.asList(new Field("title", "Verden på lørdag"), new Field("title", "Verden på søndag"));
+    public void whenFieldsIsFoundThenResponseShouldNotBeNull() throws Exception {
+        Fields fields = new Fields();
+        fields.setDigital(true);
 
-        when(metadataService.getFieldsById("c06c5cbe2f82113e7b4757dbb14f8676")).thenReturn(fields);
+        when(metadataService.getFieldsById("bfa3324befaa4518b581125fd701900e")).thenReturn(fields);
 
-        ResponseEntity<List<Field>> m1 = metadataController.getFields("c06c5cbe2f82113e7b4757dbb14f8676");
+        ResponseEntity<Fields> m1 = metadataController.getFields("bfa3324befaa4518b581125fd701900e");
         assertEquals(HttpStatus.OK,m1.getStatusCode());
         assertNotNull(m1.getBody());
-        assertEquals("Size of body should be 2", 2, m1.getBody().size());
+        assertTrue("isDigital should return true", m1.getBody().isDigital());
     }
 
     @Test(expected = FieldNotFoundException.class)

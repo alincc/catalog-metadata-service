@@ -12,9 +12,12 @@ import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerSe
 import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
 import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
 import no.nb.microservices.catalogmetadata.exception.FieldsParserException;
+import no.nb.microservices.catalogmetadata.exception.StructNotFoundException;
 import no.nb.microservices.catalogmetadata.model.fields.Field;
+import no.nb.microservices.catalogmetadata.model.fields.Fields;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
 
+import no.nb.microservices.catalogmetadata.model.struct.StructMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
@@ -63,7 +66,7 @@ public class MetadataServiceImpl implements IMetadataService {
     }
 
     @Override
-    public List<Field> getFieldsById(String id) {
+    public Fields getFieldsById(String id) {
         String fieldsAsJson = repository.getFieldsById(id);
         if (fieldsAsJson == null) {
             throw new FieldNotFoundException("Field not found for id " + id);
@@ -77,6 +80,34 @@ public class MetadataServiceImpl implements IMetadataService {
         } catch (Exception ex) {
             throw new FieldsParserException("Error parsing " + id, ex);
         }
+        return populateField(fields);
+    }
+    
+    private Fields populateField(List<Field> fieldsList) {
+        Fields fields = new Fields();
+        
+        String digital = getNamedField("digital", fieldsList).getValue();
+        fields.setDigital("Ja".equals(digital) ? true : false);
+        
         return fields;
+    }
+    
+    private Field getNamedField(String name, List<Field> fields) {
+        for(Field field : fields) {
+            if (field.getName().equalsIgnoreCase(name)) {
+                return field;
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public StructMap getStructById(String id) {
+        String structString = repository.getStructById(id);
+        if (structString == null) {
+            throw new StructNotFoundException("Structure not found for id " + id);
+        }
+
+        return (StructMap) marshaller.unmarshal(new StreamSource(new StringReader(structString)));
     }
 }

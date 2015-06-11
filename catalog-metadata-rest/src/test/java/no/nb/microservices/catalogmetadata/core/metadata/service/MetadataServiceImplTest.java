@@ -6,6 +6,7 @@ import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerSe
 import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
 import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
 import no.nb.microservices.catalogmetadata.model.fields.Field;
+import no.nb.microservices.catalogmetadata.model.fields.Fields;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
 
 import org.apache.commons.io.FileUtils;
@@ -87,7 +88,7 @@ public class MetadataServiceImplTest {
         String fieldsString = FileUtils.readFileToString(fieldsFile);
         when(metadataRepository.getFieldsById("c06c5cbe2f82113e7b4757dbb14f8676")).thenReturn(fieldsString);
 
-        List<Field> fields = metadataService.getFieldsById("c06c5cbe2f82113e7b4757dbb14f8676");
+        Fields fields = metadataService.getFieldsById("c06c5cbe2f82113e7b4757dbb14f8676");
         assertNotNull(fields);
 
 

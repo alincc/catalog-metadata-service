@@ -1,49 +1,62 @@
-<mods xmlns="http://www.loc.gov/mods/v3" xmlns:ns2="http://www.w3.org/1999/xlink">
-    <identifier type="urn">URN:NBN:no-nb_dra_2014-05124P</identifier>
-    <titleInfo>
-        <title>Verden på lørdag</title>
-    </titleInfo>
-    <typeOfResource>sound recording</typeOfResource>
-    <genre>broadcast</genre>
-    <originInfo>
-        <publisher>NRK (the Norwegian Broadcasting Corporation)</publisher>
-        <dateOther type="avl-dato" encoding="w3cdtf">2014-08-26</dateOther>
-        <dateOther type="reg-dato" encoding="w3cdtf">2014-08-26</dateOther>
-        <dateIssued encoding="w3cdtf">2014-08-09</dateIssued>
-    </originInfo>
-    <recordInfo>
-        <recordContentSource>NRK (the Norwegian Broadcasting Corporation)</recordContentSource>
-        <recordIdentifier source="dra.nb.no">2014/05124.P</recordIdentifier>
-        <recordOrigin>machine generated</recordOrigin>
-        <languageOfCataloging>
-            <languageTerm authority="rfc3066">no</languageTerm>
-        </languageOfCataloging>
-    </recordInfo>
-    <location>
-        <url>URN:NBN:no-nb_drl_294118 0</url>
-    </location>
-    <physicalDescription>
-        <form>electronic</form>
-        <digitalOrigin>born digital</digitalOrigin>
-        <extent>00:57:02</extent>
-    </physicalDescription>
-    <name>
-        <namePart>Molde, Eivind</namePart>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mods xmlns="http://www.loc.gov/mods/v3" xmlns:ns2="http://www.nb.no/NBModsExtension/v1"
+      xmlns:ns3="urn:ebu:metadata-schema:ebuCore_20090928" xmlns:ns4="http://www.w3.org/1999/xlink">
+    <identifier type="uri">http://urn.nb.no/URN:NBN:no-nb_digibok_2014091948004</identifier>
+    <identifier type="urn">URN:NBN:no-nb_digibok_2014091948004</identifier>
+    <identifier type="sesamid">bfa3324befaa4518b581125fd701900e</identifier>
+    <identifier type="oaiid">oai:bibsys.no:biblio:143478559</identifier>
+    <location/>
+    <name type="personal">
+        <namePart>Myhre, Margareta Magnus</namePart>
+        <namePart type="date">1970-</namePart>
         <role>
-            <roleTerm>prog-leder</roleTerm>
+            <roleTerm>red.</roleTerm>
         </role>
     </name>
-    <note displayLabel="arkivnumre">14H06648</note>
-    <note type="performers" displayLabel="prog-leder">Molde, Eivind</note>
-    <abstract>- Verden på lørdag ved Eivind Molde Programopplysninger i ENPS</abstract>
-    <subject />
-    <extension>
-        <streamingInfo xmlns="http://www.nb.no/NBModsExtension/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <offset format="seconds">0</offset>
-            <extent format="seconds">3422</extent>
-            <identifier type="urn">URN:NBN:no-nb_drl_294118</identifier>
-        </streamingInfo>
-    </extension>
-    <identifier type="sesamid">c06c5cbe2f82113e7b4757dbb14f8676</identifier>
-    <identifier type="oaiid">oai:dra.nb.no:2014/05124.P</identifier>
+    <name type="personal">
+        <namePart>Rørstad, Hanne Lise</namePart>
+        <namePart type="date">1960-</namePart>
+        <role>
+            <roleTerm>red.</roleTerm>
+        </role>
+    </name>
+    <name type="personal">
+        <namePart>Blekkerud, Linn Cecilie</namePart>
+        <namePart type="date">1981-</namePart>
+        <role>
+            <roleTerm>red.</roleTerm>
+        </role>
+    </name>
+    <name type="corporate">
+        <namePart>Oslo nye teater</namePart>
+    </name>
+    <note type="statement of responsibility">redaksjon: Margareta Magnus Myhre, Hanne Lise Rørstad, Linn Blekkerud
+    </note>
+    <note>Teaterprogram</note>
+    <originInfo>
+        <dateIssued>[2014]</dateIssued>
+        <dateIssued encoding="marc">2014</dateIssued>
+        <issuance>monographic</issuance>
+        <place>
+            <placeTerm>[Oslo]</placeTerm>
+        </place>
+        <publisher>Oslo nye teater</publisher>
+    </originInfo>
+    <physicalDescription>
+        <extent>[25] s. ill. 15 x 21 cm</extent>
+    </physicalDescription>
+    <recordInfo>
+        <recordContentSource>NO-OsNB</recordContentSource>
+        <recordIdentifier source="NO-TrBIB">143478559</recordIdentifier>
+    </recordInfo>
+    <relatedItem type="otherFormat">
+        <identifier type="local">(NO-TrBIB)142666424</identifier>
+    </relatedItem>
+    <titleInfo>
+        <title>Da Hilde ble 50</title>
+    </titleInfo>
+    <titleInfo type="alternative">
+        <title>Da Hilde ble femti</title>
+    </titleInfo>
+    <typeOfResource>text</typeOfResource>
 </mods>
