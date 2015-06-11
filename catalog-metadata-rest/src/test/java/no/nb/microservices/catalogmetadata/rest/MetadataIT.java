@@ -61,6 +61,15 @@ public class MetadataIT {
                 .andExpect(MockMvcResultMatchers.status().isNotFound()).andReturn();
     }
 
+    @Test
+    public void testGetStructure() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/c3c9844de9cb027e003021b1aadeae6c/struct"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/bogusid/struct"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
     @BeforeClass
     public static void beforeClass() throws Exception {
         EmbeddedCassandraServerHelper.startEmbeddedCassandra("cassandra.yaml");
