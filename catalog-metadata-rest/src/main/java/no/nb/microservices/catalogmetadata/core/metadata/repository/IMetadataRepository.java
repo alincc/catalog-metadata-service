@@ -1,7 +1,5 @@
 package no.nb.microservices.catalogmetadata.core.metadata.repository;
 
-import no.nb.microservices.catalogmetadata.domain.Model;
-
 import java.util.Map;
 
 public interface IMetadataRepository {

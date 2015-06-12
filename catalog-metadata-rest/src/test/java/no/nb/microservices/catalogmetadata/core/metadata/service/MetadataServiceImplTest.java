@@ -5,6 +5,7 @@ import no.nb.microservices.catalogmetadata.core.metadata.repository.IMetadataRep
 import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerService;
 import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
 import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
+import no.nb.microservices.catalogmetadata.exception.FieldsParserException;
 import no.nb.microservices.catalogmetadata.exception.ModsNotFoundException;
 import no.nb.microservices.catalogmetadata.model.fields.Field;
 import no.nb.microservices.catalogmetadata.model.fields.Fields;
@@ -121,6 +122,15 @@ public class MetadataServiceImplTest {
         when(metadataRepository.getFieldsById(null)).thenReturn(null);
 
         metadataService.getFieldsById(null);
+    }
+
+    @Test(expected = FieldsParserException.class)
+    public void testGetFieldsByIdParseError() throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("fields", "[{\"name\":\"digital\",\"value\":\"Ja\"}]");
+        when(metadataRepository.getFieldsById("41a7fb4e94aab9a88be23745a1504a92")).thenReturn(map);
+
+        metadataService.getFieldsById("41a7fb4e94aab9a88be23745a1504a92");
     }
 
 }
