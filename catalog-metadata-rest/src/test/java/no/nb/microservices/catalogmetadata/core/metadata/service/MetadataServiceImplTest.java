@@ -21,7 +21,9 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -87,15 +89,16 @@ public class MetadataServiceImplTest {
 
     @Test
     public void testGetFieldsById() throws Exception {
-        File fieldsFile = new File(Paths.get(getClass().getResource("/json/fields1.json").toURI()).toString());
-        String fieldsString = FileUtils.readFileToString(fieldsFile);
-        when(metadataRepository.getFieldsById("bfa3324befaa4518b581125fd701900e")).thenReturn(fieldsString);
+        Map<String, String> map = new HashMap<>();
+        map.put("contentClasses", "[\"restricted\", \"jp2\", \"public\"]");
+        map.put("metadataClasses","[\"public\"]");
+        map.put("fields", "[{\"name\":\"digital\",\"value\":\"Ja\"}]");
+        when(metadataRepository.getFieldsById("41a7fb4e94aab9a88be23745a1504a92")).thenReturn(map);
 
-        Fields fields = metadataService.getFieldsById("bfa3324befaa4518b581125fd701900e");
+        Fields fields = metadataService.getFieldsById("41a7fb4e94aab9a88be23745a1504a92");
         assertNotNull(fields);
 
-
-        verify(metadataRepository).getFieldsById("bfa3324befaa4518b581125fd701900e");
+        verify(metadataRepository).getFieldsById("41a7fb4e94aab9a88be23745a1504a92");
         verifyNoMoreInteractions(metadataRepository);
     }
 

@@ -19,7 +19,10 @@ import java.nio.ByteBuffer;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
@@ -70,22 +73,29 @@ public class CassandraMetadataRepositoryTest {
     @Test
     public void testGetFieldsById() throws Exception {
         Select select1 = QueryBuilder.select().from("expressionrecord");
-        select1.where(QueryBuilder.eq("key","bfa3324befaa4518b581125fd701900e")).and(QueryBuilder.eq("column1", "fields"));
+        select1.where(QueryBuilder.eq("key","bfa3324befaa4518b581125fd701900e")).and(QueryBuilder.in("column1", "fields", "contentClasses", "metadataClasses"));
 
         Select select2 = QueryBuilder.select().from("expressionrecord");
-        select2.where(QueryBuilder.eq("key","bogusid")).and(QueryBuilder.eq("column1", "fields"));
+        select2.where(QueryBuilder.eq("key","bogusid")).and(QueryBuilder.in("column1", "fields", "contentClasses", "metadataClasses"));
 
-        File fieldsFile = new File(Paths.get(getClass().getResource("/json/fields1.json").toURI()).toString());
-        String fieldsString = FileUtils.readFileToString(fieldsFile);
-        Model model = new Model();
-        model.setValue(ByteBuffer.wrap(fieldsString.getBytes()));
+        Model fields = new Model();
+        Model contentClasses = new Model();
+        Model metadataClasses = new Model();
 
-        when(cassandraOperations.select(selectEq(select1), eq(Model.class))).thenReturn(Arrays.asList(model));
+        fields.setValue(ByteBuffer.wrap("[{\"name\":\"digital\",\"value\":\"Ja\"}]".getBytes()));
+        fields.setColumn1(ByteBuffer.wrap("fields".getBytes()));
+        contentClasses.setValue(ByteBuffer.wrap("[\"restricted\", \"jp2\", \"public\"]".getBytes()));
+        contentClasses.setColumn1(ByteBuffer.wrap("contentClasses".getBytes()));
+        metadataClasses.setValue(ByteBuffer.wrap("[\"public\"]".getBytes()));
+        metadataClasses.setColumn1(ByteBuffer.wrap("metadataClasses".getBytes()));
+
+
+        when(cassandraOperations.select(selectEq(select1), eq(Model.class))).thenReturn(Arrays.asList(fields,contentClasses,metadataClasses));
         when(cassandraOperations.select(selectEq(select2), eq(Model.class))).thenReturn(new ArrayList<>());
 
-        String fields1 = metadataRepository.getFieldsById("bfa3324befaa4518b581125fd701900e");
-        String fields2 = metadataRepository.getFieldsById("bogusid");
-        assertNotNull(fields1);
+        Map<String, String> fields1 = metadataRepository.getFieldsById("bfa3324befaa4518b581125fd701900e");
+        Map<String, String> fields2 = metadataRepository.getFieldsById("bogusid");
+        assertEquals(3,fields1.size());
         assertNull(fields2);
 
         verify(cassandraOperations).select(selectEq(select1), eq(Model.class));

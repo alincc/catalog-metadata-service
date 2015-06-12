@@ -1,15 +1,20 @@
 package no.nb.microservices.catalogmetadata.core.metadata.service;
 
+import java.io.IOException;
 import java.io.StringReader;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.transform.stream.StreamSource;
 
+import com.datastax.driver.core.utils.Bytes;
 import loc.gov.marc.RecordType;
 import no.nb.microservices.catalogmetadata.core.metadata.repository.IMetadataRepository;
 import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerService;
 import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
+import no.nb.microservices.catalogmetadata.domain.Model;
 import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
 import no.nb.microservices.catalogmetadata.exception.FieldsParserException;
 import no.nb.microservices.catalogmetadata.exception.ModsNotFoundException;
@@ -19,6 +24,7 @@ import no.nb.microservices.catalogmetadata.model.fields.Fields;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
 import no.nb.microservices.catalogmetadata.model.struct.StructMap;
 
+import no.nb.microservices.catalogmetadata.utils.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
@@ -68,22 +74,23 @@ public class MetadataServiceImpl implements IMetadataService {
 
     @Override
     public Fields getFieldsById(String id) {
-        String fieldsAsJson = repository.getFieldsById(id);
-        if (fieldsAsJson == null) {
+        Map<String, String> map = repository.getFieldsById(id);
+        if (map == null) {
             throw new FieldNotFoundException("Field not found for id " + id);
         }
-        
         ObjectMapper mapper = new ObjectMapper();
-        List<Field> fields = null;
+        Fields fields;
         try {
-            fields = mapper.readValue(fieldsAsJson, new TypeReference<List<Field>>(){
-            });
+            List<Field> fieldlist = mapper.readValue(map.get("fields"), new TypeReference<List<Field>>(){});
+            fields = populateField(fieldlist);
+            fields.setContentClasses(mapper.readValue(map.get("contentClasses"), new TypeReference<List<String>>(){}));
+            fields.setMetadataClasses(mapper.readValue(map.get("metadataClasses"), new TypeReference<List<String>>(){}));
         } catch (Exception ex) {
             throw new FieldsParserException("Error parsing " + id, ex);
         }
-        return populateField(fields);
+        return fields;
     }
-    
+
     private Fields populateField(List<Field> fieldsList) {
         Fields fields = new Fields();
         
@@ -100,6 +107,7 @@ public class MetadataServiceImpl implements IMetadataService {
         }
         return null;
     }
+
     @Override
     public StructMap getStructById(String id) {
         String structString = repository.getStructById(id);
