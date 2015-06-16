@@ -28,7 +28,7 @@ import java.io.IOException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebIntegrationTest({"server.port=0", "management.port=0"})
-public class MetadataIT {
+public class MetadataIntegrationTest {
 
     @Autowired
     private WebApplicationContext context;

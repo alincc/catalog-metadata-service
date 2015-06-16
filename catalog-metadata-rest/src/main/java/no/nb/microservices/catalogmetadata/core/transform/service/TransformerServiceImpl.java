@@ -1,6 +1,5 @@
 package no.nb.microservices.catalogmetadata.core.transform.service;
 
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -12,7 +11,6 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.nio.file.Paths;
 
 @Service
 public class TransformerServiceImpl implements ITransformerService {
