@@ -1,7 +1,9 @@
 package no.nb.microservices.catalogmetadata.core.transform.service;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import javax.xml.transform.Transformer;
@@ -26,8 +28,8 @@ public class TransformerServiceImpl implements ITransformerService {
         StreamResult out = new StreamResult(writer);
 
         try {
-            String stylesheetPath = Paths.get(getClass().getResource(xslTemplate).toURI()).toString();
-            StreamSource xsltStream = new StreamSource(stylesheetPath);
+            ClassPathResource cpr = new ClassPathResource(xslTemplate);
+            StreamSource xsltStream = new StreamSource(cpr.getInputStream());
             Transformer transformer = factory.newTransformer(xsltStream);
             transformer.transform(in, out);
             return writer.toString();
