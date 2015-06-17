@@ -132,5 +132,10 @@ public class MetadataServiceImplTest {
 
         metadataService.getFieldsById("41a7fb4e94aab9a88be23745a1504a92");
     }
+    @Test(expected = ModsNotFoundException.class)
+    public void testGetMarcxmlByIdModsNotFoundError() {
+        when(metadataRepository.getModsStringById("41a7fb4e94aab9a88be23745a1504a92")).thenReturn(null);
+        metadataService.getMarcxmlById("41a7fb4e94aab9a88be23745a1504a92");
+    }
 
 }
