@@ -13,7 +13,6 @@ import no.nb.microservices.catalogmetadata.core.model.FieldsModel;
 import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerService;
 import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
 import no.nb.microservices.catalogmetadata.exception.FieldsParserException;
-import no.nb.microservices.catalogmetadata.exception.StructNotFoundException;
 import no.nb.microservices.catalogmetadata.model.fields.Field;
 import no.nb.microservices.catalogmetadata.model.fields.Fields;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
