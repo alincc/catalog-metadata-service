@@ -4,7 +4,9 @@ import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.querybuilder.Select;
 import no.nb.microservices.catalogmetadata.core.model.FieldsModel;
 import no.nb.microservices.catalogmetadata.domain.CassandraModel;
+import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
 import no.nb.microservices.catalogmetadata.exception.ModsNotFoundException;
+import no.nb.microservices.catalogmetadata.exception.StructNotFoundException;
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,7 +67,7 @@ public class CassandraMetadataRepositoryTest {
     public void whenModsNotFoundExceptionShouldbeThrown() {
         Select select = QueryBuilder.select().from("expressionrecord");
         select.where(QueryBuilder.eq("key", "bogusid")).and(QueryBuilder.eq("column1", "modsRecord"));
-        when(cassandraOperations.select(selectEq(select), eq(CassandraModel.class))).thenThrow(new ModsNotFoundException(""));
+        when(cassandraOperations.select(selectEq(select), eq(CassandraModel.class))).thenReturn(new ArrayList<>());
 
         metadataRepository.getModsStringById("bogusid");
     }
@@ -96,6 +98,15 @@ public class CassandraMetadataRepositoryTest {
         verifyNoMoreInteractions(cassandraOperations);
     }
 
+    @Test(expected = FieldNotFoundException.class)
+    public void whenFieldNotFoundExceptionShouldBeThrown() {
+        Select select = QueryBuilder.select().from("expressionrecord");
+        select.where(QueryBuilder.eq("key", "bogusid")).and(QueryBuilder.in("column1", "fields", "contentClasses", "metadataClasses"));
+        when(cassandraOperations.select(selectEq(select), eq(CassandraModel.class))).thenReturn(new ArrayList<>());
+
+        metadataRepository.getFieldsById("bogusid");
+    }
+
     @Test
     public void testGetStructById() throws Exception {
         Select select = QueryBuilder.select().from("expressionrecord");
@@ -112,6 +123,15 @@ public class CassandraMetadataRepositoryTest {
 
         verify(cassandraOperations).select(selectEq(select), eq(CassandraModel.class));
         verifyNoMoreInteractions(cassandraOperations);
+    }
+
+    @Test(expected = StructNotFoundException.class)
+    public void whenStructNotFoundExceptionShouldbeThrown() {
+        Select select = QueryBuilder.select().from("expressionrecord");
+        select.where(QueryBuilder.eq("key", "bogusid")).and(QueryBuilder.eq("column1", "structure"));
+        when(cassandraOperations.select(selectEq(select), eq(CassandraModel.class))).thenReturn(new ArrayList<>());
+
+        metadataRepository.getStructById("bogusid");
     }
 
     static class SelectMatcher extends ArgumentMatcher<Select> {
