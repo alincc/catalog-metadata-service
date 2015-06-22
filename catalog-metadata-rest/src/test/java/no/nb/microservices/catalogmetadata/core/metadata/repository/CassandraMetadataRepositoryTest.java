@@ -61,6 +61,15 @@ public class CassandraMetadataRepositoryTest {
         verifyNoMoreInteractions(cassandraOperations);
     }
 
+    @Test(expected = ModsNotFoundException.class)
+    public void whenModsNotFoundExceptionShouldbeThrown() {
+        Select select = QueryBuilder.select().from("expressionrecord");
+        select.where(QueryBuilder.eq("key", "bogusid")).and(QueryBuilder.eq("column1", "modsRecord"));
+        when(cassandraOperations.select(selectEq(select), eq(CassandraModel.class))).thenThrow(new ModsNotFoundException(""));
+
+        metadataRepository.getModsStringById("bogusid");
+    }
+
     @Test
     public void testGetFieldsById() throws Exception {
         Select select1 = QueryBuilder.select().from("expressionrecord");
