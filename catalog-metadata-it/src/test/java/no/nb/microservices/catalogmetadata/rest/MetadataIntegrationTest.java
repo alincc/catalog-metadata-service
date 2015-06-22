@@ -36,36 +36,50 @@ public class MetadataIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
-    public void testGetMods() throws Exception {
+    public void whenModsIsFoundResponseShouldBeOk() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/c3c9844de9cb027e003021b1aadeae6c/mods"))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+    }
 
+    @Test
+    public void whenModsNotFoundResponseShouldBeNotFound() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/bogusid/mods"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound()).andReturn();
     }
 
     @Test
-    public void testGetMarcxml() throws Exception {
+    public void whenModsIsFoundAndConvertedToMarcResponseShouldBeOk() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/c3c9844de9cb027e003021b1aadeae6c/marcxml"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
+    }
+
+    @Test
+    public void whenModsIsNotFoundWhenConvertingToMarcResponseShouldBeNotFound() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/bogusid/marcxml"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound()).andReturn();
     }
 
     @Test
-    public void testGetFields() throws Exception {
+    public void whenFieldsIsFoundResponseShouldBeOk() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/c3c9844de9cb027e003021b1aadeae6c/fields"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void whenFieldsIsNotFoundResponseShouldBeNotFound() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/bogusid/fields"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound()).andReturn();
     }
 
     @Test
-    public void testGetStructure() throws Exception {
+    public void whenStructureIsFoundResponseShouldBeOk() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/c3c9844de9cb027e003021b1aadeae6c/struct"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 
+    @Test
+    public void whenStructureIsNotFoundResponseShouldBeNotFound() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/bogusid/struct"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
