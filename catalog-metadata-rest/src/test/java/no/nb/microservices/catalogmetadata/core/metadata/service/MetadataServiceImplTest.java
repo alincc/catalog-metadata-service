@@ -129,7 +129,8 @@ public class MetadataServiceImplTest {
     @Test(expected = FieldsParserException.class)
     public void testGetFieldsByIdParseError() throws Exception {
         FieldsModel fieldsModel = new FieldsModel();
-        fieldsModel.setFields("[{\"name\":\"digital\",\"value\":\"Ja\"}]");
+        // Create illegal json
+        fieldsModel.setFields("[{\"name\":\"digital\",\"value\":\"Ja}]");
         when(metadataRepository.getFieldsById("41a7fb4e94aab9a88be23745a1504a92")).thenReturn(fieldsModel);
 
         metadataService.getFieldsById("41a7fb4e94aab9a88be23745a1504a92");

@@ -1,7 +1,7 @@
 package no.nb.microservices.catalogmetadata.core.metadata.service;
 
+import java.io.IOException;
 import java.io.StringReader;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -62,16 +62,29 @@ public class MetadataServiceImpl implements IMetadataService {
     @Override
     public Fields getFieldsById(String id) {
         FieldsModel fieldsModel = repository.getFieldsById(id);
-        ObjectMapper mapper = new ObjectMapper();
-        Fields fields;
+        
         try {
-            List<Field> fieldlist = mapper.readValue(fieldsModel.getFields(), new TypeReference<List<Field>>(){
-            });
-            fields = populateFields(fieldsModel, fieldlist);
+            Fields fields = new Fields();
+            List<Field> fieldsList = getAllFields(fieldsModel.getFields());
+            
+            String digital = getNamedField("digital", fieldsList).getValue();
+            fields.setDigital("Ja".equals(digital) ? true : false);
+            fields.setContentClasses(fieldsModel.getContentClassesAsList());
+            fields.setMetadataClasses(fieldsModel.getMetadataClassesAsList());
+            
+            return fields;
         } catch (Exception ex) {
             throw new FieldsParserException("Error parsing " + id, ex);
         }
-        return fields;
+    }
+
+    private List<Field> getAllFields(String fieldsAsJson)
+            throws IOException {
+        List<Field> fieldsList;
+        ObjectMapper mapper = new ObjectMapper();
+        fieldsList = mapper.readValue(fieldsAsJson, new TypeReference<List<Field>>(){
+        });
+        return fieldsList;
     }
 
     @Override
@@ -80,27 +93,6 @@ public class MetadataServiceImpl implements IMetadataService {
         return (StructMap) marshaller.unmarshal(new StreamSource(new StringReader(structString)));
     }
 
-    private void populateContentClasses(FieldsModel fieldsModel, Fields fields) {
-        String[] contentClasses = fieldsModel.getContentClasses().split(",");
-        fields.setContentClasses(Arrays.asList(contentClasses));
-    }
-
-    private void populateMetadataClasses(FieldsModel fieldsModel, Fields fields) {
-        String[] metadataClasses = fieldsModel.getMetadataClasses().split(",");
-        fields.setMetadataClasses(Arrays.asList(metadataClasses));
-    }
-
-    private Fields populateFields(FieldsModel fieldsModel, List<Field> fieldsList) {
-        Fields fields = new Fields();
-        
-        String digital = getNamedField("digital", fieldsList).getValue();
-        fields.setDigital("Ja".equals(digital) ? true : false);
-
-        populateContentClasses(fieldsModel, fields);
-        populateMetadataClasses(fieldsModel, fields);
-
-        return fields;
-    }
     private Field getNamedField(String name, List<Field> fields) {
         for(Field field : fields) {
             if (field.getName().equalsIgnoreCase(name)) {
