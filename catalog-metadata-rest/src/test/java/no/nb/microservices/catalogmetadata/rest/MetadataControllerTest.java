@@ -67,13 +67,12 @@ public class MetadataControllerTest {
         when(metadataService.getMarcxmlById("e7b4757dbb14f8676c06c5cbe2f82113")).thenReturn(null);
 
         ResponseEntity<RecordType> m1 = metadataController.getMarcxml("c06c5cbe2f82113e7b4757dbb14f8676");
-        ResponseEntity<RecordType> m2 = metadataController.getMarcxml("e7b4757dbb14f8676c06c5cbe2f82113");
         assertEquals(HttpStatus.OK,m1.getStatusCode());
         assertNotNull(m1.getBody());
 
-        assertEquals(HttpStatus.NOT_FOUND, m2.getStatusCode());
-        assertNull(m2.getBody());
     }
+
+
 
     @Test
     public void whenFieldsIsFoundThenResponseShouldBeNotNull() throws Exception {
@@ -85,7 +84,6 @@ public class MetadataControllerTest {
         ResponseEntity<Fields> m1 = metadataController.getFields("c06c5cbe2f82113e7b4757dbb14f8676");
         assertEquals(HttpStatus.OK,m1.getStatusCode());
         assertNotNull(m1.getBody());
-        //assertEquals("Size of body should be 2", 2, m1.getBody().size());
     }
 
     @Test(expected = FieldNotFoundException.class)

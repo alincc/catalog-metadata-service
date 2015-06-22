@@ -2,6 +2,7 @@ package no.nb.microservices.catalogmetadata.core.metadata.service;
 
 import loc.gov.marc.RecordType;
 import no.nb.microservices.catalogmetadata.core.metadata.repository.IMetadataRepository;
+import no.nb.microservices.catalogmetadata.core.model.FieldsModel;
 import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerService;
 import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
 import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
@@ -22,6 +23,7 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +58,7 @@ public class MetadataServiceImplTest {
 
 
     @Test
-    public void testGetModsById() throws Exception {
+    public void whenModsIsFoundResponseShouldBeNotNull() throws Exception {
         File modsFile = new File(Paths.get(getClass().getResource("/xml/mods1.xml").toURI()).toString());
         String modsString = FileUtils.readFileToString(modsFile);
         when(metadataRepository.getModsStringById("bfa3324befaa4518b581125fd701900e")).thenReturn(modsString);
@@ -69,8 +71,8 @@ public class MetadataServiceImplTest {
     }
 
     @Test(expected = ModsNotFoundException.class)
-    public void testGetModsByNullId() throws Exception {
-        when(metadataRepository.getModsStringById(null)).thenReturn(null);
+    public void whenModsIsNotFoundThenExceptionShouldBeThrown() throws Exception {
+        when(metadataRepository.getModsStringById(null)).thenThrow(new ModsNotFoundException(""));
 
         metadataService.getModsById(null);
     }
@@ -90,11 +92,11 @@ public class MetadataServiceImplTest {
 
     @Test
     public void testGetFieldsById() throws Exception {
-        Map<String, String> map = new HashMap<>();
-        map.put("contentClasses", "[\"restricted\", \"jp2\", \"public\"]");
-        map.put("metadataClasses","[\"public\"]");
-        map.put("fields", "[{\"name\":\"digital\",\"value\":\"Ja\"}]");
-        when(metadataRepository.getFieldsById("41a7fb4e94aab9a88be23745a1504a92")).thenReturn(map);
+        FieldsModel fieldsModel = new FieldsModel();
+        fieldsModel.setContentClasses("[\"restricted\", \"jp2\", \"public\"]");
+        fieldsModel.setMetadataClasses("[\"public\"]");
+        fieldsModel.setFields("[{\"name\":\"digital\",\"value\":\"Ja\"}]");
+        when(metadataRepository.getFieldsById("41a7fb4e94aab9a88be23745a1504a92")).thenReturn(fieldsModel);
 
         Fields fields = metadataService.getFieldsById("41a7fb4e94aab9a88be23745a1504a92");
         assertNotNull(fields);
@@ -119,23 +121,17 @@ public class MetadataServiceImplTest {
     
     @Test(expected = FieldNotFoundException.class)
     public void testGetFieldsByNullId() throws Exception {
-        when(metadataRepository.getFieldsById(null)).thenReturn(null);
+        when(metadataRepository.getFieldsById(null)).thenThrow(new FieldNotFoundException(""));
 
         metadataService.getFieldsById(null);
     }
 
     @Test(expected = FieldsParserException.class)
     public void testGetFieldsByIdParseError() throws Exception {
-        Map<String, String> map = new HashMap<>();
-        map.put("fields", "[{\"name\":\"digital\",\"value\":\"Ja\"}]");
-        when(metadataRepository.getFieldsById("41a7fb4e94aab9a88be23745a1504a92")).thenReturn(map);
+        FieldsModel fieldsModel = new FieldsModel();
+        fieldsModel.setFields("[{\"name\":\"digital\",\"value\":\"Ja\"}]");
+        when(metadataRepository.getFieldsById("41a7fb4e94aab9a88be23745a1504a92")).thenReturn(fieldsModel);
 
         metadataService.getFieldsById("41a7fb4e94aab9a88be23745a1504a92");
     }
-    @Test(expected = ModsNotFoundException.class)
-    public void testGetMarcxmlByIdModsNotFoundError() {
-        when(metadataRepository.getModsStringById("41a7fb4e94aab9a88be23745a1504a92")).thenReturn(null);
-        metadataService.getMarcxmlById("41a7fb4e94aab9a88be23745a1504a92");
-    }
-
 }

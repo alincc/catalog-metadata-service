@@ -9,7 +9,7 @@ import org.springframework.data.cassandra.mapping.Table;
 import java.nio.ByteBuffer;
 
 @Table(value = "expressionrecord")
-public class Model {
+public class CassandraModel {
     @PrimaryKey
     private ByteBuffer key;
 
