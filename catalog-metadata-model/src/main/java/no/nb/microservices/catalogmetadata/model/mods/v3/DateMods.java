@@ -10,6 +10,7 @@ public class DateMods implements Serializable {
     private String value;
     private String encoding;
     private String point;
+    private String keyDate;
 
     @XmlValue
     public String getValue() {
@@ -36,5 +37,12 @@ public class DateMods implements Serializable {
         this.encoding = encoding;
     }
 
+    @XmlAttribute
+    public String getKeyDate() {
+        return keyDate;
+    }
 
+    public void setKeyDate(String keyDate) {
+        this.keyDate = keyDate;
+    }
 }

@@ -14,6 +14,8 @@ public class OriginInfo implements Serializable {
     private Place place;
     private List<DateMods> dateIssuedList;
     private List<DateMods> dateCreated;
+    private DateMods dateCaptured;
+    private DateMods dateModified;
     private String issuance;
 
     @XmlElement(name = "publisher", namespace = "http://www.loc.gov/mods/v3")
@@ -97,5 +99,23 @@ public class OriginInfo implements Serializable {
 
     public void setIssuance(String issuance) {
         this.issuance = issuance;
+    }
+
+    @XmlElement(name = "dateCaptured", namespace = "http://www.loc.gov/mods/v3")
+    public DateMods getDateCaptured() {
+        return dateCaptured;
+    }
+
+    public void setDateCaptured(DateMods dateCaptured) {
+        this.dateCaptured = dateCaptured;
+    }
+
+    @XmlElement(name = "dateModified", namespace = "http://www.loc.gov/mods/v3")
+    public DateMods getDateModified() {
+        return dateModified;
+    }
+
+    public void setDateModified(DateMods dateModified) {
+        this.dateModified = dateModified;
     }
 }
