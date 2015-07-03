@@ -89,4 +89,16 @@
         </repository>
     </distributionManagement>
 
+    <repositories>
+        <repository>
+            <releases/>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>releases</id>
+            <name>Release versjoner av NB software</name>
+            <url>http://utvikling.nb.no:8091/artifactory/libs-releases-local</url>
+        </repository>
+    </repositories>
+
 </project>

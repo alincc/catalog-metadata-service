@@ -3,6 +3,10 @@ info:
     name: catalog-metadata-service
     description: Catalog Metadata rest
 
+spring:
+    application:
+        name: catalog-metadata-service
+
 server:
   port: 9083
 
@@ -40,3 +44,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://discovery:8761/eureka/
+      
+zipkin:
+    collector-hostname: zipkinCollector

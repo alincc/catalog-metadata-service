@@ -1,11 +1,12 @@
 package no.nb.microservices.catalogmetadata.rest;
 
 import loc.gov.marc.RecordType;
+import no.nb.htrace.annotations.Traceable;
 import no.nb.microservices.catalogmetadata.core.metadata.service.IMetadataService;
 import no.nb.microservices.catalogmetadata.model.fields.Fields;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
-
 import no.nb.microservices.catalogmetadata.model.struct.StructMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,6 +40,7 @@ public class MetadataController {
     @ApiOperation(value = "Find mods by id", response = Mods.class)
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful response"),
                             @ApiResponse(code = 404, message = "Not found")})
+    @Traceable(description="mods")
     @RequestMapping(value = "{id}/mods", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<Mods> getMods(@PathVariable String id) {
         Mods mods = service.getModsById(id);
@@ -48,6 +50,7 @@ public class MetadataController {
     @ApiOperation(value = "Find marcxml by id", response = RecordType.class)
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful response"),
                             @ApiResponse(code = 404, message = "Not found")})
+    @Traceable(description="marcxml")
     @RequestMapping(value = "{id}/marcxml", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<RecordType> getMarcxml(@PathVariable String id) {
         RecordType marc = service.getMarcxmlById(id);
@@ -57,12 +60,14 @@ public class MetadataController {
     @ApiOperation(value = "Find fields by id", response = Mods.class)
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful response"),
             @ApiResponse(code = 404, message = "Not found")})
+    @Traceable(description="fields")
     @RequestMapping(value = "{id}/fields", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Fields> getFields(@PathVariable String id) {
         Fields fields = service.getFieldsById(id);
         return new ResponseEntity(fields,HttpStatus.OK);
     }
 
+    @Traceable(description="struct")
     @RequestMapping(value = "{id}/struct", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<StructMap> getStructure(@PathVariable String id) {
         StructMap struct = service.getStructById(id);
