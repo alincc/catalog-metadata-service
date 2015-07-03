@@ -28,6 +28,8 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
+zipkin:
+    collector-hostname: localhost
 ---
 spring:
     profiles: docker
