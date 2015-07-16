@@ -1,7 +1,7 @@
 package no.nb.microservices.catalogmetadata.rest;
 
 import loc.gov.marc.RecordType;
-import no.nb.htrace.annotations.Traceable;
+import no.nb.htrace.annotation.Traceable;
 import no.nb.microservices.catalogmetadata.core.metadata.service.IMetadataService;
 import no.nb.microservices.catalogmetadata.model.fields.Fields;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
