@@ -1,7 +1,15 @@
 package no.nb.microservices.catalogmetadata.core.model;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.codehaus.jettison.json.JSONObject;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FieldsModel {
     private String fields;
@@ -33,11 +41,23 @@ public class FieldsModel {
     }
     
     public List<String> getContentClassesAsList() {
-        return Arrays.asList(getContentClasses().split(","));
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return Arrays.asList(mapper.readValue(contentClasses, String[].class));
+        } catch (IOException e) {
+            // nothing to do
+        }
+        return new ArrayList<>();
     }
     
     public List<String> getMetadataClassesAsList() {
-        return Arrays.asList(getMetadataClasses().split(","));
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return Arrays.asList(mapper.readValue(metadataClasses, String[].class));
+        } catch (IOException e) {
+            // nothing to do
+        }
+        return new ArrayList<>();
     }
 
 }
