@@ -1,18 +1,13 @@
 package no.nb.microservices.catalogmetadata.core.metadata.service;
 
-import loc.gov.marc.RecordType;
-import no.nb.microservices.catalogmetadata.core.metadata.repository.IMetadataRepository;
-import no.nb.microservices.catalogmetadata.core.model.FieldsModel;
-import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerService;
-import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
-import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
-import no.nb.microservices.catalogmetadata.exception.FieldsParserException;
-import no.nb.microservices.catalogmetadata.exception.ModsNotFoundException;
-import no.nb.microservices.catalogmetadata.model.fields.Field;
-import no.nb.microservices.catalogmetadata.model.fields.Fields;
-import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
-import no.nb.microservices.catalogmetadata.model.struct.StructMap;
+import java.io.File;
+import java.nio.file.Paths;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,31 +16,25 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import loc.gov.marc.RecordType;
+import no.nb.microservices.catalogmetadata.core.metadata.repository.IMetadataRepository;
+import no.nb.microservices.catalogmetadata.core.model.FieldsModel;
+import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerService;
+import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
+import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
+import no.nb.microservices.catalogmetadata.exception.FieldsParserException;
+import no.nb.microservices.catalogmetadata.exception.ModsNotFoundException;
+import no.nb.microservices.catalogmetadata.model.fields.Fields;
+import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
+import no.nb.microservices.catalogmetadata.model.struct.StructMap;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-
-/**
- * @author jimarthurnilsen
- * @author ronnymikalsen
- *
- */
 @RunWith(MockitoJUnitRunner.class)
 public class MetadataServiceImplTest {
 
     @Mock
     private IMetadataRepository metadataRepository;
 
-    private IMetadataService metadataService;
+    private MetadataServiceImpl metadataService;
 
 
     @Before
@@ -95,7 +84,7 @@ public class MetadataServiceImplTest {
         FieldsModel fieldsModel = new FieldsModel();
         fieldsModel.setContentClasses("[\"restricted\", \"jp2\", \"public\"]");
         fieldsModel.setMetadataClasses("[\"public\"]");
-        fieldsModel.setFields("[{\"name\":\"digital\",\"value\":\"Ja\"}]");
+        fieldsModel.setFields("[{\"name\": \"title\",\"value\": \"Composite title\"},{\"name\":\"digital\",\"value\":\"Ja\"}]");
         when(metadataRepository.getFieldsById("41a7fb4e94aab9a88be23745a1504a92")).thenReturn(fieldsModel);
 
         Fields fields = metadataService.getFieldsById("41a7fb4e94aab9a88be23745a1504a92");

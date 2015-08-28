@@ -25,14 +25,8 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-/**
- * 
- * @author jimarthurnilsen
- * @author ronnymikalsen
- *
- */
 @Service
-public class MetadataServiceImpl implements IMetadataService {
+public class MetadataServiceImpl implements MetadataService {
     private final Jaxb2Marshaller marshaller;
     private final IMetadataRepository repository;
     private final ITransformerService transformerService;
@@ -68,6 +62,7 @@ public class MetadataServiceImpl implements IMetadataService {
             List<Field> fieldsList = getAllFields(fieldsModel.getFields());
             
             String digital = getNamedField("digital", fieldsList).getValue();
+            fields.setTitle(getNamedField("title", fieldsList).getValue());
             fields.setDigital("Ja".equals(digital) ? true : false);
             fields.setContentClasses(fieldsModel.getContentClassesAsList());
             fields.setMetadataClasses(fieldsModel.getMetadataClassesAsList());

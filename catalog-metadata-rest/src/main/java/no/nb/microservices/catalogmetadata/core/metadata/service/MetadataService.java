@@ -5,13 +5,7 @@ import no.nb.microservices.catalogmetadata.model.fields.Fields;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
 import no.nb.microservices.catalogmetadata.model.struct.StructMap;
 
-/**
- * 
- * @author jimarthurnilsen
- * @author ronnymikalsen
- *
- */
-public interface IMetadataService {
+public interface MetadataService {
 
     Mods getModsById(String id);
     RecordType getMarcxmlById(String id);

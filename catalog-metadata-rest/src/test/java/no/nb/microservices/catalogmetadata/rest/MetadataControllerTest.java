@@ -1,7 +1,7 @@
 package no.nb.microservices.catalogmetadata.rest;
 
 import loc.gov.marc.RecordType;
-import no.nb.microservices.catalogmetadata.core.metadata.service.IMetadataService;
+import no.nb.microservices.catalogmetadata.core.metadata.service.MetadataService;
 import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
 import no.nb.microservices.catalogmetadata.exception.ModsNotFoundException;
 import no.nb.microservices.catalogmetadata.model.fields.Field;
@@ -36,7 +36,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class MetadataControllerTest {
     @Mock
-    private IMetadataService metadataService;
+    private MetadataService metadataService;
 
     private MetadataController metadataController;
 

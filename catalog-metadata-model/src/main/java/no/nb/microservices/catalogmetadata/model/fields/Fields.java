@@ -6,14 +6,10 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-/**
- * 
- * @author ronnymikalsen
- *
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Fields {
 
+    private String title;
     private boolean digital;
     private List<String> contentClasses = new ArrayList<>();
     private List<String> metadataClasses = new ArrayList<>();
@@ -46,4 +42,13 @@ public class Fields {
     public void setMetadataClasses(List<String> metadataClasses) {
         this.metadataClasses = metadataClasses;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
 }
