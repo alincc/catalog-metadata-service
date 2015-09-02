@@ -1,12 +1,18 @@
 package no.nb.microservices.catalogmetadata.core.metadata.repository;
 
-import com.datastax.driver.core.querybuilder.QueryBuilder;
-import com.datastax.driver.core.querybuilder.Select;
-import no.nb.microservices.catalogmetadata.core.model.FieldsModel;
-import no.nb.microservices.catalogmetadata.domain.CassandraModel;
-import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
-import no.nb.microservices.catalogmetadata.exception.ModsNotFoundException;
-import no.nb.microservices.catalogmetadata.exception.StructNotFoundException;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.argThat;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+
+import java.io.File;
+import java.nio.ByteBuffer;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,21 +22,14 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.cassandra.core.CassandraOperations;
 
-import java.io.File;
-import java.nio.ByteBuffer;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
+import com.datastax.driver.core.querybuilder.QueryBuilder;
+import com.datastax.driver.core.querybuilder.Select;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.argThat;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import no.nb.microservices.catalogmetadata.core.model.Fields;
+import no.nb.microservices.catalogmetadata.domain.CassandraModel;
+import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
+import no.nb.microservices.catalogmetadata.exception.ModsNotFoundException;
+import no.nb.microservices.catalogmetadata.exception.StructNotFoundException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CassandraMetadataRepositoryTest {
@@ -92,7 +91,7 @@ public class CassandraMetadataRepositoryTest {
 
         when(cassandraOperations.select(selectEq(select1), eq(CassandraModel.class))).thenReturn(Arrays.asList(fields,contentClasses,metadataClasses));
 
-        FieldsModel fm1 = metadataRepository.getFieldsById("bfa3324befaa4518b581125fd701900e");
+        Fields fm1 = metadataRepository.getFieldsById("bfa3324befaa4518b581125fd701900e");
 
         verify(cassandraOperations).select(selectEq(select1), eq(CassandraModel.class));
         verifyNoMoreInteractions(cassandraOperations);

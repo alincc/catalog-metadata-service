@@ -1,13 +1,8 @@
-package no.nb.microservices.catalogmetadata.model.fields;
+package no.nb.microservices.catalogmetadata.core.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-/**
- * 
- * @author ronnymikalsen
- *
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Field {
 

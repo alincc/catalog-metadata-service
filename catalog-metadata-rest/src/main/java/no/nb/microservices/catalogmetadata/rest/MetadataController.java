@@ -3,7 +3,8 @@ package no.nb.microservices.catalogmetadata.rest;
 import loc.gov.marc.RecordType;
 import no.nb.htrace.annotation.Traceable;
 import no.nb.microservices.catalogmetadata.core.metadata.service.MetadataService;
-import no.nb.microservices.catalogmetadata.model.fields.Fields;
+import no.nb.microservices.catalogmetadata.core.model.Fields;
+import no.nb.microservices.catalogmetadata.model.fields.FieldResource;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
 import no.nb.microservices.catalogmetadata.model.struct.StructMap;
 
@@ -22,7 +23,8 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 
 @RestController
-@Api(value = "/", description = "Metadata api")
+@Api(value = "/catalog/metadata", description = "Metadata api")
+@RequestMapping(value = "/catalog/metadata")
 public class MetadataController {
     private final MetadataService service;
 
@@ -35,7 +37,7 @@ public class MetadataController {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful response"),
                             @ApiResponse(code = 404, message = "Not found")})
     @Traceable(description="mods")
-    @RequestMapping(value = "{id}/mods", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
+    @RequestMapping(value = "/{id}/mods", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<Mods> getMods(@PathVariable String id) {
         Mods mods = service.getModsById(id);
         return new ResponseEntity(mods, HttpStatus.OK);
@@ -45,7 +47,7 @@ public class MetadataController {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful response"),
                             @ApiResponse(code = 404, message = "Not found")})
     @Traceable(description="marcxml")
-    @RequestMapping(value = "{id}/marcxml", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
+    @RequestMapping(value = "/{id}/marcxml", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<RecordType> getMarcxml(@PathVariable String id) {
         RecordType marc = service.getMarcxmlById(id);
         return new ResponseEntity(marc,HttpStatus.OK);
@@ -55,14 +57,15 @@ public class MetadataController {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful response"),
             @ApiResponse(code = 404, message = "Not found")})
     @Traceable(description="fields")
-    @RequestMapping(value = "{id}/fields", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Fields> getFields(@PathVariable String id) {
+    @RequestMapping(value = "/{id}/fields", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FieldResource> getFields(@PathVariable String id) {
         Fields fields = service.getFieldsById(id);
-        return new ResponseEntity(fields,HttpStatus.OK);
+        FieldResource resource = new FieldResultResourceAssembler().toResource(fields);
+        return new ResponseEntity<FieldResource>(resource,HttpStatus.OK);
     }
 
     @Traceable(description="struct")
-    @RequestMapping(value = "{id}/struct", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
+    @RequestMapping(value = "/{id}/struct", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<StructMap> getStructure(@PathVariable String id) {
         StructMap struct = service.getStructById(id);
         return new ResponseEntity<>(struct, HttpStatus.OK);

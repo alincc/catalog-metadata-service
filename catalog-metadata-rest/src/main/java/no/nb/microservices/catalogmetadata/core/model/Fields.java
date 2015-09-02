@@ -5,19 +5,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.hateoas.Identifiable;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class FieldsModel {
-    private String fields;
+public class Fields implements Identifiable<String> {
+    private String id;
+    private String fieldsAsJson;
     private String contentClasses = new String();
     private String metadataClasses = new String();
 
-    public String getFields() {
-        return fields;
+    public Fields(String id) {
+        this.id = id;
     }
 
-    public void setFields(String fields) {
-        this.fields = fields;
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    public String getFieldsAsJson() {
+        return fieldsAsJson;
+    }
+
+    public void setFieldsAsJson(String fieldsAsJson) {
+        this.fieldsAsJson = fieldsAsJson;
     }
 
     public String getContentClasses() {

@@ -1,29 +1,21 @@
 package no.nb.microservices.catalogmetadata.core.metadata.service;
 
-import java.io.IOException;
 import java.io.StringReader;
-import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.transform.stream.StreamSource;
-
-import loc.gov.marc.RecordType;
-import no.nb.microservices.catalogmetadata.core.metadata.repository.IMetadataRepository;
-import no.nb.microservices.catalogmetadata.core.model.FieldsModel;
-import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerService;
-import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
-import no.nb.microservices.catalogmetadata.exception.FieldsParserException;
-import no.nb.microservices.catalogmetadata.model.fields.Field;
-import no.nb.microservices.catalogmetadata.model.fields.Fields;
-import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
-import no.nb.microservices.catalogmetadata.model.struct.StructMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import loc.gov.marc.RecordType;
+import no.nb.microservices.catalogmetadata.core.metadata.repository.IMetadataRepository;
+import no.nb.microservices.catalogmetadata.core.model.Fields;
+import no.nb.microservices.catalogmetadata.core.transform.service.ITransformerService;
+import no.nb.microservices.catalogmetadata.core.transform.service.TransformerServiceImpl;
+import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
+import no.nb.microservices.catalogmetadata.model.struct.StructMap;
 
 @Service
 public class MetadataServiceImpl implements MetadataService {
@@ -55,31 +47,7 @@ public class MetadataServiceImpl implements MetadataService {
 
     @Override
     public Fields getFieldsById(String id) {
-        FieldsModel fieldsModel = repository.getFieldsById(id);
-        
-        try {
-            Fields fields = new Fields();
-            List<Field> fieldsList = getAllFields(fieldsModel.getFields());
-            
-            String digital = getNamedField("digital", fieldsList).getValue();
-            fields.setTitle(getNamedField("title", fieldsList).getValue());
-            fields.setDigital("Ja".equals(digital) ? true : false);
-            fields.setContentClasses(fieldsModel.getContentClassesAsList());
-            fields.setMetadataClasses(fieldsModel.getMetadataClassesAsList());
-            
-            return fields;
-        } catch (Exception ex) {
-            throw new FieldsParserException("Error parsing " + id, ex);
-        }
-    }
-
-    private List<Field> getAllFields(String fieldsAsJson)
-            throws IOException {
-        List<Field> fieldsList;
-        ObjectMapper mapper = new ObjectMapper();
-        fieldsList = mapper.readValue(fieldsAsJson, new TypeReference<List<Field>>(){
-        });
-        return fieldsList;
+        return repository.getFieldsById(id);
     }
 
     @Override
@@ -88,12 +56,4 @@ public class MetadataServiceImpl implements MetadataService {
         return (StructMap) marshaller.unmarshal(new StreamSource(new StringReader(structString)));
     }
 
-    private Field getNamedField(String name, List<Field> fields) {
-        for(Field field : fields) {
-            if (field.getName().equalsIgnoreCase(name)) {
-                return field;
-            }
-        }
-        return null;
-    }
 }

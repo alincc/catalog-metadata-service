@@ -10,7 +10,7 @@ public class FieldsModelTest {
 
     @Test
     public void getContentClassesAsList() {
-        FieldsModel fields = new FieldsModel();
+        Fields fields = new Fields("id1");
         fields.setContentClasses("[\"restricted\", \"jp2\", \"public\"]");
         List<String> contentClasses = fields.getContentClassesAsList();
 
@@ -20,7 +20,7 @@ public class FieldsModelTest {
 
     @Test
     public void getMetadataClassesAsList() {
-        FieldsModel fields = new FieldsModel();
+        Fields fields = new Fields("id1");
         fields.setMetadataClasses("[\"public\"]");
         List<String> metadataClasses = fields.getMetadataClassesAsList();
 

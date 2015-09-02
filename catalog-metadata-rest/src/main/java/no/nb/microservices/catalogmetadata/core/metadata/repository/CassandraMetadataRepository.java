@@ -3,7 +3,7 @@ package no.nb.microservices.catalogmetadata.core.metadata.repository;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.querybuilder.Select;
 import com.datastax.driver.core.utils.Bytes;
-import no.nb.microservices.catalogmetadata.core.model.FieldsModel;
+import no.nb.microservices.catalogmetadata.core.model.Fields;
 import no.nb.microservices.catalogmetadata.domain.CassandraModel;
 import no.nb.microservices.catalogmetadata.exception.FieldNotFoundException;
 import no.nb.microservices.catalogmetadata.exception.ModsNotFoundException;
@@ -43,35 +43,35 @@ public class CassandraMetadataRepository implements IMetadataRepository {
     }
 
     @Override
-    public FieldsModel getFieldsById(String id) {
+    public Fields getFieldsById(String id) {
         Select select = QueryBuilder.select().from("expressionrecord");
         select.where(QueryBuilder.eq("key", id)).and(QueryBuilder.in("column1","fields","contentClasses","metadataClasses"));
         List<CassandraModel> fields = cassandraOperations.select(select, CassandraModel.class);
         if (fields.isEmpty()) {
             throw new FieldNotFoundException("Field not found for id " + id);
         }
-        return populateFieldsModel(fields);
+        return populateFieldsModel(id, fields);
     }
 
-    private FieldsModel populateFieldsModel(List<CassandraModel> models) {
-        FieldsModel fieldsModel = new FieldsModel();
+    private Fields populateFieldsModel(String id, List<CassandraModel> models) {
+        Fields fields = new Fields(id);
         for (CassandraModel model : models) {
             String column = Converter.string(Bytes.getArray(model.getColumn1()));
             switch (column) {
                 case "fields":
-                    fieldsModel.setFields(model.getValueAsString());
+                    fields.setFieldsAsJson(model.getValueAsString());
                     break;
                 case "contentClasses":
-                    fieldsModel.setContentClasses(model.getValueAsString());
+                    fields.setContentClasses(model.getValueAsString());
                     break;
                 case "metadataClasses":
-                    fieldsModel.setMetadataClasses(model.getValueAsString());
+                    fields.setMetadataClasses(model.getValueAsString());
                     break;
                 default:
                     break;
             }
         }
-        return fieldsModel;
+        return fields;
     }
 
     private String getColumn(String id, String column) {
