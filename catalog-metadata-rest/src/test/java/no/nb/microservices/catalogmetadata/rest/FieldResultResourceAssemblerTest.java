@@ -52,6 +52,29 @@ public class FieldResultResourceAssemblerTest {
     }
 
     @Test
+    public void testAssemblingMediaType() {
+        Fields fields = new Fields("id1");
+        fields.setFieldsAsJson("[{\"name\":\"mediatype\",\"value\":\"Bøker\"}]");
+
+        FieldResource resource = assembler.toResource(fields);
+
+        assertEquals(1, resource.getMediaTypes().size());
+        assertEquals("Bøker", resource.getMediaTypes().get(0));
+    }
+
+    @Test
+    public void testAssemblingMediaTypes() {
+        Fields fields = new Fields("id1");
+        fields.setFieldsAsJson("[{\"name\":\"mediatype\",\"value\":\"Bøker,Aviser\"}]");
+
+        FieldResource resource = assembler.toResource(fields);
+
+        assertEquals(2, resource.getMediaTypes().size());
+        assertEquals("Bøker", resource.getMediaTypes().get(0));
+        assertEquals("Aviser", resource.getMediaTypes().get(1));
+    }
+
+    @Test
     public void testAssemblingContentClasses() {
         Fields fields = new Fields("id1");
         fields.setContentClasses("[\"restricted\", \"jp2\"]");

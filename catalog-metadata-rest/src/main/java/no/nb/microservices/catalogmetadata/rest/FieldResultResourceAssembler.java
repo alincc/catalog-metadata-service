@@ -3,8 +3,11 @@ package no.nb.microservices.catalogmetadata.rest;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import no.nb.microservices.catalogmetadata.utils.Mapper;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
@@ -44,6 +47,7 @@ public class FieldResultResourceAssembler extends ResourceAssemblerSupport<Field
             String digital = getNamedField("digital", fieldsList).getValue();
             resource.setTitle(getNamedField("title", fieldsList).getValue());
             resource.setDigital("Ja".equals(digital) ? true : false);
+            resource.setMediaTypes(Mapper.getStringAsList(getNamedField("mediatype", fieldsList).getValue()));
             resource.setContentClasses(fields.getContentClassesAsList());
             resource.setMetadataClasses(fields.getMetadataClassesAsList());
             
@@ -72,5 +76,4 @@ public class FieldResultResourceAssembler extends ResourceAssemblerSupport<Field
         }
         return new Field();
     }
-
 }

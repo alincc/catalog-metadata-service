@@ -13,6 +13,7 @@ public class FieldResource extends ResourceSupport {
 
     private String title;
     private boolean digital;
+    private List<String> mediaTypes;
     private List<String> contentClasses = new ArrayList<>();
     private List<String> metadataClasses = new ArrayList<>();
     
@@ -53,4 +54,11 @@ public class FieldResource extends ResourceSupport {
         this.title = title;
     }
 
+    public List<String> getMediaTypes() {
+        return mediaTypes;
+    }
+
+    public void setMediaTypes(List<String> mediaTypes) {
+        this.mediaTypes = mediaTypes;
+    }
 }
