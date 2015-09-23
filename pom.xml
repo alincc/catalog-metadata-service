@@ -39,6 +39,7 @@
         <module>catalog-metadata-model</module>
         <module>catalog-metadata-rest</module>
         <module>catalog-metadata-it</module>
+        <module>catalog-metadata-test</module>
     </modules>
 
     <build>

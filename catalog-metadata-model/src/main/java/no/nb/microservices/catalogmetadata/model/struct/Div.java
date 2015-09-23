@@ -13,6 +13,15 @@ public class Div implements Serializable {
     private String orderLabel;
     private Resource resource;
 
+    public Div() {
+        super();
+    }
+    
+    public Div(String id) {
+        super();
+        this.id = id;
+    }
+
     @XmlAttribute(name = "ID")
     public String getId() {
         return id;
