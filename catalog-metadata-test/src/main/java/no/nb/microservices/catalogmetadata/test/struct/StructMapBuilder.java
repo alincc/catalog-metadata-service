@@ -33,6 +33,8 @@ public class StructMapBuilder {
     private Div createDiv(int pageNumber) {
         Div div = new Div("DIV" + pageNumber);
         div.setOrderLabel("p"+pageNumber);
+        div.setType("PAGE");
+        div.setOrder(""+pageNumber);
         Resource resource = new Resource();
        
         try {
