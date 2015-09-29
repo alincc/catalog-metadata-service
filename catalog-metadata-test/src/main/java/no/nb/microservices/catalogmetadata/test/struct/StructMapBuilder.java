@@ -36,11 +36,7 @@ public class StructMapBuilder {
         div.setType("PAGE");
         div.setOrder(""+pageNumber);
         Resource resource = new Resource();
-       
-        try {
-            resource.setHref("URN:NBN:no-nb_digibok_2001010100001_" + df.parse(""+pageNumber));
-        } catch (ParseException e) {
-        }
+        resource.setHref("URN:NBN:no-nb_digibok_2001010100001_" + df.format(""+pageNumber));
         div.setResource(resource);
         return div;
     }
