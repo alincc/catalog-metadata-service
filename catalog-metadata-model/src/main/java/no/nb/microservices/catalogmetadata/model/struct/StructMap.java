@@ -52,10 +52,10 @@ public class StructMap implements Serializable {
         return null;
     }
 
-    public Resource getResourceByHref(String href) {
+    public Div getDivByHref(String href) {
         for (Div div : this.divs) {
             if (href.equals(div.getResource().getHref())) {
-                return div.getResource();
+                return div;
             }
         }
         

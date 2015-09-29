@@ -35,9 +35,9 @@ public class StructMapTest {
         structMap.addDiv(createDiv("id1", "r1"));
         structMap.addDiv(createDiv("id2", href));
         
-        Resource resource = structMap.getResourceByHref(href);
+        Div div = structMap.getDivByHref(href);
         
-        assertEquals(href, resource.getHref());
+        assertEquals(href, div.getResource().getHref());
     }
 
     private Div createDiv(String id, String href) {
