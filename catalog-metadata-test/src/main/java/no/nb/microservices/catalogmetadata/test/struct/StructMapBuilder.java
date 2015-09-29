@@ -1,7 +1,6 @@
 package no.nb.microservices.catalogmetadata.test.struct;
 
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class StructMapBuilder {
         div.setType("PAGE");
         div.setOrder(""+pageNumber);
         Resource resource = new Resource();
-        resource.setHref("URN:NBN:no-nb_digibok_2001010100001_" + df.format(""+pageNumber));
+        resource.setHref("URN:NBN:no-nb_digibok_2001010100001_" + df.format(pageNumber));
         div.setResource(resource);
         return div;
     }
