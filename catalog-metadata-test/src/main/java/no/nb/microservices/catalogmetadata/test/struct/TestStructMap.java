@@ -11,7 +11,7 @@ import no.nb.microservices.catalogmetadata.model.struct.StructMap;
 public final class TestStructMap {
     
     public static StructMapBuilder aDefaultStructMap() {
-        return new StructMapBuilder();
+        return new StructMapBuilder().withCoverFront(true);
     }
    
     public static String structMapToString(StructMap struct) {
