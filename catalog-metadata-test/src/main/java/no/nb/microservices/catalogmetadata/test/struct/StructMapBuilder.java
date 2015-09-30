@@ -60,12 +60,14 @@ public class StructMapBuilder {
         if (addCoverFront) {
             divs.add(createDiv("C1"));
         }
+
         if (addInsideFrontCover) {
             divs.add(createDiv("I1"));
         }
         for(int pageNumber = 0; pageNumber < numberOfpages; pageNumber++) {
             divs.add(createDiv(""+pageNumber));
         }
+
         if (addInsideBackCover) {
             divs.add(createDiv("I3"));
         }
@@ -73,9 +75,11 @@ public class StructMapBuilder {
         if (addCoverBack) {
             divs.add(createDiv("C3"));
         }
+
         if (addCoverSpine) {
             divs.add(createDiv("C2"));
         }
+
         StructMap struct = new StructMap();
         struct.setDivs(divs);
         
