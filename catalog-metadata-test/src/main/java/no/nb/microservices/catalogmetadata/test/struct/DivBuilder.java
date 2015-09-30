@@ -32,7 +32,7 @@ public class DivBuilder {
             pageNumber = df.format(pageNumber);
         }
         resource.setOriginalName("digibok_2001010100001_" + pageNumber + ".jpg");
-        resource.setHref("URN:NBN:no-nb_digibok_2001010100001_" + df.format(pageNumber));
+        resource.setHref("URN:NBN:no-nb_digibok_2001010100001_" + pageNumber);
         div.setResource(resource);
         return div;
     }
