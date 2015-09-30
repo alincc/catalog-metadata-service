@@ -29,7 +29,7 @@ public class DivBuilder {
         resource.setWidth(100);
         resource.setHeight(200);
         if (NumberUtils.isDigits(pageNumber)) {
-            pageNumber = df.format(pageNumber);
+            pageNumber = df.format(Integer.parseInt(pageNumber));
         }
         resource.setOriginalName("digibok_2001010100001_" + pageNumber + ".jpg");
         resource.setHref("URN:NBN:no-nb_digibok_2001010100001_" + pageNumber);
