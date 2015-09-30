@@ -2,6 +2,8 @@ package no.nb.microservices.catalogmetadata.test.struct;
 
 import java.text.DecimalFormat;
 
+import org.apache.commons.lang.math.NumberUtils;
+
 import no.nb.microservices.catalogmetadata.model.struct.Div;
 import no.nb.microservices.catalogmetadata.model.struct.Resource;
 
@@ -26,7 +28,10 @@ public class DivBuilder {
         Resource resource = new Resource();
         resource.setWidth(100);
         resource.setHeight(200);
-        resource.setOriginalName("digibok_2001010100001_" + df.format(pageNumber) + ".jpg");
+        if (NumberUtils.isDigits(pageNumber)) {
+            pageNumber = df.format(pageNumber);
+        }
+        resource.setOriginalName("digibok_2001010100001_" + pageNumber + ".jpg");
         resource.setHref("URN:NBN:no-nb_digibok_2001010100001_" + df.format(pageNumber));
         div.setResource(resource);
         return div;
