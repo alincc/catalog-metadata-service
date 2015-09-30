@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class FieldResource extends ResourceSupport {
 
     private String title;
+    private String urn;
     private boolean digital;
     private List<String> mediaTypes;
     private List<String> contentClasses = new ArrayList<>();
@@ -48,6 +49,14 @@ public class FieldResource extends ResourceSupport {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getUrn() {
+        return urn;
+    }
+
+    public void setUrn(String urn) {
+        this.urn = urn;
     }
 
     public void setTitle(String title) {
