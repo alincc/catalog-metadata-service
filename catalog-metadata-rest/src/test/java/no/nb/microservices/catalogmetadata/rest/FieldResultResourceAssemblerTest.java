@@ -2,6 +2,7 @@ package no.nb.microservices.catalogmetadata.rest;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -100,6 +101,7 @@ public class FieldResultResourceAssemblerTest {
         fields.setFieldsAsJson("[{\"name\":\"urn\",\"value\":\"URN:NBN:no-nb_digibok_2010113008086\"}]");
 
         FieldResource resource = assembler.toResource(fields);
+        assertTrue("urn list should not be empty", !resource.getUrns().isEmpty());
         assertEquals("URN:NBN:no-nb_digibok_2010113008086",resource.getUrns().get(0));
     }
 

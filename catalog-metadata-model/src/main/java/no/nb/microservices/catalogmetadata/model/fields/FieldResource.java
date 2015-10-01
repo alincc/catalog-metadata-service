@@ -12,9 +12,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class FieldResource extends ResourceSupport {
 
     private String title;
-    private List<String> urns;
     private boolean digital;
     private List<String> mediaTypes;
+    private List<String> urns = new ArrayList<>();
     private List<String> contentClasses = new ArrayList<>();
     private List<String> metadataClasses = new ArrayList<>();
     
