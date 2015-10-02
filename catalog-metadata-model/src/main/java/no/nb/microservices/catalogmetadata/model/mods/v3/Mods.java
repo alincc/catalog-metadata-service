@@ -28,6 +28,7 @@ public class Mods implements Serializable {
     private RecordInfo recordInfo;
     private String typeOfResource;
     private String genre;
+    private List<Language> languages;
 
     @XmlElement(name = "originInfo", namespace = "http://www.loc.gov/mods/v3")
     public OriginInfo getOriginInfo() {
@@ -127,6 +128,11 @@ public class Mods implements Serializable {
     public void setNames(List<Name> names) {
         this.names = names;
     }
+
+    @XmlElement(name = "language", namespace = "http://www.loc.gov/mods/v3")
+    public List<Language> getLanguages() { return languages; }
+
+    public void setLanguages(List<Language> languages) { this.languages = languages; }
 
     /**
      * @return PlaceTerm : Publisher, DateIssued
