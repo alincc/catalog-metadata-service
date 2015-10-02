@@ -47,7 +47,10 @@ public class FieldResultResourceAssembler extends ResourceAssemblerSupport<Field
             String digital = getNamedField("digital", fieldsList).getValue();
             resource.setTitle(getNamedField("title", fieldsList).getValue());
             resource.setDigital("Ja".equals(digital) ? true : false);
-            resource.setUrn(getNamedField("urn", fieldsList).getValue());
+            String urnString = getNamedField("urn",fieldsList).getValue();
+            if (urnString != null) {
+                resource.setUrns(Arrays.asList(urnString.split(";")));
+            }
             resource.setMediaTypes(Mapper.getStringAsList(getNamedField("mediatype", fieldsList).getValue()));
             resource.setContentClasses(fields.getContentClassesAsList());
             resource.setMetadataClasses(fields.getMetadataClassesAsList());
