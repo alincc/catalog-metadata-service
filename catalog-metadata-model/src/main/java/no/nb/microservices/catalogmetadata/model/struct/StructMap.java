@@ -14,7 +14,6 @@ public class StructMap implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private List<Div> divs;
-    private Map<String, Div> divsMap;
 
     @XmlElement(name = "div")
     public List<Div> getDivs() {
@@ -33,13 +32,11 @@ public class StructMap implements Serializable {
     }
 
     public Map<String, Div> getDivsMap() {
-        if (this.divsMap == null) {
-            this.divsMap = new HashMap<String, Div>();
-            for (Div div : this.divs) {
-                divsMap.put(div.getOrder(), div);
-            }
-        }
-        return this.divsMap;
+       Map<String, Div> divsMap = new HashMap<>();
+       for (Div div : this.divs) {
+           divsMap.put(div.getOrder(), div);
+       }
+       return divsMap;
     }
 
     public Div getDivById(String id) {

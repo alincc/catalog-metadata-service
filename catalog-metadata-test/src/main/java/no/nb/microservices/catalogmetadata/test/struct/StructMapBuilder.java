@@ -21,7 +21,7 @@ public class StructMapBuilder {
         addCoverBack = true;
         addCoverSpine = true;
         addInsideFrontCover = true;
-        addInsideBackCover = true;;
+        addInsideBackCover = true;
     }
     
     public StructMapBuilder withPages(int numberOfPages) {

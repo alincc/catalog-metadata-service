@@ -5,11 +5,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.hateoas.Identifiable;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Fields implements Identifiable<String> {
+    private static final Logger LOG = LoggerFactory.getLogger(Fields.class);
+    
     private String id;
     private String fieldsAsJson;
     private String contentClasses = new String();
@@ -52,8 +56,9 @@ public class Fields implements Identifiable<String> {
         ObjectMapper mapper = new ObjectMapper();
         try {
             return Arrays.asList(mapper.readValue(contentClasses, String[].class));
-        } catch (IOException e) {
+        } catch (IOException ex) {
             // nothing to do
+            LOG.warn("Failed mapping contentClasses ("+contentClasses+") to List", ex);
         }
         return new ArrayList<>();
     }
@@ -62,8 +67,8 @@ public class Fields implements Identifiable<String> {
         ObjectMapper mapper = new ObjectMapper();
         try {
             return Arrays.asList(mapper.readValue(metadataClasses, String[].class));
-        } catch (IOException e) {
-            // nothing to do
+        } catch (IOException ex) {
+            LOG.warn("Failed mapping metadataClasses ("+metadataClasses+") to List", ex);
         }
         return new ArrayList<>();
     }

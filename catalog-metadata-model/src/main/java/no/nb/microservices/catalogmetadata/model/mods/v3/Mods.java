@@ -130,9 +130,13 @@ public class Mods implements Serializable {
     }
 
     @XmlElement(name = "language", namespace = "http://www.loc.gov/mods/v3")
-    public List<Language> getLanguages() { return languages; }
+    public List<Language> getLanguages() {
+        return languages; 
+    }
 
-    public void setLanguages(List<Language> languages) { this.languages = languages; }
+    public void setLanguages(List<Language> languages) {
+        this.languages = languages;
+    }
 
     /**
      * @return PlaceTerm : Publisher, DateIssued

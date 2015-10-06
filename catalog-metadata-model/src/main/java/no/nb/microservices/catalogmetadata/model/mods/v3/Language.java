@@ -20,8 +20,12 @@ public class Language implements Serializable {
     }
     
     @XmlElement(name = "languageTerm",namespace="http://www.loc.gov/mods/v3")
-    public List<LanguageTerm> getLanguageTerm() { return this.languageTerms; }
+    public List<LanguageTerm> getLanguageTerm() {
+        return this.languageTerms;
+    }
 
-    public void setLanguageTerms(List<LanguageTerm> languageTerms) { this.languageTerms = languageTerms; }
+    public void setLanguageTerms(List<LanguageTerm> languageTerms) {
+        this.languageTerms = languageTerms;
+    }
 
 }
