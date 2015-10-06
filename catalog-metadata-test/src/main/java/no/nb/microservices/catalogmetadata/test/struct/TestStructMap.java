@@ -28,7 +28,7 @@ public final class TestStructMap {
             final Marshaller m = JAXBContext.newInstance(StructMap.class).createMarshaller();
             m.marshal(struct, sw);
         } catch (JAXBException ex) {
-            LOG.error("Failed marshalled structMap", ex);;
+            LOG.error("Failed marshalled structMap", ex);
         }
         return sw.toString();
     }
