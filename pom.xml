@@ -19,7 +19,7 @@
         <sonar.jacoco.itReportPath>${project.basedir}/../target/jacoco-it.exec</sonar.jacoco.itReportPath>
         <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
         <sonar.coverage.exclusions>**/model/**/*, **/loc/gov/**,
-            **/*Config.java, **/*Settings.java</sonar.coverage.exclusions>
+            **/*Config.java, **/*Settings.java, **/test/**</sonar.coverage.exclusions>
         <sonar.language>java</sonar.language>
     </properties>
 
