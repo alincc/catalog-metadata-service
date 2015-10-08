@@ -17,8 +17,7 @@ public class FieldResource extends ResourceSupport {
     private List<String> urns = new ArrayList<>();
     private List<String> contentClasses = new ArrayList<>();
     private List<String> metadataClasses = new ArrayList<>();
-    private String sesamId;
-    
+
     @JsonCreator
     public FieldResource() {
         super();
@@ -69,9 +68,5 @@ public class FieldResource extends ResourceSupport {
     public void setMediaTypes(List<String> mediaTypes) {
         this.mediaTypes = mediaTypes;
     }
-
-    public String getSesamId() { return sesamId; }
-
-    public void setSesamId(String sesamId) { this.sesamId = sesamId; }
 
 }
