@@ -1,16 +1,15 @@
 package no.nb.microservices.catalogmetadata.rest;
 
-import java.io.IOException;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import no.nb.microservices.catalogmetadata.utils.Mapper;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +18,7 @@ import no.nb.microservices.catalogmetadata.core.model.Field;
 import no.nb.microservices.catalogmetadata.core.model.Fields;
 import no.nb.microservices.catalogmetadata.exception.FieldsParserException;
 import no.nb.microservices.catalogmetadata.model.fields.FieldResource;
+import no.nb.microservices.catalogmetadata.utils.Mapper;
 
 public class FieldResultResourceAssembler extends ResourceAssemblerSupport<Fields, FieldResource> {
 

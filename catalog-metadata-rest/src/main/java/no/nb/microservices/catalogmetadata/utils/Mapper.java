@@ -1,20 +1,20 @@
 package no.nb.microservices.catalogmetadata.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang.StringUtils;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by andreasb on 14.09.15.
- */
-public class Mapper {
+import org.apache.commons.lang.StringUtils;
+
+public final class Mapper {
+    
+    private Mapper() {
+        super();
+    }
+    
     public static List<String> getStringAsList(String str) {
         if (StringUtils.isEmpty(str)) {
-            return null;
+            return Collections.emptyList();
         }
         return Arrays.asList(str.split("\\s*,\\s*"));
     }

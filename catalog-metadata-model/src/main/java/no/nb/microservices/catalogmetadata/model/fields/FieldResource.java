@@ -17,7 +17,7 @@ public class FieldResource extends ResourceSupport {
     private List<String> urns = new ArrayList<>();
     private List<String> contentClasses = new ArrayList<>();
     private List<String> metadataClasses = new ArrayList<>();
-
+    
     @JsonCreator
     public FieldResource() {
         super();
@@ -51,7 +51,9 @@ public class FieldResource extends ResourceSupport {
         return title;
     }
 
-    public List<String> getUrns() { return urns; }
+    public List<String> getUrns() {
+        return urns; 
+    }
 
     public void setUrns(List<String> urns) {
         this.urns = urns;
