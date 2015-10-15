@@ -9,6 +9,7 @@ public class Location implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private List<Url> urls;
+    private List<PhysicalLocation> physicalLocations; 
 
     @XmlElement(name = "url", namespace = "http://www.loc.gov/mods/v3")
     public List<Url> getUrls() {
@@ -55,5 +56,14 @@ public class Location implements Serializable {
             }
         }
         return formatted;
+    }
+
+    @XmlElement(name = "physicalLocation", namespace = "http://www.loc.gov/mods/v3")
+    public List<PhysicalLocation> getPhysicalLocations() {
+        return physicalLocations;
+    }
+
+    public void setPhysicalLocations(List<PhysicalLocation> physicalLocations) {
+        this.physicalLocations = physicalLocations;
     }
 }
