@@ -5,6 +5,7 @@ import no.nb.microservices.catalogmetadata.model.mods.v3.Extent;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Identifier;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Location;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Offset;
+import no.nb.microservices.catalogmetadata.model.mods.v3.OriginInfo;
 import no.nb.microservices.catalogmetadata.model.mods.v3.PhysicalLocation;
 import no.nb.microservices.catalogmetadata.model.mods.v3.StreamingInfo;
 import no.nb.microservices.catalogmetadata.model.mods.v3.TitleInfo;
@@ -17,6 +18,9 @@ public final class TestMods {
     
     public static ModsBuilder aDefaultMusicMods() {
         return new ModsBuilder()
+                .withIdentifiers(TestIdentifier.aDefaultMusicIdentifier().build())
+                .withTitleInfos(TestTitleInfo.aDefaultMusicTitleInfo().build())
+                .withOriginInfo(TestOriginInfo.aDefaultMusic().build())
                 .withLocation(TestLocation.aDefaultMusicLocation().build());
     }
 
@@ -85,10 +89,13 @@ public final class TestMods {
                 .withPhysicalLocations(physicalLocation)
                 .build();
         
+        OriginInfo originInfo = TestOriginInfo.aDefaultBook().build();
+        
         return new ModsBuilder()
                 .withTitleInfos(title, originalTitle)
                 .withIdentifiers(sesamid, oaiid)
-                .withLocation(location);
+                .withLocation(location)
+                .withOriginInfo(originInfo);
     }
-    
+
 }
