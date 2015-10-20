@@ -6,7 +6,7 @@ public class TestLocation {
 
     public static LocationBuilder aDefaultMusicLocation() {
         Url url = new Url();
-        url.setValue("URN:NBN:no-nb_digilyd_2000010100001");
+        url.setValue("URN:NBN:no-nb_lydsikringkopi_21856");
         return new LocationBuilder().withUrls(url);
     }
 
