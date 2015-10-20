@@ -76,7 +76,27 @@ public final class TestMods {
                 .withType("oaiid")
                 .withValue("oai:bibsys.no:biblio:96192845x")
                 .build();
-        
+        Identifier isbn13a = new IdentifierBuilder()
+                .withType("isbn")
+                .withValue("9788203341090")
+                .build();
+        Identifier isbn13b = new IdentifierBuilder()
+                .withType("isbn")
+                .withValue("9788203341091 (h.)")
+                .build();
+        Identifier isbn10a = new IdentifierBuilder()
+                .withType("isbn")
+                .withValue("9788203341 (h.)")
+                .build();
+        Identifier isbn10b = new IdentifierBuilder()
+                .withType("isbn")
+                .withValue("9788203340")
+                .build();
+        Identifier issn = new IdentifierBuilder()
+                .withType("issn")
+                .withValue("97882033")
+                .build();
+
         PhysicalLocation physicalLocation = new PhysicalLocationBuilder()
                 .withAuthority("isil")
                 .withValue("NO-1160105")
@@ -87,7 +107,7 @@ public final class TestMods {
         
         return new ModsBuilder()
                 .withTitleInfos(title, originalTitle)
-                .withIdentifiers(sesamid, oaiid)
+                .withIdentifiers(sesamid, oaiid, isbn13a, isbn13b, isbn10a, isbn10b, issn)
                 .withLocation(location);
     }
     
