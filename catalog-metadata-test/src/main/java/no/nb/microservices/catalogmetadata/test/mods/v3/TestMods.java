@@ -22,9 +22,16 @@ public final class TestMods {
 
     public static ModsBuilder aDefaultMusicAlbum() {
         return new ModsBuilder()
-                .withLocation(TestLocation.aDefaultMusicLocation().build());
+                .withLocation(TestLocation.aDefaultMusicLocation().build())
+                .withRelatedItems(TestRelatedItem.aDefaultMusicAlbum());
     }
 
+    public static ModsBuilder aDefaultMusicTrack() {
+        return new ModsBuilder()
+                .withLocation(TestLocation.aDefaultMusicLocation().build())
+                .withRelatedItems(TestRelatedItem.aDefaultMusicTrack());
+    }
+    
     public static ModsBuilder aDefaultMovieMods() {
         return new ModsBuilder()
                 .withLocation(TestLocation.aDefaultMovieLocation().build());
@@ -115,5 +122,5 @@ public final class TestMods {
                 .withIdentifiers(sesamid, oaiid, isbn13a, isbn13b, isbn10a, isbn10b, issn)
                 .withLocation(location);
     }
-    
+
 }

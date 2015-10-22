@@ -1,7 +1,9 @@
-package no.nb.microservices.catalogmetadata.model.fields;
+package no.nb.microservices.catalogmetadata.test.model.fields;
 
 import java.util.Arrays;
 import java.util.List;
+
+import no.nb.microservices.catalogmetadata.model.fields.FieldResource;
 
 public class FieldsBuilder {
     private List<String> mediaTypes;

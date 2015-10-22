@@ -1,4 +1,4 @@
-package no.nb.microservices.catalogmetadata.model.fields;
+package no.nb.microservices.catalogmetadata.test.model.fields;
 
 public class TestFields {
 
@@ -14,10 +14,10 @@ public class TestFields {
                 .isDigital(true);
     }
 
-    public static FieldsBuilder aDefaultMusicAlbumFields() {
+    public static FieldsBuilder aDefaultMusic() {
         return new FieldsBuilder()
                 .withMediaTypes("musikk")
                 .isDigital(false);
     }
-    
+
 }
