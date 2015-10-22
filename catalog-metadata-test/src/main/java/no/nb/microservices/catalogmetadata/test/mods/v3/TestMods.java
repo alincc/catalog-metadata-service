@@ -22,9 +22,6 @@ public final class TestMods {
 
     public static ModsBuilder aDefaultMusicAlbum() {
         return new ModsBuilder()
-                .withIdentifiers(TestIdentifier.aDefaultMusicIdentifier().build())
-                .withTitleInfos(TestTitleInfo.aDefaultMusicTitleInfo().build())
-                .withOriginInfo(TestOriginInfo.aDefaultMusic().build())
                 .withLocation(TestLocation.aDefaultMusicLocation().build());
     }
 
