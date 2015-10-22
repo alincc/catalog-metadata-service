@@ -13,5 +13,11 @@ public class TestFields {
                 .withMediaTypes("radio")
                 .isDigital(true);
     }
+
+    public static FieldsBuilder aDefaultMusicAlbumFields() {
+        return new FieldsBuilder()
+                .withMediaTypes("musikk")
+                .isDigital(false);
+    }
     
 }

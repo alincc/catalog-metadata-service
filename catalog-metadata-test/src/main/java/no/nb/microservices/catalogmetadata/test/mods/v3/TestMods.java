@@ -5,7 +5,6 @@ import no.nb.microservices.catalogmetadata.model.mods.v3.Extent;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Identifier;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Location;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Offset;
-import no.nb.microservices.catalogmetadata.model.mods.v3.OriginInfo;
 import no.nb.microservices.catalogmetadata.model.mods.v3.PhysicalLocation;
 import no.nb.microservices.catalogmetadata.model.mods.v3.StreamingInfo;
 import no.nb.microservices.catalogmetadata.model.mods.v3.TitleInfo;
@@ -17,6 +16,11 @@ public final class TestMods {
     }
     
     public static ModsBuilder aDefaultMusicMods() {
+        return new ModsBuilder()
+                .withLocation(TestLocation.aDefaultMusicLocation().build());
+    }
+
+    public static ModsBuilder aDefaultMusicAlbum() {
         return new ModsBuilder()
                 .withIdentifiers(TestIdentifier.aDefaultMusicIdentifier().build())
                 .withTitleInfos(TestTitleInfo.aDefaultMusicTitleInfo().build())
@@ -80,7 +84,27 @@ public final class TestMods {
                 .withType("oaiid")
                 .withValue("oai:bibsys.no:biblio:96192845x")
                 .build();
-        
+        Identifier isbn13a = new IdentifierBuilder()
+                .withType("isbn")
+                .withValue("9788203341090")
+                .build();
+        Identifier isbn13b = new IdentifierBuilder()
+                .withType("isbn")
+                .withValue("9788203341091 (h.)")
+                .build();
+        Identifier isbn10a = new IdentifierBuilder()
+                .withType("isbn")
+                .withValue("9788203341 (h.)")
+                .build();
+        Identifier isbn10b = new IdentifierBuilder()
+                .withType("isbn")
+                .withValue("9788203340")
+                .build();
+        Identifier issn = new IdentifierBuilder()
+                .withType("issn")
+                .withValue("97882033")
+                .build();
+
         PhysicalLocation physicalLocation = new PhysicalLocationBuilder()
                 .withAuthority("isil")
                 .withValue("NO-1160105")
@@ -89,13 +113,10 @@ public final class TestMods {
                 .withPhysicalLocations(physicalLocation)
                 .build();
         
-        OriginInfo originInfo = TestOriginInfo.aDefaultBook().build();
-        
         return new ModsBuilder()
                 .withTitleInfos(title, originalTitle)
-                .withIdentifiers(sesamid, oaiid)
-                .withLocation(location)
-                .withOriginInfo(originInfo);
+                .withIdentifiers(sesamid, oaiid, isbn13a, isbn13b, isbn10a, isbn10b, issn)
+                .withLocation(location);
     }
-
+    
 }
