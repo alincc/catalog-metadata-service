@@ -30,7 +30,7 @@ public class Location implements Serializable {
 
     private List<Url> getUrlsByAccess(String access) {
         List<Url> urlsByAccess = new ArrayList<Url>();
-        if (this.urls != null) {
+        if (this.urls == null) {
             return urlsByAccess;
         }
         for (Url url : this.urls) {

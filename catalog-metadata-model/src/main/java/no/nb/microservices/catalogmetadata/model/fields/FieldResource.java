@@ -1,6 +1,7 @@
 package no.nb.microservices.catalogmetadata.model.fields;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.hateoas.ResourceSupport;
@@ -32,7 +33,11 @@ public class FieldResource extends ResourceSupport {
     }
 
     public List<String> getContentClasses() {
-        return contentClasses;
+        if (contentClasses == null) {
+            return Collections.emptyList();
+        } else {
+            return contentClasses;
+        }
     }
 
     public void setContentClasses(List<String> contentClasses) {
@@ -40,7 +45,11 @@ public class FieldResource extends ResourceSupport {
     }
 
     public List<String> getMetadataClasses() {
-        return metadataClasses;
+        if (metadataClasses == null) {
+            return Collections.emptyList();
+        } else {
+            return metadataClasses;
+        }
     }
 
     public void setMetadataClasses(List<String> metadataClasses) {

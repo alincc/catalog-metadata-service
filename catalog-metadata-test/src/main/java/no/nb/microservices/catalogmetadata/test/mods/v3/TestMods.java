@@ -1,5 +1,9 @@
 package no.nb.microservices.catalogmetadata.test.mods.v3;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
 import no.nb.microservices.catalogmetadata.model.mods.v3.Extension;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Extent;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Identifier;
@@ -8,6 +12,7 @@ import no.nb.microservices.catalogmetadata.model.mods.v3.Offset;
 import no.nb.microservices.catalogmetadata.model.mods.v3.PhysicalLocation;
 import no.nb.microservices.catalogmetadata.model.mods.v3.StreamingInfo;
 import no.nb.microservices.catalogmetadata.model.mods.v3.TitleInfo;
+import no.nb.microservices.catalogmetadata.test.exception.TestDataException;
 
 public final class TestMods {
 
@@ -15,17 +20,21 @@ public final class TestMods {
         return new ModsBuilder();
     }
     
-    public static ModsBuilder aDefaultMusicMods() {
-        return new ModsBuilder()
-                .withLocation(TestLocation.aDefaultMusicLocation().build());
-    }
-
     public static ModsBuilder aDefaultMusicAlbum() {
+        TitleInfo title = new TitleInfoBuilder()
+                .withTitle("The sun always shines on T.V. : [Disconet]")
+                .build();
+
         return new ModsBuilder()
+                .withTitleInfos(title)
                 .withLocation(TestLocation.aDefaultMusicLocation().build())
                 .withRelatedItems(TestRelatedItem.aDefaultMusicAlbum());
     }
 
+    public static String aDefaultMusicAlbumXml() {
+        return objectToXml(aDefaultMusicAlbum().build());
+    }
+    
     public static ModsBuilder aDefaultMusicTrack() {
         return new ModsBuilder()
                 .withLocation(TestLocation.aDefaultMusicLocation().build())
@@ -120,7 +129,21 @@ public final class TestMods {
         return new ModsBuilder()
                 .withTitleInfos(title, originalTitle)
                 .withIdentifiers(sesamid, oaiid, isbn13a, isbn13b, isbn10a, isbn10b, issn)
+                .withNames(TestName.aDefaultBook())
                 .withLocation(location);
+    }
+
+    public static String aDefaultBookModsXml() {
+        return objectToXml(aDefaultBookMods().build());
+    }
+
+    private static String objectToXml(Object object) {
+        ObjectMapper mapper = new XmlMapper();
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (JsonProcessingException ex) {
+            throw new TestDataException(ex);
+        }
     }
 
 }

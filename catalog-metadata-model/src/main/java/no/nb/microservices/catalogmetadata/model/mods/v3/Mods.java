@@ -1,12 +1,12 @@
 package no.nb.microservices.catalogmetadata.model.mods.v3;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "mods", namespace = "http://www.loc.gov/mods/v3")
 public class Mods implements Serializable {
@@ -150,7 +150,7 @@ public class Mods implements Serializable {
             published += getDateIssued(originInfo);
         }
 
-        if (originInfo.getDateIssued() != null && !originInfo.getDateIssued().isEmpty()) {
+        if (originInfo != null && originInfo.getDateIssued() != null && !originInfo.getDateIssued().isEmpty()) {
             published += originInfo.getDateIssued();
         }
 
@@ -195,127 +195,6 @@ public class Mods implements Serializable {
         }
     }
 
-    /**
-     * @return [geographic][Mo, Rana, NordNorge, ..]
-     * [coordinates][.., .., .., ..]
-     * [scale][.., .., .., .. ]
-     */
-    public Map<String, List<String>> getGeographicMap() {
-        Map<String, List<String>> map = new HashMap<String, List<String>>();
-
-        if (subjects == null) {
-            return map;
-        }
-        for (Subject subject : subjects) {
-            if (subject.getGeographic() != null) {
-                for (Geographic geographic : subject.getGeographic()) {
-                    putItemInMap(map, "geographic", geographic.getValue());
-                }
-            }
-
-            if (subject.getCartographics() != null) {
-                putItemInMap(map, "coordinates", subject.getCartographics().getCoordinates());
-
-                if (subject.getCartographics().getScale() != null) {
-                    putItemInMap(map, "scale", subject.getCartographics().getScale());
-                }
-            }
-        }
-        return map;
-    }
-
-    /**
-     * @return [//isbn][.., .., .., ..]
-     * [issn][.., .., .., ..]
-     * [ismn][.., .., .., .. ]
-     * [isrc][.., .., .., .. ]
-     */
-    public Map<String, List<Identifier>> getIdentifierMap() {
-        Map<String, List<Identifier>> map = new HashMap<String, List<Identifier>>();
-
-        if (identifiers == null) {
-            return map;
-        }
-
-        for (Identifier identifier : identifiers) {
-            if (identifier.getType() != null) {
-                putItemInMap(map, identifier.getType(), identifier);
-            }
-        }
-
-        return map;
-    }
-
-    /**
-     * @return [udc][.., .., .., ..]
-     * [ddc][.., .., .., ..]
-     * [lcc][.., .., .., .. ]
-     * [nlm][.., .., .., .. ]
-     * [sudocs][.., .., .., .. ]
-     * [candocs][.., .., .., .. ]
-     * [other][.., .., .., .. ]
-     */
-    public Map<String, List<Classification>> getClassificationMap() {
-        Map<String, List<Classification>> map = new HashMap<String, List<Classification>>();
-
-        if (classifications == null) {
-            return map;
-        }
-
-        for (Classification classification : classifications) {
-            int mapSize = map.size();
-            checkClassification("udc", classification, map);
-            checkClassification("ddc",classification,map);
-            checkClassification("lcc",classification,map);
-            checkClassification("nlm",classification,map);
-            checkClassification("sudocs",classification,map);
-            checkClassification("candocs",classification,map);
-            if (map.size() == mapSize) {
-                putItemInMap(map, "other", classification);
-            }
-        }
-
-        return map;
-    }
-
-    private void checkClassification(String value, Classification classification, Map<String, List<Classification>> map) {
-        if (classification.getAuthority() == null) {
-            putItemInMap(map, "other", classification);
-        } else if (value.equalsIgnoreCase(classification.getAuthority())) {
-            putItemInMap(map, value, classification);
-        }
-    }
-
-    /**
-     * @return [relatedItem_preceding][.., .., .., ..]
-     * [series][.., .., .., ..]
-     * [constituent][.., .., .., .. ]
-     * [relatedResource][.., .., .., .. ]
-     */
-    public Map<String, List<RelatedItem>> getRelatedItemsMap() {
-        Map<String, List<RelatedItem>> map = new HashMap<String, List<RelatedItem>>();
-
-        if (relatedItems == null) {
-            return map;
-        }
-
-        for (RelatedItem relatedItem : relatedItems) {
-
-            if (relatedItem.getTitleInfo() != null && !relatedItem.getTitleInfo().isEmpty()) {
-                if ("relatedItem_preceding".equalsIgnoreCase(relatedItem.getType())) {
-                    putItemInMap(map, "relatedItem_preceding", relatedItem);
-                } else if ("series".equalsIgnoreCase(relatedItem.getType())) {
-                    putItemInMap(map, "series", relatedItem);
-                } else if ("constituent".equalsIgnoreCase(relatedItem.getType())) {
-                    putItemInMap(map, "constituent", relatedItem);
-                } else if (relatedItem.getDisplayLabel() != null) {
-                    putItemInMap(map, "relatedResource", relatedItem);
-                }
-            }
-        }
-        return map;
-    }
-
     @XmlElement(name = "extension", namespace = "http://www.loc.gov/mods/v3")
     public Extension getExtension() {
         return extension;
@@ -323,16 +202,6 @@ public class Mods implements Serializable {
 
     public void setExtension(Extension extension) {
         this.extension = extension;
-    }
-
-    private <T> void putItemInMap(Map<String, List<T>> map, String key, T value) {
-        if (map.containsKey(key)) {
-            map.get(key).add(value);
-        } else {
-            List<T> temp = new ArrayList<T>();
-            temp.add(value);
-            map.put(key, temp);
-        }
     }
 
     @XmlElement(name = "recordInfo", namespace = "http://www.loc.gov/mods/v3")

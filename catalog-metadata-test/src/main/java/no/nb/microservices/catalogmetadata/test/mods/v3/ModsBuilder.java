@@ -7,6 +7,7 @@ import no.nb.microservices.catalogmetadata.model.mods.v3.Extension;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Identifier;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Location;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
+import no.nb.microservices.catalogmetadata.model.mods.v3.Name;
 import no.nb.microservices.catalogmetadata.model.mods.v3.OriginInfo;
 import no.nb.microservices.catalogmetadata.model.mods.v3.RelatedItem;
 import no.nb.microservices.catalogmetadata.model.mods.v3.TitleInfo;
@@ -18,6 +19,7 @@ public class ModsBuilder {
     private Extension extension;
     private OriginInfo originInfo;
     private List<RelatedItem> relatedItems;
+    private List<Name> names;
     
     public ModsBuilder withTitleInfos(final TitleInfo... titleInfos) {
         this.titleInfos = Arrays.asList(titleInfos);
@@ -50,6 +52,11 @@ public class ModsBuilder {
         return this;
     }
     
+    public ModsBuilder withNames(List<Name> names) {
+        this.names = names;
+        return this;
+    }
+    
     public Mods build() {
         Mods mods = new Mods();
         mods.setTitleInfos(titleInfos);
@@ -58,6 +65,7 @@ public class ModsBuilder {
         mods.setExtension(extension);
         mods.setOriginInfo(originInfo);
         mods.setRelatedItems(relatedItems);
+        mods.setNames(names);
         return mods;
     }
 
