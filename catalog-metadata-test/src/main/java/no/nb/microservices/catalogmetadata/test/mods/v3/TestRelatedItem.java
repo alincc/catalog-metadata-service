@@ -11,12 +11,16 @@ public class TestRelatedItem {
 
     private static final String TYPE_CONSTITUENT = "constituent";
     private static final String TYPE_HOST = "host";
+    private static final String TYPE_PRECEDING = "preceding";
+    private static final String TYPE_SUCCEEDING = "succeeding";
 
     public static List<RelatedItem> aDefaultMusicAlbum() {
         List<RelatedItem> relatedItems = new ArrayList<>();
         relatedItems.add(createRelatedItem(TYPE_CONSTITUENT, "1", "Paula Abdul medley", "123456"));
         relatedItems.add(createRelatedItem(TYPE_CONSTITUENT, "2", "Qu est le soleil? : [Disconet]", "123457"));
         relatedItems.add(createRelatedItem(TYPE_CONSTITUENT, "3", "Don't drop bombs : [Disconet]", "123458"));
+        relatedItems.add(createRelatedItem(TYPE_PRECEDING, "1", "Paula Abdul medley", "123456"));
+        relatedItems.add(createRelatedItem(TYPE_SUCCEEDING, "3", "Don't drop bombs : [Disconet]", "123458"));
         return relatedItems;
     }
     
