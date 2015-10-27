@@ -16,7 +16,7 @@ public class Subject implements Serializable {
     private Cartographics cartographics;
     private String authority;
 
-    @XmlElement(name = "names", namespace = "http://www.loc.gov/mods/v3")
+    @XmlElement(name = "name", namespace = "http://www.loc.gov/mods/v3")
 	public List<Name> getNames() {
 		return names;
 	}
