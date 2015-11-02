@@ -117,6 +117,10 @@ public final class TestMods {
                 .withType("issn")
                 .withValue("97882033")
                 .build();
+        Identifier urn = new IdentifierBuilder()
+                .withType("urn")
+                .withValue("URN:NBN:no-nb_digibok_2014070158006")
+                .build();
 
         PhysicalLocation physicalLocation = new PhysicalLocationBuilder()
                 .withAuthority("isil")
@@ -128,7 +132,7 @@ public final class TestMods {
         
         return new ModsBuilder()
                 .withTitleInfos(title, originalTitle)
-                .withIdentifiers(sesamid, oaiid, isbn13a, isbn13b, isbn10a, isbn10b, issn)
+                .withIdentifiers(sesamid, oaiid, isbn13a, isbn13b, isbn10a, isbn10b, issn, urn)
                 .withNames(TestName.aDefaultBook())
                 .withLocation(location);
     }
