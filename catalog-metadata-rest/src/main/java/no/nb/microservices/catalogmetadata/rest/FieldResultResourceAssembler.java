@@ -54,6 +54,7 @@ public class FieldResultResourceAssembler extends ResourceAssemblerSupport<Field
             resource.setMediaTypes(Mapper.getStringAsList(getNamedField("mediatype", fieldsList).getValue()));
             resource.setContentClasses(fields.getContentClassesAsList());
             resource.setMetadataClasses(fields.getMetadataClassesAsList());
+            resource.setThumbnailUrl(fields.getThumbnailUrl());
             
         } catch (Exception ex) {
             throw new FieldsParserException("Error parsing " + fields, ex);

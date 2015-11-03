@@ -18,6 +18,7 @@ public class Fields implements Identifiable<String> {
     private String fieldsAsJson;
     private String contentClasses = new String();
     private String metadataClasses = new String();
+    private String thumbnailUrl = new String();
 
     public Fields(String id) {
         this.id = id;
@@ -73,4 +74,11 @@ public class Fields implements Identifiable<String> {
         return new ArrayList<>();
     }
 
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
 }

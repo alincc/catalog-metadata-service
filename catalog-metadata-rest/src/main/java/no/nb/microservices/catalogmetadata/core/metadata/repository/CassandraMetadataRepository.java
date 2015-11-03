@@ -45,7 +45,7 @@ public class CassandraMetadataRepository implements IMetadataRepository {
     @Override
     public Fields getFieldsById(String id) {
         Select select = QueryBuilder.select().from("expressionrecord");
-        select.where(QueryBuilder.eq("key", id)).and(QueryBuilder.in("column1","fields","contentClasses","metadataClasses"));
+        select.where(QueryBuilder.eq("key", id)).and(QueryBuilder.in("column1","fields","contentClasses","metadataClasses","thumbnailUrl"));
         List<CassandraModel> fields = cassandraOperations.select(select, CassandraModel.class);
         if (fields.isEmpty()) {
             throw new FieldNotFoundException("Field not found for id " + id);
@@ -66,6 +66,9 @@ public class CassandraMetadataRepository implements IMetadataRepository {
                     break;
                 case "metadataClasses":
                     fields.setMetadataClasses(model.getValueAsString());
+                    break;
+                case "thumbnailUrl":
+                    fields.setThumbnailUrl(model.getValueAsString());
                     break;
                 default:
                     break;

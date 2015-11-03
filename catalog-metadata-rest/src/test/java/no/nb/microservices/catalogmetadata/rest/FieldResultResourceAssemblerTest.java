@@ -81,7 +81,7 @@ public class FieldResultResourceAssemblerTest {
         fields.setContentClasses("[\"restricted\", \"jp2\"]");
 
         FieldResource resource = assembler.toResource(fields);
-        
+
         assertArrayEquals(new String[]{"restricted", "jp2"}, resource.getContentClasses().toArray());
     }
 
@@ -93,6 +93,16 @@ public class FieldResultResourceAssemblerTest {
         FieldResource resource = assembler.toResource(fields);
         
         assertArrayEquals(new String[]{"restricted", "public"}, resource.getMetadataClasses().toArray());
+    }
+
+    @Test
+    public void testAssemblingThumbnailUrl() {
+        Fields fields = new Fields("id1");
+        fields.setThumbnailUrl("URN:NBN:no-nb_digibok_2014062307158");
+
+        FieldResource resource = assembler.toResource(fields);
+
+        assertEquals("URN:NBN:no-nb_digibok_2014062307158", resource.getThumbnailUrl());
     }
 
     @Test

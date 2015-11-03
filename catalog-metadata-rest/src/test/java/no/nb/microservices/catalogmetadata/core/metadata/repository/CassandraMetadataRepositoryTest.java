@@ -74,12 +74,13 @@ public class CassandraMetadataRepositoryTest {
     @Test
     public void testGetFieldsById() throws Exception {
         Select select1 = QueryBuilder.select().from("expressionrecord");
-        select1.where(QueryBuilder.eq("key","bfa3324befaa4518b581125fd701900e")).and(QueryBuilder.in("column1", "fields", "contentClasses", "metadataClasses"));
-
+        select1.where(QueryBuilder.eq("key","bfa3324befaa4518b581125fd701900e")).
+                and(QueryBuilder.in("column1", "fields", "contentClasses", "metadataClasses", "thumbnailUrl"));
 
         CassandraModel fields = new CassandraModel();
         CassandraModel contentClasses = new CassandraModel();
         CassandraModel metadataClasses = new CassandraModel();
+        CassandraModel thumbnailUrl = new CassandraModel();
 
         fields.setValue(ByteBuffer.wrap("[{\"name\":\"digital\",\"value\":\"Ja\"}]".getBytes()));
         fields.setColumn1(ByteBuffer.wrap("fields".getBytes()));
@@ -87,9 +88,10 @@ public class CassandraMetadataRepositoryTest {
         contentClasses.setColumn1(ByteBuffer.wrap("contentClasses".getBytes()));
         metadataClasses.setValue(ByteBuffer.wrap("[\"public\"]".getBytes()));
         metadataClasses.setColumn1(ByteBuffer.wrap("metadataClasses".getBytes()));
+        thumbnailUrl.setValue(ByteBuffer.wrap("URN:NBN:no-nb_digibok_2014062307158".getBytes()));
+        thumbnailUrl.setColumn1(ByteBuffer.wrap("thumbnailUrl".getBytes()));
 
-
-        when(cassandraOperations.select(selectEq(select1), eq(CassandraModel.class))).thenReturn(Arrays.asList(fields,contentClasses,metadataClasses));
+        when(cassandraOperations.select(selectEq(select1), eq(CassandraModel.class))).thenReturn(Arrays.asList(fields,contentClasses,metadataClasses, thumbnailUrl));
 
         Fields fm1 = metadataRepository.getFieldsById("bfa3324befaa4518b581125fd701900e");
 
@@ -100,7 +102,7 @@ public class CassandraMetadataRepositoryTest {
     @Test(expected = FieldNotFoundException.class)
     public void whenFieldNotFoundExceptionShouldBeThrown() {
         Select select = QueryBuilder.select().from("expressionrecord");
-        select.where(QueryBuilder.eq("key", "bogusid")).and(QueryBuilder.in("column1", "fields", "contentClasses", "metadataClasses"));
+        select.where(QueryBuilder.eq("key", "bogusid")).and(QueryBuilder.in("column1", "fields", "contentClasses", "metadataClasses", "thumbnailUrl"));
         when(cassandraOperations.select(selectEq(select), eq(CassandraModel.class))).thenReturn(new ArrayList<>());
 
         metadataRepository.getFieldsById("bogusid");

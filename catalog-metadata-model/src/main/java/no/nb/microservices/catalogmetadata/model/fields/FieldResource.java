@@ -18,6 +18,7 @@ public class FieldResource extends ResourceSupport {
     private List<String> urns = new ArrayList<>();
     private List<String> contentClasses = new ArrayList<>();
     private List<String> metadataClasses = new ArrayList<>();
+    private String thumbnailUrl;
     
     @JsonCreator
     public FieldResource() {
@@ -80,4 +81,11 @@ public class FieldResource extends ResourceSupport {
         this.mediaTypes = mediaTypes;
     }
 
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
 }
