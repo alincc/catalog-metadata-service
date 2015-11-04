@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.loc.gov/mods/v3">
+    <identifier type="urn">URN:NBN:no-nb_dra_1994-12731P</identifier>
+    <titleInfo>
+        <title>
+            Kommandør Per Sandved forteller om kampen mellom panserskipet "Norge" og "Eidsvold" og de tyske jagerne ved Narvik 9. april 1940.
+        </title>
+    </titleInfo>
+    <typeOfResource>sound recording</typeOfResource>
+    <genre>broadcast</genre>
+    <originInfo>
+        <publisher>NRK (the Norwegian Broadcasting Corporation)</publisher>
+        <dateOther encoding="w3cdtf" type="avl-dato">1994-08-08</dateOther>
+        <dateCreated encoding="w3cdtf">1960-03-21</dateCreated>
+        <dateOther encoding="w3cdtf" type="reg-dato">1994-08-05</dateOther>
+        <dateOther encoding="w3cdtf" type="sist-endret">2003-04-11</dateOther>
+    </originInfo>
+    <recordInfo>
+        <recordContentSource>NRK (the Norwegian Broadcasting Corporation)</recordContentSource>
+        <recordIdentifier source="dra.nb.no">1994/12731.P</recordIdentifier>
+        <recordOrigin>machine generated</recordOrigin>
+        <languageOfCataloging>
+            <languageTerm authority="rfc3066">no</languageTerm>
+        </languageOfCataloging>
+    </recordInfo>
+    <location>
+        <url>URN:NBN:no-nb_drl_2021 3487</url>
+    </location>
+    <location>
+        <url>URN:NBN:no-nb_drl_4603 1814</url>
+    </location>
+    <physicalDescription>
+        <form>electronic</form>
+        <digitalOrigin>reformatted digital</digitalOrigin>
+        <extent>00:59:36</extent>
+    </physicalDescription>
+    <name>
+        <namePart>Brauteset, Steinar</namePart>
+        <role>
+            <roleTerm>prog-leder</roleTerm>
+        </role>
+    </name>
+    <note displayLabel="kuttnr">8</note>
+    <note displayLabel="merknad">Delvis sendt i prg. "9. april 1940".</note>
+    <note displayLabel="arkivnumre">DHIS-00070 3717</note>
+    <note displayLabel="prog-leder" type="performers">Brauteset, Steinar</note>
+    <abstract>
+        K948.181:359 - NORGE - Historie 1940-45 Sjøkrigen - CUE-8: Kommandør Per Sandved forteller om kampen mellom panserskipet "Norge" og "Eidsvold" og de tyske jagerne ved Narvik 9. april 1940. Steinar BRAUTESET (mv): Innleiing, introduksjon og s.b. tekst. Kommandør Per SANDVED (mv): "Eidsvold" og "Norge", to ubåter og noen vaktfartøyer til Ofotfjorden noen dager før 9. april for å overvåke malmtrafikken fra Narvik langs kysten. Panserskipene godt armert med kraftig skyts, men uskikket til "løpende sikring". Luftskytset svakt. La oss i posisjon på begge sider av Ofotfjorden, ved Skjomen / Ballangen og ved Bogen. 8. april medling om eng. minelegging i no. farvatn. Avdelingen gjorde seg klar til å gå ut og drive de fremmede fartøyer bort fra no. territorium. Om e.m. melding om at mineleggingen var avsluttet og at brit. fartøyer var borte. Avd. ordre om å fjerne minene. Minesveiperutstyr rekv. nedover fra Kirkenes. Telegram fra komm. admiral om tysk flåtestyrke som var ventet til Narvik samme kveld kl. 23. Krigsråd om bord mell. sjefen, komm. kapt. Askim, komm. kapt. Willoch og meg. "Eidsvold" detasjert i stilling utenfor Framnes med tlf. forbindelse til "Norge", som i.v. skulle ligge ved kai. Melding om kamp i Oslofjorden. Melding fra vaktfartøyene om tysk flåtestyrke på vei innover (10 tyske jagere). "Norge" ut. Skipet klar til kamp. "Eidsvold" første kontakt med de tyske fartøyer. Komm. kapt. Willochs samtale med de tyske marinefolk. Torpedoene mot "Eidsvold". Kampen mell. "Norge" og de tyske jagere. Treff mot en jager. Forfulgte de tyske jagere inn mot Narvik. Torpedoene mot "Norge". Truffet midtskips. Da "Norge" gikk ned. Samtalen med overkanoner Hansen da vi lå i sjøen etterpå. "Eidsvold" mistet 177 mann, "Norge" 100. Våre kanoner til liten nytte u. de værforhold som hersket da (snøføyke). Ideelt vær for torpedoangrep. Ikke riktig å skylde på "de gamle" fartøyene våre. Værgudene var helt på tyskernes side her.
+    </abstract>
+    <subject/>
+    <extension>
+        <streamingInfo xmlns="http://www.nb.no/NBModsExtension/v1">
+            <offset format="seconds">1814</offset>
+            <extent format="seconds">1789</extent>
+            <identifier type="urn">URN:NBN:no-nb_drl_4603</identifier>
+        </streamingInfo>
+        <streamingInfo xmlns="http://www.nb.no/NBModsExtension/v1">
+            <offset format="seconds">3487</offset>
+            <extent format="seconds">1787</extent>
+            <identifier type="urn">URN:NBN:no-nb_drl_2021</identifier>
+        </streamingInfo>
+        <accessProject xmlns="http://www.nb.no/NBModsExtension/v1">Nordland</accessProject>
+    </extension>
+    <identifier type="sesamid">90201f5a4ed944797d10360893049b33</identifier>
+    <identifier type="oaiid">oai:dra.nb.no:1994/12731.P</identifier>
+</mods>

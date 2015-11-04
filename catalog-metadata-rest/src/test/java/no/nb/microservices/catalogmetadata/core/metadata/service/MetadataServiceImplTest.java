@@ -1,5 +1,6 @@
 package no.nb.microservices.catalogmetadata.core.metadata.service;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -55,6 +56,24 @@ public class MetadataServiceImplTest {
         verify(metadataRepository).getModsStringById("bfa3324befaa4518b581125fd701900e");
         verifyNoMoreInteractions(metadataRepository);
     }
+
+    @Test
+    public void testModsWithMultipleStreamingInfos() throws Exception {
+        File modsFile = new File(Paths.get(getClass().getResource("/xml/mods2.xml").toURI()).toString());
+        String modsString = FileUtils.readFileToString(modsFile);
+        when(metadataRepository.getModsStringById("90201f5a4ed944797d10360893049b33")).thenReturn(modsString);
+
+        Mods mods = metadataService.getModsById("90201f5a4ed944797d10360893049b33");
+        assertNotNull(mods);
+
+        assertEquals(2, mods.getExtension().getStreamingInfos().size());
+        assertEquals("URN:NBN:no-nb_drl_4603", mods.getExtension().getStreamingInfos().get(0).getIdentifier().getValue());
+        assertEquals("URN:NBN:no-nb_drl_2021", mods.getExtension().getStreamingInfos().get(1).getIdentifier().getValue());
+
+        verify(metadataRepository).getModsStringById("90201f5a4ed944797d10360893049b33");
+        verifyNoMoreInteractions(metadataRepository);
+    }
+
 
     @Test(expected = ModsNotFoundException.class)
     public void whenModsIsNotFoundThenExceptionShouldBeThrown() throws Exception {

@@ -2,12 +2,13 @@ package no.nb.microservices.catalogmetadata.model.mods.v3;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
+import java.util.List;
 
 public class Extension implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String nbTypeOfResource;
-    private StreamingInfo streamingInfo;
+    private List<StreamingInfo> streamingInfos;
     private String accessOwner;
     private PublicationHistory publicationHistory;
 
@@ -21,12 +22,12 @@ public class Extension implements Serializable {
     }
 
     @XmlElement(name = "streamingInfo", namespace = "http://www.nb.no/NBModsExtension/v1")
-    public StreamingInfo getStreamingInfo() {
-        return streamingInfo;
+    public List<StreamingInfo> getStreamingInfos() {
+        return streamingInfos;
     }
 
-    public void setStreamingInfo(StreamingInfo streamingInfo) {
-        this.streamingInfo = streamingInfo;
+    public void setStreamingInfos(List<StreamingInfo> streamingInfos) {
+        this.streamingInfos = streamingInfos;
     }
 
     @XmlElement(name = "accessOwner", namespace = "http://www.nb.no/NBModsExtension/v1")

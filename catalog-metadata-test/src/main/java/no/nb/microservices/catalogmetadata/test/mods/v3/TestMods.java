@@ -14,6 +14,8 @@ import no.nb.microservices.catalogmetadata.model.mods.v3.StreamingInfo;
 import no.nb.microservices.catalogmetadata.model.mods.v3.TitleInfo;
 import no.nb.microservices.catalogmetadata.test.exception.TestDataException;
 
+import java.util.Arrays;
+
 public final class TestMods {
 
     public static ModsBuilder aDefaultMods() {
@@ -75,7 +77,7 @@ public final class TestMods {
                 .build();
         
         Extension extension = new Extension();
-        extension.setStreamingInfo(streamingInfo );
+        extension.setStreamingInfos(Arrays.asList(streamingInfo));
         
         return new ModsBuilder()
                 .withExtension(extension);
