@@ -1,9 +1,7 @@
 package no.nb.microservices.catalogmetadata.model.mods.v3;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

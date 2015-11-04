@@ -58,7 +58,6 @@ public class MetadataServiceImplTest {
     }
     
     @Test
-    @Ignore
     public void testNewspaperMods() throws Exception {
         File modsFile = new File(Paths.get(getClass().getResource("/xml/mods_newspaper.xml").toURI()).toString());
         String modsString = FileUtils.readFileToString(modsFile);

@@ -1,8 +1,10 @@
 package no.nb.microservices.catalogmetadata.model.mods.v3;
 
-import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.bind.annotation.XmlElement;
 
 public class Language implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -21,6 +23,9 @@ public class Language implements Serializable {
     
     @XmlElement(name = "languageTerm",namespace="http://www.loc.gov/mods/v3")
     public List<LanguageTerm> getLanguageTerm() {
+        if (this.languageTerms == null) {
+            this.languageTerms = new ArrayList<>();
+        }
         return this.languageTerms;
     }
 
