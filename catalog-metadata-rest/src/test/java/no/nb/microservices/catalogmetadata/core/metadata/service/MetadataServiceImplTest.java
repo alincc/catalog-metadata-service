@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -46,6 +47,20 @@ public class MetadataServiceImplTest {
     @Test
     public void whenModsIsFoundResponseShouldBeNotNull() throws Exception {
         File modsFile = new File(Paths.get(getClass().getResource("/xml/mods1.xml").toURI()).toString());
+        String modsString = FileUtils.readFileToString(modsFile);
+        when(metadataRepository.getModsStringById("bfa3324befaa4518b581125fd701900e")).thenReturn(modsString);
+
+        Mods mods = metadataService.getModsById("bfa3324befaa4518b581125fd701900e");
+        assertNotNull(mods);
+
+        verify(metadataRepository).getModsStringById("bfa3324befaa4518b581125fd701900e");
+        verifyNoMoreInteractions(metadataRepository);
+    }
+    
+    @Test
+    @Ignore
+    public void testNewspaperMods() throws Exception {
+        File modsFile = new File(Paths.get(getClass().getResource("/xml/mods_newspaper.xml").toURI()).toString());
         String modsString = FileUtils.readFileToString(modsFile);
         when(metadataRepository.getModsStringById("bfa3324befaa4518b581125fd701900e")).thenReturn(modsString);
 

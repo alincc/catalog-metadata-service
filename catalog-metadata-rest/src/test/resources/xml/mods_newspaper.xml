@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods xmlns="http://www.loc.gov/mods/v3" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:nbmodsext="http://www.nb.no/NBModsExtension/v1" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <titleInfo>
+      <title>Svalbardposten 2013.11.22</title>
+   </titleInfo>
+   <typeOfResource>text</typeOfResource>
+   <genre>newspaper</genre>
+   <originInfo>
+      <place>
+         <placeTerm type="text">Norge</placeTerm>
+         <placeTerm authority="iso3166" type="code">NO</placeTerm>
+      </place>
+      <dateIssued encoding="w3cdtf">2013-11-22</dateIssued>
+   </originInfo>
+   <language>
+      <languageTerm type="text">Norsk</languageTerm>
+      <languageTerm authority="iso639-2b" type="code">NOR</languageTerm>
+   </language>
+   <physicalDescription>
+      <form>Digitalt</form>
+      <form>Papir</form>
+      <form>Paper</form>
+   </physicalDescription>
+   <relatedItem type="host">
+      <titleInfo>
+         <title>Svalbardposten 2013</title>
+      </titleInfo>
+      <identifier type="local">/TitleWork/key/1612035</identifier>
+   </relatedItem>
+   <location>
+      <url>URN:NBN:no-nb_digavis_svalbardposten_null_null_20131122_66_46_1</url>
+   </location>
+   <identifier type="uri">http://urn.nb.no/URN:NBN:no-nb_digavis_svalbardposten_null_null_20131122_66_46_1</identifier>
+   <identifier type="urn">URN:NBN:no-nb_digavis_svalbardposten_null_null_20131122_66_46_1</identifier>
+   <identifier type="oldoaiid">oai:mavis.nb.no:2144391</identifier>
+   <recordInfo>
+      <recordContentSource>Mavis</recordContentSource>
+      <recordIdentifier source="mavis.nb.no">/TitleWork/key/2144391</recordIdentifier>
+   </recordInfo>
+   <extension>
+      <nbmodsext:nbTypeOfResource>Aviser</nbmodsext:nbTypeOfResource>
+      <nbmodsext:nbReformattingQuality>Sikringseksemplar</nbmodsext:nbReformattingQuality>
+   </extension>
+   <identifier type="sesamid">e11c9a9ecd7fd005ceb78bb3860a9ddb</identifier>
+   <identifier type="oaiid">oai:mavis.nb.no:/TitleWork/key/2144391</identifier>
+   <relatedItem type="series">
+      <titleInfo>
+         <title>Svalbardposten</title>
+      </titleInfo>
+      <identifier type="oaiid">oai:mavis.nb.no:/SeriesWork/key/237001</identifier>
+   </relatedItem>
+   <relatedItem displayLabel="Previous issue" type="preceding">
+      <titleInfo>
+         <title>Svalbardposten 2013.11.15</title>
+      </titleInfo>
+      <part order="45" type="itemOrder" />
+      <identifier type="local">/TitleWork/key/2144387</identifier>
+   </relatedItem>
+   <relatedItem displayLabel="Next issue" type="succeeding">
+      <titleInfo>
+         <title>Svalbardposten 2013.11.29</title>
+      </titleInfo>
+      <part order="47" type="itemOrder" />
+      <identifier type="local">/TitleWork/key/2144392</identifier>
+   </relatedItem>
+</mods>
