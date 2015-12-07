@@ -28,6 +28,7 @@ public class DivBuilder {
         Resource resource = new Resource();
         resource.setWidth(100);
         resource.setHeight(200);
+        resource.setScanResolution(400);
         if (NumberUtils.isDigits(pageNumber)) {
             pageNumber = df.format(Integer.parseInt(pageNumber));
         }

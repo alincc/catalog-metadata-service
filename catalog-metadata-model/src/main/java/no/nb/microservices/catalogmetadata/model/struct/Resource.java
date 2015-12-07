@@ -10,6 +10,7 @@ public class Resource implements Serializable {
     private String originalName;
     private int height;
     private int width;
+    private int scanResolution;
 
     @XmlAttribute(name = "href",namespace="http://www.w3.org/1999/xlink")
     public String getHref() {
@@ -47,4 +48,12 @@ public class Resource implements Serializable {
         this.width = width;
     }
 
+    @XmlAttribute(name = "SCANRESOLUTION")
+    public int getScanResolution() {
+        return scanResolution;
+    }
+
+    public void setScanResolution(int scanResolution) {
+        this.scanResolution = scanResolution;
+    }
 }
