@@ -3,6 +3,8 @@ package no.nb.microservices.catalogmetadata.model.struct;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Div implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -12,6 +14,7 @@ public class Div implements Serializable {
     private String order;
     private String orderLabel;
     private Resource resource;
+    private List<Hotspot> hotspots;
 
     public Div() {
         super();
@@ -65,6 +68,17 @@ public class Div implements Serializable {
 
     public void setResource(Resource resource) {
         this.resource = resource;
+    }
+
+    public List<Hotspot> getHotspots() {
+        if (hotspots == null) {
+            hotspots = new ArrayList<>();
+        }
+        return hotspots;
+    }
+
+    public void setHotspots(List<Hotspot> hotspots) {
+        this.hotspots = hotspots;
     }
 
 
