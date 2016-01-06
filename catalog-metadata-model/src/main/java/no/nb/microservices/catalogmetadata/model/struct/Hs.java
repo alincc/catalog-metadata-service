@@ -1,9 +1,13 @@
 package no.nb.microservices.catalogmetadata.model.struct;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;
 
-public class Hs {
+public class Hs implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String hsId;
     private String value;
 

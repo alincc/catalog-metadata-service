@@ -1,8 +1,13 @@
 package no.nb.microservices.catalogmetadata.model.struct;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import java.io.Serializable;
 
-public class Hotspot {
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+
+public class Hotspot implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private String hszId;
     private String hszParent;
     private Integer b;
@@ -29,7 +34,7 @@ public class Hotspot {
         this.hszParent = hszParent;
     }
 
-    @XmlAttribute
+    @XmlAttribute(name="b")
     public Integer getB() {
         return b;
     }
@@ -38,7 +43,7 @@ public class Hotspot {
         this.b = b;
     }
 
-    @XmlAttribute
+    @XmlAttribute(name="l")
     public Integer getL() {
         return l;
     }
@@ -47,7 +52,7 @@ public class Hotspot {
         this.l = l;
     }
 
-    @XmlAttribute
+    @XmlAttribute(name="r")
     public Integer getR() {
         return r;
     }
@@ -56,7 +61,7 @@ public class Hotspot {
         this.r = r;
     }
 
-    @XmlAttribute
+    @XmlAttribute(name="t")
     public Integer getT() {
         return t;
     }
@@ -69,6 +74,7 @@ public class Hotspot {
         return hs;
     }
 
+    @XmlElement
     public void setHs(Hs hs) {
         this.hs = hs;
     }
