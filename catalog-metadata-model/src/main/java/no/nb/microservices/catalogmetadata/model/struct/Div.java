@@ -1,12 +1,12 @@
 package no.nb.microservices.catalogmetadata.model.struct;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 
 public class Div implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -75,6 +75,9 @@ public class Div implements Serializable {
     @XmlElement(name="hotspot")
     @XmlElementWrapper(name="hotspots")
     public List<Hotspot> getHotspots() {
+        if (hotspots == null) {
+            hotspots = new ArrayList<>();
+        }
         return hotspots;
     }
 
