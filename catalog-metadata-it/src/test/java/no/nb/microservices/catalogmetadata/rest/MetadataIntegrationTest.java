@@ -37,50 +37,50 @@ public class MetadataIntegrationTest {
 
     @Test
     public void whenModsIsFoundResponseShouldBeOk() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/catalog/metadata/c3c9844de9cb027e003021b1aadeae6c/mods"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/catalog/v1/metadata/c3c9844de9cb027e003021b1aadeae6c/mods"))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
     }
 
     @Test
     public void whenModsNotFoundResponseShouldBeNotFound() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/catalog/metadata/bogusid/mods"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/catalog/v1/metadata/bogusid/mods"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound()).andReturn();
     }
 
     @Test
     public void whenModsIsFoundAndConvertedToMarcResponseShouldBeOk() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/catalog/metadata/c3c9844de9cb027e003021b1aadeae6c/marcxml"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/catalog/v1/metadata/c3c9844de9cb027e003021b1aadeae6c/marcxml"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
     @Test
     public void whenModsIsNotFoundWhenConvertingToMarcResponseShouldBeNotFound() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/catalog/metadata/bogusid/marcxml"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/catalog/v1/metadata/bogusid/marcxml"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound()).andReturn();
     }
 
     @Test
     public void whenFieldsIsFoundResponseShouldBeOk() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/catalog/metadata/c3c9844de9cb027e003021b1aadeae6c/fields"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/catalog/v1/metadata/c3c9844de9cb027e003021b1aadeae6c/fields"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void whenFieldsIsNotFoundResponseShouldBeNotFound() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/catalog/metadata/bogusid/fields"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/catalog/v1/metadata/bogusid/fields"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound()).andReturn();
     }
 
     @Test
     public void whenStructureIsFoundResponseShouldBeOk() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/catalog/metadata/c3c9844de9cb027e003021b1aadeae6c/struct"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/catalog/v1/metadata/c3c9844de9cb027e003021b1aadeae6c/struct"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void whenStructureIsNotFoundResponseShouldBeNotFound() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/catalog/metadata/bogusid/struct"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/catalog/v1/metadata/bogusid/struct"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 

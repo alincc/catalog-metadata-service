@@ -23,8 +23,8 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 
 @RestController
-@Api(value = "/v1/catalog/metadata", description = "Metadata api")
-@RequestMapping(value = "/v1/catalog/metadata")
+@Api(value = "/catalog/v1/metadata", description = "Metadata api")
+@RequestMapping(value = "/catalog/v1/metadata")
 public class MetadataController {
     private final MetadataService service;
 
