@@ -30,6 +30,10 @@
             <artifactId>catalog-metadata-model</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>no.nb.microservices.catalogsearchindex</groupId>
+            <artifactId>catalog-search-index-model</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>commons-io</groupId>

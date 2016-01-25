@@ -8,10 +8,17 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import no.nb.microservices.catalogmetadata.core.index.repository.IndexRepository;
+import no.nb.microservices.catalogsearchindex.EmbeddedWrapper;
+import no.nb.microservices.catalogsearchindex.ItemResource;
+import no.nb.microservices.catalogsearchindex.NBSearchType;
+import no.nb.microservices.catalogsearchindex.SearchResource;
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -28,11 +35,16 @@ import no.nb.microservices.catalogmetadata.exception.ModsNotFoundException;
 import no.nb.microservices.catalogmetadata.model.mods.v3.Mods;
 import no.nb.microservices.catalogmetadata.model.struct.StructMap;
 
+import javax.naming.directory.SearchResult;
+
 @RunWith(MockitoJUnitRunner.class)
 public class MetadataServiceImplTest {
 
     @Mock
     private IMetadataRepository metadataRepository;
+
+    @Mock
+    private IndexRepository indexRepository;
 
     private MetadataServiceImpl metadataService;
 
@@ -42,7 +54,7 @@ public class MetadataServiceImplTest {
         ITransformerService transformerService = new TransformerServiceImpl();
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setPackagesToScan("no.nb.microservices.catalogmetadata.model", "loc.gov.marc");
-        metadataService = new MetadataServiceImpl(marshaller, metadataRepository, transformerService);
+        metadataService = new MetadataServiceImpl(marshaller, metadataRepository, indexRepository, transformerService);
     }
 
     @Test
@@ -57,7 +69,24 @@ public class MetadataServiceImplTest {
         verify(metadataRepository).getModsStringById("bfa3324befaa4518b581125fd701900e");
         verifyNoMoreInteractions(metadataRepository);
     }
-    
+
+    @Test
+    public void whenUsingUrnInsteadOfSesamidModsIsFoundWResponseShouldBeNotNull() throws Exception {
+        File modsFile = new File(Paths.get(getClass().getResource("/xml/mods1.xml").toURI()).toString());
+        String modsString = FileUtils.readFileToString(modsFile);
+        when(metadataRepository.getModsStringById("bfa3324befaa4518b581125fd701900e")).thenReturn(modsString);
+        SearchResource searchResource = createSearchResult(Arrays.asList("bfa3324befaa4518b581125fd701900e"));
+        when(indexRepository.search("urn:\"URN:NBN:no-nb_digibok_2014091948004\"", 0, 1, NBSearchType.FIELD_RESTRICTED_SEARCH)).thenReturn(searchResource);
+
+        Mods mods = metadataService.getModsById("URN:NBN:no-nb_digibok_2014091948004");
+        assertNotNull(mods);
+
+        verify(metadataRepository).getModsStringById("bfa3324befaa4518b581125fd701900e");
+        verifyNoMoreInteractions(metadataRepository);
+        verify(indexRepository).search("urn:\"URN:NBN:no-nb_digibok_2014091948004\"", 0, 1, NBSearchType.FIELD_RESTRICTED_SEARCH);
+        verifyNoMoreInteractions(indexRepository);
+    }
+
     @Test
     public void testNewspaperMods() throws Exception {
         File modsFile = new File(Paths.get(getClass().getResource("/xml/mods_newspaper.xml").toURI()).toString());
@@ -110,6 +139,23 @@ public class MetadataServiceImplTest {
     }
 
     @Test
+    public void testGetMarcxmlByUrn() throws Exception {
+        File modsFile = new File(Paths.get(getClass().getResource("/xml/mods1.xml").toURI()).toString());
+        String modsString = FileUtils.readFileToString(modsFile);
+        when(metadataRepository.getModsStringById("bfa3324befaa4518b581125fd701900e")).thenReturn(modsString);
+        SearchResource searchResource = createSearchResult(Arrays.asList("bfa3324befaa4518b581125fd701900e"));
+        when(indexRepository.search("urn:\"URN:NBN:no-nb_digibok_2014091948004\"", 0, 1, NBSearchType.FIELD_RESTRICTED_SEARCH)).thenReturn(searchResource);
+
+        RecordType marc = metadataService.getMarcxmlById("URN:NBN:no-nb_digibok_2014091948004");
+        assertNotNull(marc);
+
+        verify(metadataRepository).getModsStringById("bfa3324befaa4518b581125fd701900e");
+        verifyNoMoreInteractions(metadataRepository);
+        verify(indexRepository).search("urn:\"URN:NBN:no-nb_digibok_2014091948004\"", 0, 1, NBSearchType.FIELD_RESTRICTED_SEARCH);
+        verifyNoMoreInteractions(indexRepository);
+    }
+
+    @Test
     public void testGetFieldsById() throws Exception {
         Fields fieldsModel = new Fields("id1");
         fieldsModel.setContentClasses("[\"restricted\", \"jp2\", \"public\"]");
@@ -125,6 +171,25 @@ public class MetadataServiceImplTest {
     }
 
     @Test
+    public void testGetFieldsByUrn() throws Exception {
+        Fields fieldsModel = new Fields("id1");
+        fieldsModel.setContentClasses("[\"restricted\", \"jp2\", \"public\"]");
+        fieldsModel.setMetadataClasses("[\"public\"]");
+        fieldsModel.setFieldsAsJson("[{\"name\": \"title\",\"value\": \"Composite title\"},{\"name\":\"digital\",\"value\":\"Ja\"}]");
+        when(metadataRepository.getFieldsById("41a7fb4e94aab9a88be23745a1504a92")).thenReturn(fieldsModel);
+        SearchResource searchResource = createSearchResult(Arrays.asList("41a7fb4e94aab9a88be23745a1504a92"));
+        when(indexRepository.search("urn:\"URN:NBN:no-nb_digibok_2014091948004\"", 0, 1, NBSearchType.FIELD_RESTRICTED_SEARCH)).thenReturn(searchResource);
+
+        Fields fields = metadataService.getFieldsById("URN:NBN:no-nb_digibok_2014091948004");
+        assertNotNull(fields);
+
+        verify(metadataRepository).getFieldsById("41a7fb4e94aab9a88be23745a1504a92");
+        verifyNoMoreInteractions(metadataRepository);
+        verify(indexRepository).search("urn:\"URN:NBN:no-nb_digibok_2014091948004\"", 0, 1, NBSearchType.FIELD_RESTRICTED_SEARCH);
+        verifyNoMoreInteractions(indexRepository);
+    }
+
+    @Test
     public void testGetStructById() throws Exception {
         File structFile = new File(Paths.get(getClass().getResource("/xml/struct1.xml").toURI()).toString());
         String structString = FileUtils.readFileToString(structFile);
@@ -137,7 +202,25 @@ public class MetadataServiceImplTest {
         verify(metadataRepository).getStructById("bfa3324befaa4518b581125fd701900e");
         verifyNoMoreInteractions(metadataRepository);
     }
-    
+
+    @Test
+    public void testGetStructByUrn() throws Exception {
+        File structFile = new File(Paths.get(getClass().getResource("/xml/struct1.xml").toURI()).toString());
+        String structString = FileUtils.readFileToString(structFile);
+
+        when(metadataRepository.getStructById("bfa3324befaa4518b581125fd701900e")).thenReturn(structString);
+        SearchResource searchResource = createSearchResult(Arrays.asList("bfa3324befaa4518b581125fd701900e"));
+        when(indexRepository.search("urn:\"URN:NBN:no-nb_digibok_2014091948004\"", 0, 1, NBSearchType.FIELD_RESTRICTED_SEARCH)).thenReturn(searchResource);
+
+        StructMap struct = metadataService.getStructById("URN:NBN:no-nb_digibok_2014091948004");
+        assertNotNull(struct);
+
+        verify(metadataRepository).getStructById("bfa3324befaa4518b581125fd701900e");
+        verifyNoMoreInteractions(metadataRepository);
+        verify(indexRepository).search("urn:\"URN:NBN:no-nb_digibok_2014091948004\"", 0, 1, NBSearchType.FIELD_RESTRICTED_SEARCH);
+        verifyNoMoreInteractions(indexRepository);
+    }
+
     @Test(expected = FieldNotFoundException.class)
     public void testGetFieldsByNullId() throws Exception {
         when(metadataRepository.getFieldsById(null)).thenThrow(new FieldNotFoundException(""));
@@ -145,4 +228,18 @@ public class MetadataServiceImplTest {
         metadataService.getFieldsById(null);
     }
 
+    private SearchResource createSearchResult(List<String> itemIds) {
+        SearchResource searchResource = new SearchResource();
+        EmbeddedWrapper embeddedWrapper = new EmbeddedWrapper();
+        List<ItemResource> items = new ArrayList<>();
+        for(String itemId : itemIds) {
+            ItemResource itemResource = new ItemResource();
+            itemResource.setItemId(itemId);
+            items.add(itemResource);
+        }
+        embeddedWrapper.setItems(items);
+        searchResource.setEmbedded(embeddedWrapper);
+
+        return searchResource;
+    }
 }

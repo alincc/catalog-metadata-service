@@ -37,7 +37,7 @@ public class MetadataController {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful response"),
                             @ApiResponse(code = 404, message = "Not found")})
     @Traceable(description="mods")
-    @RequestMapping(value = "/{id}/mods", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
+    @RequestMapping(value = "/{id}/mods", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Mods> getMods(@PathVariable String id) {
         Mods mods = service.getModsById(id);
         return new ResponseEntity(mods, HttpStatus.OK);
@@ -47,7 +47,7 @@ public class MetadataController {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Successful response"),
                             @ApiResponse(code = 404, message = "Not found")})
     @Traceable(description="marcxml")
-    @RequestMapping(value = "/{id}/marcxml", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
+    @RequestMapping(value = "/{id}/marcxml", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<RecordType> getMarcxml(@PathVariable String id) {
         RecordType marc = service.getMarcxmlById(id);
         return new ResponseEntity(marc,HttpStatus.OK);
@@ -61,11 +61,11 @@ public class MetadataController {
     public ResponseEntity<FieldResource> getFields(@PathVariable String id) {
         Fields fields = service.getFieldsById(id);
         FieldResource resource = new FieldResultResourceAssembler().toResource(fields);
-        return new ResponseEntity<FieldResource>(resource,HttpStatus.OK);
+        return new ResponseEntity<>(resource,HttpStatus.OK);
     }
 
     @Traceable(description="struct")
-    @RequestMapping(value = "/{id}/struct", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
+    @RequestMapping(value = "/{id}/struct", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<StructMap> getStructure(@PathVariable String id) {
         StructMap struct = service.getStructById(id);
         return new ResponseEntity<>(struct, HttpStatus.OK);

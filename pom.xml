@@ -21,6 +21,7 @@
         <sonar.coverage.exclusions>**/model/**/*, **/loc/gov/**,
             **/*Config.java, **/*Settings.java, **/test/**</sonar.coverage.exclusions>
         <sonar.language>java</sonar.language>
+        <catalog-search-index-service.version>-68</catalog-search-index-service.version>
     </properties>
 
     <dependencyManagement>
@@ -31,6 +32,16 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>no.nb.microservices.catalogsearchindex</groupId>
+                <artifactId>catalog-search-index-model</artifactId>
+                <version>${catalog-search-index-service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>no.nb.commons</groupId>
+                <artifactId>commons-web-utils</artifactId>
+                <version>-15</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,0 +1,22 @@
+{
+  "_links":{
+    "self":{
+      "href":"http://localhost/v1/search?q=*"
+    }
+  },
+  "page":{
+    "size":"1",
+    "totalElements":1,
+    "totalPages":1,
+    "number":0
+  },
+  "_embedded":{
+    "items":[
+      {
+        "itemId":"c3c9844de9cb027e003021b1aadeae6c"
+      }
+    ]
+  }
+
+}
+
