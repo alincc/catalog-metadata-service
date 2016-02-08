@@ -15,30 +15,30 @@ import java.io.IOException;
 public class GlobalControllerExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalControllerExceptionHandler.class);
 
-//    @ExceptionHandler(CassandraSessionException.class)
-//    public void handleCassadraSessionException(HttpServletResponse response) throws IOException {
-//        response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cassandra session problem");
-//    }
-//
-//    @ExceptionHandler(FieldNotFoundException.class)
-//    public void handleFieldsNotFound(HttpServletResponse response) throws IOException {
-//        response.sendError(HttpStatus.NOT_FOUND.value(), "No such fields");
-//    }
-//
-//    @ExceptionHandler(FieldsParserException.class)
-//    public void handleFieldsParserException(HttpServletResponse response) throws IOException {
-//        response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cant parse fields");
-//    }
-//
-//    @ExceptionHandler(ModsNotFoundException.class)
-//    public void handleModsNotFound(HttpServletResponse response) throws IOException {
-//        response.sendError(HttpStatus.NOT_FOUND.value(), "No such mods");
-//    }
-//
-//    @ExceptionHandler(StructNotFoundException.class)
-//    public void handleStructNotFound(HttpServletResponse response) throws IOException {
-//        response.sendError(HttpStatus.NOT_FOUND.value(), "No such struct");
-//    }
+    @ExceptionHandler(CassandraSessionException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Cassandra session problem")
+    public void handleCassadraSessionException(HttpServletResponse response) throws IOException {
+    }
+
+    @ExceptionHandler(FieldNotFoundException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No such fields")
+    public void handleFieldsNotFound(HttpServletResponse response) throws IOException {
+    }
+
+    @ExceptionHandler(FieldsParserException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Cant parse fields")
+    public void handleFieldsParserException(HttpServletResponse response) throws IOException {
+    }
+
+    @ExceptionHandler(ModsNotFoundException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No such mod")
+    public void handleModsNotFound(HttpServletResponse response) throws IOException {
+    }
+
+    @ExceptionHandler(StructNotFoundException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No such struct")
+    public void handleStructNotFound(HttpServletResponse response) throws IOException {
+    }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "It looks like we have a internal error in our application. The error have been logged and will be looked at by our development team")
