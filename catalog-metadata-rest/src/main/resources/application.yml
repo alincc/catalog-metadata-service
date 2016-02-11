@@ -3,49 +3,14 @@ info:
     name: catalog-metadata-service
     description: Catalog Metadata rest
 
-spring:
-    application:
-        name: catalog-metadata-service
-
 server:
-  port: 9083
-
-endpoints:
-  restart:
-    enabled: true
-  refresh:
-    enabled: true
+  port: 0
 
 catalogmetadata:
     cassandra:
         keyspace: localtestcluster
         port: 9043
         host: localhost
-eureka:
-  instance:
-    preferIpAddress: true
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
 
 zipkin:
     collector-hostname: localhost
----
-spring:
-    profiles: docker
-
-catalogmetadata:
-    cassandra:
-        keyspace: localtestcluster
-        port: 9042
-        host: cassandra
-
-eureka:
-  instance:
-    preferIpAddress: true
-  client:
-    serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
-      
-zipkin:
-    collector-hostname: zipkinCollector
