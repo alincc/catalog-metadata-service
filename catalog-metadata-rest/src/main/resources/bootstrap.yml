@@ -1,19 +1,24 @@
 spring:
   application:
     name: catalog-metadata-service
-  cloud:
-    config:
-      failFast: false
-      discovery:
-        enabled: true
 
 ---
+spring:
+  profiles: local
+  cloud:
+    config:
+      discovery:
+        enabled: false
 
+
+---
 spring:
   profiles: docker
   cloud:
     config:
       failFast: true
+      discovery:
+        enabled: true
 
 eureka:
   instance:

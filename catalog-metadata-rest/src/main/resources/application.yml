@@ -6,11 +6,12 @@ info:
 server:
   port: 0
 
-catalogmetadata:
-    cassandra:
-        keyspace: localtestcluster
-        port: 9043
-        host: localhost
-
 zipkin:
     collector-hostname: localhost
+
+---
+spring:
+  profiles: local
+
+server:
+  port: 9083
