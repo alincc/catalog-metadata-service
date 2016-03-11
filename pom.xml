@@ -21,7 +21,7 @@
         <sonar.coverage.exclusions>**/model/**/*, **/loc/gov/**,
             **/*Config.java, **/*Settings.java, **/test/**</sonar.coverage.exclusions>
         <sonar.language>java</sonar.language>
-        <catalog-search-index-service.version>-68</catalog-search-index-service.version>
+        <catalog-search-index-service.version>0.0.1-100</catalog-search-index-service.version>
     </properties>
 
     <dependencyManagement>
