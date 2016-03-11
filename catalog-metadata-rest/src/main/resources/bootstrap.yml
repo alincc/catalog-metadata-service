@@ -1,17 +1,14 @@
 spring:
   application:
     name: catalog-metadata-service
-
----
-spring:
-  profiles: local
   cloud:
     config:
+      failFast: false
       discovery:
-        enabled: false
-
+        enabled: true
 
 ---
+
 spring:
   profiles: docker
   cloud:
@@ -25,4 +22,4 @@ eureka:
     preferIpAddress: true
   client:
     serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
+      defaultZone: ${SPRING_EUREKA_URI:http://discovery:8761/eureka/}

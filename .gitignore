@@ -87,6 +87,7 @@ Desktop.ini
 /data/**
 /spring_loaded/**
 /deploy/**
+*/target
 
 ######################
 # Logs

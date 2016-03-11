@@ -27,13 +27,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-parent</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
                 <groupId>no.nb.microservices.catalogsearchindex</groupId>
                 <artifactId>catalog-search-index-model</artifactId>
                 <version>${catalog-search-index-service.version}</version>
@@ -41,7 +34,7 @@
             <dependency>
                 <groupId>no.nb.commons</groupId>
                 <artifactId>commons-web-utils</artifactId>
-                <version>-15</version>
+                <version>0.0.1-19</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -4,14 +4,7 @@ info:
     description: Catalog Metadata rest
 
 server:
-  port: 0
+  port: 8019
 
 zipkin:
     collector-hostname: localhost
-
----
-spring:
-  profiles: local
-
-server:
-  port: 9083
