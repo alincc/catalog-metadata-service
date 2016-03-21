@@ -12,6 +12,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public Jaxb2Marshaller jaxb2Marshaller() {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setPackagesToScan("no.nb.microservices.catalogmetadata.model","loc.gov.marc");
+        marshaller.setSupportDtd(true);
 
         return marshaller;
     }

@@ -1,10 +1,21 @@
 info:
-  app:
-    name: catalog-metadata-service
-    description: Catalog Metadata rest
+    app:
+        name: catalog-metadata-service
+        description: Catalog Metadata rest
+    build:
+        artifact: ${project.artifactId}
+        name: ${project.name}
+        description: ${project.description}
+        version: ${project.version}
 
 server:
-  port: 8019
+    port: 8019
 
 zipkin:
     collector-hostname: localhost
+    
+monitoring:
+    hostname: localhost
+    port: 2003
+    period: 1
+    
